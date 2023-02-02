@@ -1,5 +1,7 @@
 /** @jsxImportSource theme-ui */
 import { useState, useEffect } from "react"
+import Link from "next/link"
+import { Container } from "theme-ui"
 
 const Header = () => {
   const [hasScrolled, setHasScrolled] = useState(false)
@@ -20,21 +22,52 @@ const Header = () => {
         position: "sticky",
         top: 0,
         backgroundColor: "#F8F8F8",
-        display: "flex",
         boxShadow: "0px 0px 8px rgb(0 0 0 / 20%)",
         transition: "all 0.2s ease-out",
-        transitionDelay: "0.05s"
+        transitionDelay: "0.05s",
+        px: 3
       }}
     >
-      <nav>
-        <ul
+      <Container
+        sx={{
+          height: "100%"
+        }}
+      >
+        <nav
           sx={{
-            listStyleType: "none"
+            height: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
           }}
         >
-          <li></li>
-        </ul>
-      </nav>
+          <Link href="/">Ollie</Link>
+          <ul
+            sx={{
+              // flex: "1",
+              listStyleType: "none",
+              display: "flex",
+              justifyContent: "space-between",
+              li: {
+                mx: 8
+              }
+            }}
+          >
+            <li>
+              <Link href="#about-me">About me</Link>
+            </li>
+            <li>
+              <Link href="#my-work">My Work</Link>
+            </li>
+            <li>
+              <Link href="#reach-out"></Link>
+            </li>
+            <li>
+              <a href="/blog">Blog</a>
+            </li>
+          </ul>
+        </nav>
+      </Container>
     </header>
   )
 }

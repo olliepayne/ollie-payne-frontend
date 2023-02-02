@@ -3,6 +3,7 @@ import Header from "components/Header"
 import SEO from "components/SEO"
 import Head from "next/head"
 import Footer from "components/Footer"
+import { Container } from "theme-ui"
 
 export default function Home() {
   return (
@@ -22,13 +23,15 @@ export default function Home() {
         }}
       >
         <section>
-          <h2>About me</h2>
+          <Container>
+            <h2>About me</h2>
+          </Container>
         </section>
         <section>
           <h2>My Work</h2>
         </section>
         <section>
-          <h2>Get in Touch</h2>
+          <h2>Reach Out</h2>
         </section>
       </main>
       <Footer />
