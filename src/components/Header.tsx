@@ -18,13 +18,19 @@ const Header = () => {
   return (
     <header
       sx={{
+        mx: 3,
+        mt: 3,
         height: hasScrolled ? "80px" : "60px",
         position: "sticky",
-        top: 0,
-        backgroundColor: "#F8F8F8",
-        boxShadow: "0px 0px 8px rgb(0 0 0 / 20%)",
+        top: 3,
+        backgroundColor: hasScrolled ? "rgb(255 206 218 / 25%)" : "transparent",
+        // boxShadow: hasScrolled
+        //   ? "0px 0px 8px rgb(0 0 0 / 20%)"
+        //   : "0px 0px 8px rgb(0 0 0 / 0%)",
         transition: "all 0.2s ease-out",
         transitionDelay: "0.05s",
+        borderRadius: "8px",
+        backdropFilter: "blur(6px)",
         a: {
           textDecoration: "none"
         }
@@ -46,19 +52,46 @@ const Header = () => {
           <Link
             href="/"
             sx={{
-              fontSize: 4
+              fontSize: [3, null, 4],
+              fontFamily: "heading",
+              fontWeight: 700,
+              color: "black"
             }}
           >
             Ollie
           </Link>
           <ul
             sx={{
-              // flex: "1",
               listStyleType: "none",
               display: "flex",
               justifyContent: "space-between",
               li: {
                 mx: 8
+              },
+              a: {
+                py: 1,
+                fontFamily: "body",
+                fontSize: 1,
+                color: "black",
+                position: "relative",
+                "::after": {
+                  content: `""`,
+                  width: 0,
+                  height: "3px",
+                  position: "absolute",
+                  left: 0,
+                  transform: "translateX(-50%)",
+                  bottom: 0,
+                  bg: "myPink",
+                  transition: "all 0.15s ease-in"
+                },
+                ":hover": {
+                  "::after": {
+                    width: "100%",
+                    left: "50%",
+                    transition: "all 0.15s ease-in"
+                  }
+                }
               }
             }}
           >
@@ -69,7 +102,7 @@ const Header = () => {
               <Link href="#my-work">My Work</Link>
             </li>
             <li>
-              <Link href="#reach-out"></Link>
+              <Link href="#reach-out">Reach out</Link>
             </li>
             <li>
               <a href="/blog">Blog</a>

@@ -1,9 +1,10 @@
 /** @jsxImportSource theme-ui */
 import Header from "components/Header"
 import SEO from "components/SEO"
-import Head from "next/head"
 import Footer from "components/Footer"
-import { Container, Heading } from "theme-ui"
+import { Container, Heading, Flex, Paragraph } from "theme-ui"
+import Image from "next/image"
+import FakeRegion from "components/FakeRegion"
 
 export default function Home() {
   return (
@@ -15,19 +16,62 @@ export default function Home() {
       <Header />
       <main
         sx={{
-          minHeight: "1000px"
+          minHeight: "3000px"
         }}
       >
-        <section>
+        <section
+          sx={{
+            py: 3
+          }}
+        >
+          <FakeRegion id="about-me" />
           <Container>
-            <Heading as="h2">About me</Heading>
+            <Heading as="h2" variant="styles.h2">
+              About me
+            </Heading>
+            <Flex
+              sx={{
+                justifyContent: "space-between"
+              }}
+            >
+              <ul>
+                <li>
+                  <Paragraph>SEO Specialist</Paragraph>
+                </li>
+                <li>
+                  <Paragraph>Web Developer</Paragraph>
+                </li>
+                <li>
+                  <Paragraph>Competitive sport climber and boulderer</Paragraph>
+                </li>
+              </ul>
+              {/* <Image src={} /> */}
+            </Flex>
           </Container>
         </section>
-        <section>
-          <h2>My Work</h2>
+        <section
+          sx={{
+            py: 3
+          }}
+        >
+          <FakeRegion id="my-work" />
+          <Container>
+            <Heading as="h2" variant="styles.h2">
+              My Work
+            </Heading>
+          </Container>
         </section>
-        <section>
-          <h2>Reach Out</h2>
+        <section
+          sx={{
+            py: 3
+          }}
+        >
+          <FakeRegion id="reach-out" />
+          <Container>
+            <Heading as="h2" variant="styles.h2">
+              Reach out
+            </Heading>
+          </Container>
         </section>
       </main>
       <Footer />

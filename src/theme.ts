@@ -5,7 +5,10 @@ export const theme: Theme = {
     heading: `'Open Sans', sans-serif`,
     body: `'Open Sans', sans-serif`
   },
-  colors: {},
+  colors: {
+    myGray: "#3E3E3E",
+    myPink: "#FFCEDA"
+  },
   space: [
     "0rem", // 0 - 0px
     "0.25rem", // 1 - 4px
@@ -46,7 +49,8 @@ export const theme: Theme = {
     h1: {},
     h2: {
       variant: "text.heading",
-      fontSize: [3, null, 4]
+      fontSize: [3, null, 4],
+      my: [3, null, 4]
     }
   }
 }
