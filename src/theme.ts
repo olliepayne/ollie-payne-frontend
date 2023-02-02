@@ -7,7 +7,9 @@ export const theme: Theme = {
   },
   colors: {
     myGray: "#3E3E3E",
-    myPink: "#FFCEDA"
+    myPink: "#FFCEDA",
+    myLightGray: "#F0F0F0",
+    bone: "#F1F0E8"
   },
   space: [
     "0rem", // 0 - 0px

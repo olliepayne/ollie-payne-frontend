@@ -1,5 +1,11 @@
+import Layout from "components/Layout"
+
 const BlogIndexPage = () => {
-  return <main></main>
+  return (
+    <Layout>
+      <main></main>
+    </Layout>
+  )
 }
 
 export default BlogIndexPage

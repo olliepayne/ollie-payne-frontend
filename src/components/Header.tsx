@@ -19,7 +19,7 @@ const Header = () => {
     <header
       sx={{
         mx: 3,
-        mt: 3,
+        my: 3,
         height: hasScrolled ? "80px" : "60px",
         position: "sticky",
         top: 3,
@@ -62,11 +62,13 @@ const Header = () => {
           </Link>
           <ul
             sx={{
+              p: 0,
               listStyleType: "none",
               display: "flex",
               justifyContent: "space-between",
+              alignItems: "center",
               li: {
-                mx: 8
+                mx: 3
               },
               a: {
                 py: 1,
@@ -103,6 +105,9 @@ const Header = () => {
             </li>
             <li>
               <Link href="#reach-out">Reach out</Link>
+            </li>
+            <li>
+              <span>|</span>
             </li>
             <li>
               <a href="/blog">Blog</a>

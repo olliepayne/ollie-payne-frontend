@@ -1,19 +1,17 @@
 /** @jsxImportSource theme-ui */
-import Header from "components/Header"
 import SEO from "components/SEO"
-import Footer from "components/Footer"
 import { Container, Heading, Flex, Paragraph } from "theme-ui"
 import Image from "next/image"
 import FakeRegion from "components/FakeRegion"
+import Layout from "components/Layout"
 
 export default function Home() {
   return (
-    <>
+    <Layout>
       <SEO
         title="Ollie Payne - Digital Marketer"
         metaDescription="Description"
       />
-      <Header />
       <main
         sx={{
           minHeight: "3000px"
@@ -21,7 +19,7 @@ export default function Home() {
       >
         <section
           sx={{
-            py: 3
+            // py: 3
           }}
         >
           <FakeRegion id="about-me" />
@@ -51,7 +49,8 @@ export default function Home() {
         </section>
         <section
           sx={{
-            py: 3
+            // py: 3,
+            backgroundColor: "myLightGray"
           }}
         >
           <FakeRegion id="my-work" />
@@ -63,7 +62,7 @@ export default function Home() {
         </section>
         <section
           sx={{
-            py: 3
+            // py: 3
           }}
         >
           <FakeRegion id="reach-out" />
@@ -74,7 +73,6 @@ export default function Home() {
           </Container>
         </section>
       </main>
-      <Footer />
-    </>
+    </Layout>
   )
 }
