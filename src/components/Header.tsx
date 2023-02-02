@@ -25,7 +25,10 @@ const Header = () => {
         boxShadow: "0px 0px 8px rgb(0 0 0 / 20%)",
         transition: "all 0.2s ease-out",
         transitionDelay: "0.05s",
-        px: 3
+        px: 3,
+        a: {
+          textDecoration: "none"
+        }
       }}
     >
       <Container
@@ -41,7 +44,14 @@ const Header = () => {
             alignItems: "center"
           }}
         >
-          <Link href="/">Ollie</Link>
+          <Link
+            href="/"
+            sx={{
+              fontSize: 4
+            }}
+          >
+            Ollie
+          </Link>
           <ul
             sx={{
               // flex: "1",

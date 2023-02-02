@@ -28,6 +28,13 @@ export const theme: Theme = {
       px: 3
     }
   },
-  fontSizes: [],
+  fontSizes: [
+    "0.875rem", // 0 - 14px
+    "1rem", // 1 - 16px
+    "1.5rem", // 2 - 24px
+    "2.25rem", // 3 - 36px
+    "3.375rem", // 4 - 54px
+    "5.063rem" // - 81px
+  ],
   breakpoints: []
 }
