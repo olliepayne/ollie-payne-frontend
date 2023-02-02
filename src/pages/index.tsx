@@ -3,19 +3,15 @@ import Header from "components/Header"
 import SEO from "components/SEO"
 import Head from "next/head"
 import Footer from "components/Footer"
-import { Container } from "theme-ui"
+import { Container, Heading } from "theme-ui"
 
 export default function Home() {
   return (
     <>
-      <Head>
-        <SEO
-          title="Ollie Payne - Digital Marketer"
-          metaDescription="Description"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <SEO
+        title="Ollie Payne - Digital Marketer"
+        metaDescription="Description"
+      />
       <Header />
       <main
         sx={{
@@ -24,7 +20,7 @@ export default function Home() {
       >
         <section>
           <Container>
-            <h2>About me</h2>
+            <Heading as="h2">About me</Heading>
           </Container>
         </section>
         <section>

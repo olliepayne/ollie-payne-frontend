@@ -2,8 +2,8 @@ import type { Theme } from "theme-ui"
 
 export const theme: Theme = {
   fonts: {
-    heading: "",
-    body: ""
+    heading: `'Open Sans', sans-serif`,
+    body: `'Open Sans', sans-serif`
   },
   colors: {},
   space: [
@@ -34,7 +34,19 @@ export const theme: Theme = {
     "1.5rem", // 2 - 24px
     "2.25rem", // 3 - 36px
     "3.375rem", // 4 - 54px
-    "5.063rem" // - 81px
+    "5.063rem" // 5 - 81px
   ],
-  breakpoints: []
+  breakpoints: ["600px", "768px", "1200px"],
+  text: {
+    heading: {
+      fontWeight: 700
+    }
+  },
+  styles: {
+    h1: {},
+    h2: {
+      variant: "text.heading",
+      fontSize: [3, null, 4]
+    }
+  }
 }
