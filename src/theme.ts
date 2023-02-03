@@ -54,7 +54,6 @@ export const theme: Theme = {
     h2: {
       variant: "text.heading",
       fontSize: [3, 4],
-      py: [3, 4]
     }
   }
 }

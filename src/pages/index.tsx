@@ -18,13 +18,11 @@ export default function Home() {
         }}
       >
         <section
-          sx={
-            {
-              // py: 3
-            }
-          }
+          sx={{
+            py: 3,
+            mb: 3
+          }}
         >
-          <FakeRegion id="about-me" />
           <Container>
             <Heading as="h2" variant="styles.h2">
               About me

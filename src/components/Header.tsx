@@ -1,7 +1,7 @@
 /** @jsxImportSource theme-ui */
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Container } from "theme-ui"
+import { Container, Box } from "theme-ui"
 import MenuButton from "./MenuButton"
 
 const Header = () => {
@@ -16,7 +16,8 @@ const Header = () => {
     })
   }, [])
 
-  const openNav = () => {}
+  const [navIsOpen, setNavIsOpen] = useState(false)
+  const openNav = () => setNavIsOpen(!navIsOpen)
 
   return (
     <header
@@ -38,13 +39,14 @@ const Header = () => {
     >
       <Container
         sx={{
-          height: "100%"
+          height: "100%",
+          mt: 0
         }}
       >
         <nav
           sx={{
             height: "100%",
-            display: ["none", "flex"],
+            display: "flex",
             justifyContent: "space-between",
             alignItems: "center"
           }}
@@ -55,20 +57,50 @@ const Header = () => {
               fontSize: [3, 4],
               fontFamily: "heading",
               fontWeight: 700,
-              color: "black"
+              color: "black",
+              position: "relative",
+              zIndex: 999
             }}
           >
             Ollie
           </Link>
+          <MenuButton
+            callback={openNav}
+            sx={{
+              display: ["inline-block", "none"],
+              position: "relative",
+              zIndex: 999
+            }}
+          />
+          <Box
+            sx={{
+              width: ["100%", 0],
+              height: ["calc(100vh - 32px)", 0],
+              position: "absolute",
+              // zIndex: 999,
+              top: 0,
+              left: 0,
+              borderRadius: "8px",
+              backgroundColor: navIsOpen ? "rgb(0 0 0 / 5%)" : "transparent",
+              transition: "all 0.1s ease-out",
+              pointerEvents: "none",
+              backdropFilter: "blur(6px)",
+            }}
+          />
           <ul
             sx={{
+              width: ["100%", "unset"],
               p: 0,
               listStyleType: "none",
-              display: "flex",
+              display: [navIsOpen ? "flex" : "none", "flex"],
+              flexDirection: ["column", "row"],
               justifyContent: "space-between",
               alignItems: "center",
+              position: ["absolute", "static"],
+              top: [5, 0],
               li: {
-                mx: 3
+                mx: 3,
+                my: [2, 0]
               },
               a: {
                 py: 1,
@@ -100,9 +132,6 @@ const Header = () => {
             }}
           >
             <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
               <Link href="/blog">Blog</Link>
             </li>
             <li>
@@ -113,12 +142,6 @@ const Header = () => {
             </li>
           </ul>
         </nav>
-        <MenuButton
-          callback={openNav}
-          sx={{
-            display: ["inline-block", "none"]
-          }}
-        />
       </Container>
     </header>
   )

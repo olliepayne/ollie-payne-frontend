@@ -21,6 +21,7 @@ const MenuButton = ({ callback, className }: IMenuButton) => {
     backgroundColor: "transparent",
     cursor: "pointer",
     width: "32px",
+    overflow: "hidden",
     ".top, .middle, .bottom": {
       height: "4px",
       m: "5px 0",
@@ -34,7 +35,7 @@ const MenuButton = ({ callback, className }: IMenuButton) => {
       transform: isActive ? "translateY(9px) rotateZ(45deg)" : "none"
     },
     ".middle": {
-      opacity: isActive ? 0 : 1
+      width: isActive ? 0 : "100%"
     },
     ".bottom": {
       transform: isActive ? "translateY(-9px) rotateZ(-45deg)" : "none"
