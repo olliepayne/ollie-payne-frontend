@@ -28,14 +28,15 @@ const MenuButton = ({ callback, className }: IMenuButton) => {
       width: "100%",
       display: "block",
       backgroundColor: "black",
-      transition: "all 0.1s ease-in",
+      transition: "all 0.2s ease-in",
       borderRadius: "4px"
     },
     ".top": {
       transform: isActive ? "translateY(9px) rotateZ(45deg)" : "none"
     },
     ".middle": {
-      width: isActive ? 0 : "100%"
+      // width: isActive ? 0 : "100%"
+      transform: isActive ? "translateY(32px) rotateZ(45deg)" : "none"
     },
     ".bottom": {
       transform: isActive ? "translateY(-9px) rotateZ(-45deg)" : "none"

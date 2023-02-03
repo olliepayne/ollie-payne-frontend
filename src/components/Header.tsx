@@ -26,14 +26,16 @@ const Header = () => {
   return (
     <header
       sx={{
-        mx: 3,
-        my: 3,
-        height: hasScrolled ? "80px" : "60px",
-        position: "sticky",
+        m: navIsOpen ? 0 : 3,
+        width: navIsOpen ? "calc(100% - 32px)" : "unset",
+        height: navIsOpen ? "100%" : hasScrolled ? "80px" : "60px",
+        position: navIsOpen ? "fixed" : "sticky",
         top: 3,
+        left: "50%",
+        transform: navIsOpen ? "translateX(-50%)" : "none",
         backgroundColor: hasScrolled ? "rgb(0 0 0 / 5%)" : "transparent",
-        transition: "all 0.2s ease-out",
-        transitionDelay: "0.05s",
+        // transition: "all 0.2s ease-out",
+        // transitionDelay: "0.05s",
         borderRadius: "8px",
         a: {
           textDecoration: "none"
@@ -50,7 +52,7 @@ const Header = () => {
     >
       <Container
         sx={{
-          height: "100%",
+          height: navIsOpen ? "unset" : "100%",
           mt: 0
         }}
       >
