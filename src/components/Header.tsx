@@ -17,7 +17,11 @@ const Header = () => {
   }, [])
 
   const [navIsOpen, setNavIsOpen] = useState(false)
-  const openNav = () => setNavIsOpen(!navIsOpen)
+  const openNav = () => {
+    const newState = !navIsOpen
+    setNavIsOpen(newState)
+    document.body.style.overflow = newState ? "hidden" : "auto"
+  }
 
   return (
     <header
@@ -31,9 +35,16 @@ const Header = () => {
         transition: "all 0.2s ease-out",
         transitionDelay: "0.05s",
         borderRadius: "8px",
-        backdropFilter: "blur(6px)",
         a: {
           textDecoration: "none"
+        },
+        "::before": {
+          content: `""`,
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          borderRadius: "8px",
+          backdropFilter: "blur(6px)"
         }
       }}
     >
@@ -70,21 +81,6 @@ const Header = () => {
               display: ["inline-block", "none"],
               position: "relative",
               zIndex: 999
-            }}
-          />
-          <Box
-            sx={{
-              width: ["100%", 0],
-              height: ["calc(100vh - 32px)", 0],
-              position: "absolute",
-              // zIndex: 999,
-              top: 0,
-              left: 0,
-              borderRadius: "8px",
-              backgroundColor: navIsOpen ? "rgb(0 0 0 / 5%)" : "transparent",
-              transition: "all 0.1s ease-out",
-              pointerEvents: "none",
-              backdropFilter: "blur(6px)",
             }}
           />
           <ul
