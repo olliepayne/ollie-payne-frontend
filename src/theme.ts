@@ -9,7 +9,8 @@ export const theme: Theme = {
     myGray: "#3E3E3E",
     myPink: "#FFCEDA",
     myLightGray: "#F0F0F0",
-    bone: "#F1F0E8"
+    bone: "#F1F0E8",
+    subtlePink: "#FFF1F5"
   },
   space: [
     "0rem", // 0 - 0px
@@ -41,18 +42,19 @@ export const theme: Theme = {
     "3.375rem", // 4 - 54px
     "5.063rem" // 5 - 81px
   ],
-  breakpoints: ["600px", "768px", "1200px"],
+  breakpoints: ["769px", "1200px"],
   text: {
     heading: {
-      fontWeight: 700
+      fontWeight: 700,
+      textTransform: "uppercase"
     }
   },
   styles: {
     h1: {},
     h2: {
       variant: "text.heading",
-      fontSize: [3, null, 4],
-      my: [3, null, 4]
+      fontSize: [3, 4],
+      py: [3, 4]
     }
   }
 }

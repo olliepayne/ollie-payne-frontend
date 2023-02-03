@@ -18,9 +18,11 @@ export default function Home() {
         }}
       >
         <section
-          sx={{
-            // py: 3
-          }}
+          sx={
+            {
+              // py: 3
+            }
+          }
         >
           <FakeRegion id="about-me" />
           <Container>
@@ -45,31 +47,6 @@ export default function Home() {
               </ul>
               {/* <Image src={} /> */}
             </Flex>
-          </Container>
-        </section>
-        <section
-          sx={{
-            // py: 3,
-            backgroundColor: "myLightGray"
-          }}
-        >
-          <FakeRegion id="my-work" />
-          <Container>
-            <Heading as="h2" variant="styles.h2">
-              My Work
-            </Heading>
-          </Container>
-        </section>
-        <section
-          sx={{
-            // py: 3
-          }}
-        >
-          <FakeRegion id="reach-out" />
-          <Container>
-            <Heading as="h2" variant="styles.h2">
-              Reach out
-            </Heading>
           </Container>
         </section>
       </main>

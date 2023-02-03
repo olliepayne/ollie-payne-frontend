@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Container } from "theme-ui"
+import MenuButton from "./MenuButton"
 
 const Header = () => {
   const [hasScrolled, setHasScrolled] = useState(false)
@@ -15,6 +16,8 @@ const Header = () => {
     })
   }, [])
 
+  const openNav = () => {}
+
   return (
     <header
       sx={{
@@ -23,10 +26,7 @@ const Header = () => {
         height: hasScrolled ? "80px" : "60px",
         position: "sticky",
         top: 3,
-        backgroundColor: hasScrolled ? "rgb(255 206 218 / 25%)" : "transparent",
-        // boxShadow: hasScrolled
-        //   ? "0px 0px 8px rgb(0 0 0 / 20%)"
-        //   : "0px 0px 8px rgb(0 0 0 / 0%)",
+        backgroundColor: hasScrolled ? "rgb(0 0 0 / 5%)" : "transparent",
         transition: "all 0.2s ease-out",
         transitionDelay: "0.05s",
         borderRadius: "8px",
@@ -44,7 +44,7 @@ const Header = () => {
         <nav
           sx={{
             height: "100%",
-            display: "flex",
+            display: ["none", "flex"],
             justifyContent: "space-between",
             alignItems: "center"
           }}
@@ -52,7 +52,7 @@ const Header = () => {
           <Link
             href="/"
             sx={{
-              fontSize: [3, null, 4],
+              fontSize: [3, 4],
               fontFamily: "heading",
               fontWeight: 700,
               color: "black"
@@ -76,6 +76,8 @@ const Header = () => {
                 fontSize: 1,
                 color: "black",
                 position: "relative",
+                textTransform: "uppercase",
+                fontWeight: 700,
                 "::after": {
                   content: `""`,
                   width: 0,
@@ -98,22 +100,25 @@ const Header = () => {
             }}
           >
             <li>
-              <Link href="#about-me">About me</Link>
+              <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="#my-work">My Work</Link>
+              <Link href="/blog">Blog</Link>
             </li>
             <li>
-              <Link href="#reach-out">Reach out</Link>
+              <Link href="#">Timeline</Link>
             </li>
             <li>
-              <span>|</span>
-            </li>
-            <li>
-              <a href="/blog">Blog</a>
+              <Link href="#">Contact</Link>
             </li>
           </ul>
         </nav>
+        <MenuButton
+          callback={openNav}
+          sx={{
+            display: ["inline-block", "none"]
+          }}
+        />
       </Container>
     </header>
   )
