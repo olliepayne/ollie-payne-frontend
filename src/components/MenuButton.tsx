@@ -35,7 +35,6 @@ const MenuButton = ({ callback, className }: IMenuButton) => {
       transform: isActive ? "translateY(9px) rotateZ(45deg)" : "none"
     },
     ".middle": {
-      // width: isActive ? 0 : "100%"
       transform: isActive ? "translateY(32px) rotateZ(45deg)" : "none"
     },
     ".bottom": {

@@ -26,16 +26,14 @@ const Header = () => {
   return (
     <header
       sx={{
-        m: navIsOpen ? 0 : 3,
-        width: navIsOpen ? "calc(100% - 32px)" : "unset",
-        height: navIsOpen ? "100%" : hasScrolled ? "80px" : "60px",
-        position: navIsOpen ? "fixed" : "sticky",
+        m: 3,
+        height: hasScrolled ? "80px" : "60px",
+        position: "sticky",
         top: 3,
         left: "50%",
-        transform: navIsOpen ? "translateX(-50%)" : "none",
         backgroundColor: hasScrolled ? "rgb(0 0 0 / 5%)" : "transparent",
-        // transition: "all 0.2s ease-out",
-        // transitionDelay: "0.05s",
+        transition: "all 0.2s ease-out",
+        transitionDelay: "0.05s",
         borderRadius: "8px",
         a: {
           textDecoration: "none"
@@ -52,14 +50,14 @@ const Header = () => {
     >
       <Container
         sx={{
-          height: navIsOpen ? "unset" : "100%",
+          height: "100%",
           mt: 0
         }}
       >
         <nav
           sx={{
             height: "100%",
-            display: "flex",
+            display: [navIsOpen ? "flex" : "none", "flex"],
             justifyContent: "space-between",
             alignItems: "center"
           }}
@@ -77,24 +75,13 @@ const Header = () => {
           >
             Ollie
           </Link>
-          <MenuButton
-            callback={openNav}
-            sx={{
-              display: ["inline-block", "none"],
-              position: "relative",
-              zIndex: 999
-            }}
-          />
           <ul
             sx={{
-              width: ["100%", "unset"],
               p: 0,
               listStyleType: "none",
-              display: [navIsOpen ? "flex" : "none", "flex"],
-              flexDirection: ["column", "row"],
+              display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              position: ["absolute", "static"],
               top: [5, 0],
               li: {
                 mx: 3,
@@ -141,6 +128,28 @@ const Header = () => {
           </ul>
         </nav>
       </Container>
+      <Box
+        sx={{
+          width: "70px",
+          height: "70px",
+          position: "fixed",
+          bottom: -3,
+          right: -3,
+          borderRadius: "50%",
+          backgroundColor: "subtlePink"
+        }}
+      />
+      <MenuButton
+        callback={openNav}
+        sx={{
+          m: "0 auto",
+          display: ["inline-block", "none"],
+          position: "fixed",
+          zIndex: 999,
+          bottom: 2,
+          right: 2
+        }}
+      />
     </header>
   )
 }
