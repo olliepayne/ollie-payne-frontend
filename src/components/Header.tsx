@@ -1,7 +1,7 @@
 /** @jsxImportSource theme-ui */
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Container, Box } from "theme-ui"
+import { Container, Box, Flex } from "theme-ui"
 import MenuButton from "./MenuButton"
 
 const Header = () => {
@@ -40,14 +40,14 @@ const Header = () => {
           backdropFilter: "blur(5px)",
           a: {
             textDecoration: "none"
-          }
+          },
+          
         }}
       >
         <Container>
           <nav
             sx={{
               py: hasScrolled ? 1 : 0,
-              // height: hasScrolled ? "80px" : "60px",
               display: "flex",
               flexDirection: ["column", "row"],
               justifyContent: "space-between",
@@ -55,19 +55,36 @@ const Header = () => {
               transition: "all 0.1s ease-out"
             }}
           >
-            <Link
-              href="/"
+            <Flex
               sx={{
-                fontSize: [3, 4],
-                fontFamily: "heading",
-                fontWeight: 700,
-                color: "black",
-                position: "relative",
-                zIndex: 999
+                width: "100%",
+                justifyContent: "space-between",
+                alignItems: "center"
               }}
             >
-              Ollie
-            </Link>
+              <Link
+                href="/"
+                sx={{
+                  fontSize: [3, 4],
+                  fontFamily: "heading",
+                  fontWeight: 700,
+                  color: "black",
+                  position: "relative",
+                  zIndex: 999
+                }}
+              >
+                Ollie
+              </Link>
+              <MenuButton
+                callback={openNav}
+                className="menu-btn"
+                sx={{
+                  display: ["inline-block", "none"],
+                  position: "relative",
+                  zIndex: 999
+                }}
+              />
+            </Flex>
             <ul
               sx={{
                 p: 0,
@@ -77,7 +94,7 @@ const Header = () => {
                 justifyContent: "space-between",
                 alignItems: ["flex-start", "center"],
                 li: {
-                  mx: 3,
+                  mx: [0, 3],
                   my: [2, 0]
                 },
                 a: {
@@ -122,7 +139,7 @@ const Header = () => {
           </nav>
         </Container>
       </header>
-      <Box
+      {/* <Box
         sx={{
           width: "70px",
           height: "70px",
@@ -134,18 +151,7 @@ const Header = () => {
           backgroundColor: "subtlePink",
           transition: "all 0.2s ease-in"
         }}
-      />
-      <MenuButton
-        callback={openNav}
-        sx={{
-          m: "0 auto",
-          display: ["inline-block", "none"],
-          position: "fixed",
-          zIndex: 999,
-          bottom: 2,
-          right: 2
-        }}
-      />
+      /> */}
     </>
   )
 }
