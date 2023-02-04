@@ -1,5 +1,4 @@
 /** @jsxImportSource theme-ui */
-import { useState } from "react"
 import { ThemeUICSSObject } from "theme-ui"
 
 interface IMenuButton {
@@ -8,10 +7,7 @@ interface IMenuButton {
 }
 
 const MenuButton = ({ callback, className }: IMenuButton) => {
-  const [isActive, setIsActive] = useState(false)
-
   const handleClick = () => {
-    // setIsActive(!isActive)
     callback()
   }
 
@@ -38,10 +34,10 @@ const MenuButton = ({ callback, className }: IMenuButton) => {
       // transform: isActive ? "translateY(9px) rotateZ(45deg)" : "none"
     },
     ".middle": {
-      transform: isActive ? "translateY(32px) rotateZ(45deg)" : "none"
+      // transform: isActive ? "translateY(32px) rotateZ(45deg)" : "none"
     },
     ".bottom": {
-      transform: isActive ? "translateY(-9px) rotateZ(-45deg)" : "none"
+      // transform: isActive ? "translateY(-9px) rotateZ(-45deg)" : "none"
     },
     ".fake-checkbox:checked ~ .top": {
       transform: "translateY(9px) rotateZ(45deg)"

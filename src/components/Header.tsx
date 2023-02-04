@@ -40,8 +40,7 @@ const Header = () => {
           backdropFilter: "blur(5px)",
           a: {
             textDecoration: "none"
-          },
-          
+          }
         }}
       >
         <Container>
@@ -139,19 +138,6 @@ const Header = () => {
           </nav>
         </Container>
       </header>
-      {/* <Box
-        sx={{
-          width: "70px",
-          height: "70px",
-          display: ["block", "none"],
-          position: "fixed",
-          bottom: -3,
-          right: -3,
-          borderRadius: "50%",
-          backgroundColor: "subtlePink",
-          transition: "all 0.2s ease-in"
-        }}
-      /> */}
     </>
   )
 }
