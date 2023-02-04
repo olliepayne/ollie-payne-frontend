@@ -25,40 +25,34 @@ const Header = () => {
 
   return (
     <>
-      {/* <header
+      <header
         sx={{
-          width: ["100%", "unset"],
-          m: [0, 3],
-          height: ["100%", hasScrolled ? "80px" : "60px"],
-          position: ["fixed", "sticky"],
-          top: [0, 3],
-          left: 0,
-          display: [navIsOpen ? "block" : "none", "block"],
-          // backgroundColor: [
-          //   navIsOpen ? "rgb(0 0 0 / 10%)" : "transparent",
-          //   hasScrolled ? "rgb(0 0 0 / 5%)" : "transparent"
-          // ],
-          backgroundColor: "subtlePink",
+          // height: hasScrolled ? "80px" : "60px",
+          position: "sticky",
+          top: 0,
+          // display: [navIsOpen ? "block" : "none", "block"],
           transition: "all 0.2s ease-out",
           transitionDelay: "0.05s",
-          borderRadius: "8px",
+          borderWidth: "0 0 4px 0",
+          borderStyle: "solid",
+          borderColor: "subtlePink",
+          backgroundColor: "rgb(255 255 255 / 60%)",
+          backdropFilter: "blur(5px)",
           a: {
             textDecoration: "none"
           }
         }}
       >
-        <Container
-          sx={{
-            height: ["unset", "100%"]
-          }}
-        >
+        <Container>
           <nav
             sx={{
-              height: "100%",
+              py: hasScrolled ? 1 : 0,
+              // height: hasScrolled ? "80px" : "60px",
               display: "flex",
               flexDirection: ["column", "row"],
               justifyContent: "space-between",
-              alignItems: ["flex-start", "center"]
+              alignItems: ["flex-start", "center"],
+              transition: "all 0.1s ease-out"
             }}
           >
             <Link
@@ -127,7 +121,7 @@ const Header = () => {
             </ul>
           </nav>
         </Container>
-      </header> */}
+      </header>
       <Box
         sx={{
           width: "70px",
