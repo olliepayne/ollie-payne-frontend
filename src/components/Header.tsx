@@ -57,7 +57,7 @@ const Header = () => {
         <nav
           sx={{
             ...navStyles,
-            py: hasScrolled ? 1 : 0
+            // py: hasScrolled ? 1 : 0 - mute for now
           }}
         >
           <Flex
