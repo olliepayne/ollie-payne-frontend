@@ -19,8 +19,7 @@ export default function Home() {
       >
         <section
           sx={{
-            py: 3,
-            mb: 3
+            py: 3
           }}
         >
           <Container>
@@ -32,7 +31,11 @@ export default function Home() {
                 justifyContent: "space-between"
               }}
             >
-              <ul>
+              <ul
+                sx={{
+                  m: 0
+                }}
+              >
                 <li>
                   <Paragraph>SEO Specialist</Paragraph>
                 </li>
@@ -45,6 +48,18 @@ export default function Home() {
               </ul>
               {/* <Image src={} /> */}
             </Flex>
+          </Container>
+        </section>
+        <section
+          sx={{
+            bg: "myLightGray",
+            py: 3
+          }}
+        >
+          <Container>
+            <Heading as="h2" variant="styles.h2">
+              Blog
+            </Heading>
           </Container>
         </section>
       </main>

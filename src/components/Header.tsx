@@ -14,7 +14,7 @@ const headerStyles: ThemeUICSSObject = {
   borderStyle: "solid",
   borderColor: "subtlePink",
   backgroundColor: "rgb(255 255 255 / 80%)",
-  backdropFilter: "blur(6px)",
+  backdropFilter: "blur(5px)",
   a: {
     textDecoration: "none"
   }

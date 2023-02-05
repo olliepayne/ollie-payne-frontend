@@ -42,11 +42,11 @@ export const theme: Theme = {
     "3.375rem", // 4 - 54px
     "5.063rem" // 5 - 81px
   ],
-  breakpoints: ["769px", "1200px"],
+  breakpoints: ["769px", "1201px"],
   text: {
     heading: {
-      fontWeight: 700,
-      textTransform: "uppercase"
+      fontWeight: 700
+      // textTransform: "uppercase"
     }
   },
   links: {
@@ -81,7 +81,16 @@ export const theme: Theme = {
     h1: {},
     h2: {
       variant: "text.heading",
-      fontSize: [3, 4]
+      fontSize: [3, 4],
+      mb: 2
+    },
+    h3: {
+      variant: "text.heading",
+      fontSize: [2, 3]
+    },
+    h4: {
+      variant: "text.heading",
+      fontSize: [1, 2]
     }
   }
 }
