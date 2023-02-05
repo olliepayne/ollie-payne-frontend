@@ -29,18 +29,6 @@ const MenuButton = ({ callback, className }: IMenuButton) => {
       transition: "all 0.2s ease-in",
       borderRadius: "4px",
       transform: "none"
-    },
-    ".top": {
-      // transform: isActive ? "translateY(9px) rotateZ(45deg)" : "none"
-    },
-    ".middle": {
-      // transform: isActive ? "translateY(32px) rotateZ(45deg)" : "none"
-    },
-    ".bottom": {
-      // transform: isActive ? "translateY(-9px) rotateZ(-45deg)" : "none"
-    },
-    ".fake-checkbox:checked ~ .top": {
-      transform: "translateY(9px) rotateZ(45deg)"
     }
   }
 
@@ -56,7 +44,20 @@ const MenuButton = ({ callback, className }: IMenuButton) => {
           height: "100%",
           top: 0,
           left: 0,
-          visibility: "hidden"
+          opacity: 0,
+          zIndex: 999,
+          ":not(:checked) ~ .top, :not(:checked) ~ .middle, :not(:checked) ~ .bottom": {
+            transform: "none"
+          },
+          ":checked ~ .top": {
+            transform: "translateY(9px) rotateZ(45deg)"
+          },
+          ":checked ~ .middle": {
+            transform: "translateY(32px) rotateZ(45deg)"
+          },
+          ":checked ~ .bottom": {
+            transform: "translateY(-9px) rotateZ(-45deg)"
+          }
         }}
       />
       <span className="top" />

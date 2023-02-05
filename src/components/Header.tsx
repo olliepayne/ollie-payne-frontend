@@ -3,17 +3,17 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Container, Box, Flex } from "theme-ui"
 import MenuButton from "./MenuButton"
+import debounce from "helpers/debounce"
 
 const Header = () => {
   const [hasScrolled, setHasScrolled] = useState(false)
+  const checkScroll = () => {
+    if (window.scrollY !== 0) return setHasScrolled(true)
+    setHasScrolled(false)
+  }
+
   useEffect(() => {
-    document.addEventListener("scroll", () => {
-      if (window.scrollY !== 0) {
-        setHasScrolled(true)
-      } else {
-        setHasScrolled(false)
-      }
-    })
+    document.addEventListener("scroll", debounce(checkScroll, 10))
   }, [])
 
   const [navIsOpen, setNavIsOpen] = useState(false)
@@ -79,12 +79,17 @@ const Header = () => {
                 className="menu-btn"
                 sx={{
                   display: ["inline-block", "none"],
-                  position: "relative",
-                  zIndex: 999
+                  ".fake-checkbox:checked .links": {
+                    display: "flex"
+                  },
+                  ".fake-checkbox:not(:checked), .links": {
+                    display: ["none", "flex"]
+                  }
                 }}
               />
             </Flex>
             <ul
+              className="links"
               sx={{
                 p: 0,
                 listStyleType: "none",
