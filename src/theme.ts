@@ -49,11 +49,39 @@ export const theme: Theme = {
       textTransform: "uppercase"
     }
   },
+  links: {
+    underlineLeftToRight: {
+      py: 1,
+      fontFamily: "body",
+      color: "black",
+      position: "relative",
+      textTransform: "uppercase",
+      fontWeight: 700,
+      "::after": {
+        content: `""`,
+        width: 0,
+        height: "3px",
+        position: "absolute",
+        left: 0,
+        transform: "translateX(-50%)",
+        bottom: 0,
+        bg: "myPink",
+        transition: "all 0.15s ease-in"
+      },
+      ":hover": {
+        "::after": {
+          width: "100%",
+          left: "50%",
+          transition: "all 0.15s ease-in"
+        }
+      }
+    }
+  },
   styles: {
     h1: {},
     h2: {
       variant: "text.heading",
-      fontSize: [3, 4],
+      fontSize: [3, 4]
     }
   }
 }

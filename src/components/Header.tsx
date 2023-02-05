@@ -1,24 +1,48 @@
 /** @jsxImportSource theme-ui */
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Container, Box, Flex } from "theme-ui"
+import { Container, Box, Flex, ThemeUICSSObject } from "theme-ui"
 import MenuButton from "./MenuButton"
 import debounce from "helpers/debounce"
 
+const headerStyles: ThemeUICSSObject = {
+  position: "sticky",
+  top: 0,
+  transition: "all 0.2s ease-out",
+  transitionDelay: "0.05s",
+  borderWidth: "0 0 4px 0",
+  borderStyle: "solid",
+  borderColor: "subtlePink",
+  backgroundColor: "rgb(255 255 255 / 80%)",
+  backdropFilter: "blur(6px)",
+  a: {
+    textDecoration: "none"
+  }
+}
+
 const Header = () => {
+  const navStyles: ThemeUICSSObject = {
+    display: "flex",
+    flexDirection: ["column", "row"],
+    justifyContent: "space-between",
+    alignItems: ["flex-start", "center"],
+    transition: "all 0.1s ease-out"
+  }
+
   const [hasScrolled, setHasScrolled] = useState(false)
   const checkScroll = () => {
     if (window.scrollY !== 0) return setHasScrolled(true)
     setHasScrolled(false)
   }
 
-  const closeNavOnResize = () => {
-    if (screen.width > 768) setNavIsOpen(false)
-  }
+  // - dead for now
+  // const closeNavOnResize = () => {
+  //   if (screen.width > 768) setNavIsOpen(false)
+  // }
 
   useEffect(() => {
     document.addEventListener("scroll", debounce(checkScroll, 10))
-    document.addEventListener("resize", debounce(closeNavOnResize, 10))
+    // document.addEventListener("resize", debounce(closeNavOnResize, 10)) - dead for now
   }, [])
 
   const [navIsOpen, setNavIsOpen] = useState(false)
@@ -28,31 +52,12 @@ const Header = () => {
   }
 
   return (
-    <header
-      sx={{
-        position: "sticky",
-        top: 0,
-        transition: "all 0.2s ease-out",
-        transitionDelay: "0.05s",
-        borderWidth: "0 0 4px 0",
-        borderStyle: "solid",
-        borderColor: "subtlePink",
-        backgroundColor: "rgb(255 255 255 / 80%)",
-        backdropFilter: "blur(6px)",
-        a: {
-          textDecoration: "none"
-        }
-      }}
-    >
+    <header sx={headerStyles}>
       <Container>
         <nav
           sx={{
-            py: hasScrolled ? 1 : 0,
-            display: "flex",
-            flexDirection: ["column", "row"],
-            justifyContent: "space-between",
-            alignItems: ["flex-start", "center"],
-            transition: "all 0.1s ease-out"
+            ...navStyles,
+            py: hasScrolled ? 1 : 0
           }}
         >
           <Flex
@@ -69,6 +74,7 @@ const Header = () => {
                 fontFamily: "heading",
                 fontWeight: 700,
                 color: "black",
+                textTransform: "uppercase",
                 position: "relative",
                 zIndex: 999
               }}
@@ -84,7 +90,6 @@ const Header = () => {
             />
           </Flex>
           <ul
-            className="links"
             sx={{
               p: 0,
               listStyleType: "none",
@@ -96,44 +101,41 @@ const Header = () => {
               li: {
                 mx: [0, 3],
                 my: [2, 0]
-              },
-              a: {
-                py: 1,
-                fontFamily: "body",
-                fontSize: 1,
-                color: "black",
-                position: "relative",
-                textTransform: "uppercase",
-                fontWeight: 700,
-                "::after": {
-                  content: `""`,
-                  width: 0,
-                  height: "3px",
-                  position: "absolute",
-                  left: 0,
-                  transform: "translateX(-50%)",
-                  bottom: 0,
-                  bg: "myPink",
-                  transition: "all 0.15s ease-in"
-                },
-                ":hover": {
-                  "::after": {
-                    width: "100%",
-                    left: "50%",
-                    transition: "all 0.15s ease-in"
-                  }
-                }
               }
             }}
           >
             <li>
-              <Link href="/blog">Blog</Link>
+              <Link
+                href="/blog"
+                sx={{
+                  variant: "links.underlineLeftToRight",
+                  fontSize: 1
+                }}
+              >
+                Blog
+              </Link>
             </li>
             <li>
-              <Link href="#">Timeline</Link>
+              <Link
+                href="#"
+                sx={{
+                  variant: "links.underlineLeftToRight",
+                  fontSize: 1
+                }}
+              >
+                Timeline
+              </Link>
             </li>
             <li>
-              <Link href="#">Contact</Link>
+              <Link
+                href="#"
+                sx={{
+                  variant: "links.underlineLeftToRight",
+                  fontSize: 1
+                }}
+              >
+                Contact
+              </Link>
             </li>
           </ul>
         </nav>
