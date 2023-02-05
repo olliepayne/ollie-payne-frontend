@@ -12,138 +12,133 @@ const Header = () => {
     setHasScrolled(false)
   }
 
+  const closeNavOnResize = () => {
+    if (screen.width > 768) setNavIsOpen(false)
+  }
+
   useEffect(() => {
     document.addEventListener("scroll", debounce(checkScroll, 10))
+    document.addEventListener("resize", debounce(closeNavOnResize, 10))
   }, [])
 
   const [navIsOpen, setNavIsOpen] = useState(false)
   const openNav = () => {
     const newState = !navIsOpen
     setNavIsOpen(newState)
-    document.body.style.overflow = newState ? "hidden" : "auto"
   }
 
   return (
-    <>
-      <header
-        sx={{
-          // height: hasScrolled ? "80px" : "60px",
-          position: "sticky",
-          top: 0,
-          // display: [navIsOpen ? "block" : "none", "block"],
-          transition: "all 0.2s ease-out",
-          transitionDelay: "0.05s",
-          borderWidth: "0 0 4px 0",
-          borderStyle: "solid",
-          borderColor: "subtlePink",
-          backgroundColor: "rgb(255 255 255 / 60%)",
-          backdropFilter: "blur(5px)",
-          a: {
-            textDecoration: "none"
-          }
-        }}
-      >
-        <Container>
-          <nav
+    <header
+      sx={{
+        position: "sticky",
+        top: 0,
+        transition: "all 0.2s ease-out",
+        transitionDelay: "0.05s",
+        borderWidth: "0 0 4px 0",
+        borderStyle: "solid",
+        borderColor: "subtlePink",
+        backgroundColor: "rgb(255 255 255 / 80%)",
+        backdropFilter: "blur(6px)",
+        a: {
+          textDecoration: "none"
+        }
+      }}
+    >
+      <Container>
+        <nav
+          sx={{
+            py: hasScrolled ? 1 : 0,
+            display: "flex",
+            flexDirection: ["column", "row"],
+            justifyContent: "space-between",
+            alignItems: ["flex-start", "center"],
+            transition: "all 0.1s ease-out"
+          }}
+        >
+          <Flex
             sx={{
-              py: hasScrolled ? 1 : 0,
-              display: "flex",
+              width: "100%",
+              justifyContent: "space-between",
+              alignItems: "center"
+            }}
+          >
+            <Link
+              href="/"
+              sx={{
+                fontSize: [3, 4],
+                fontFamily: "heading",
+                fontWeight: 700,
+                color: "black",
+                position: "relative",
+                zIndex: 999
+              }}
+            >
+              Ollie
+            </Link>
+            <MenuButton
+              callback={openNav}
+              className="menu-btn"
+              sx={{
+                display: ["inline-block", "none"]
+              }}
+            />
+          </Flex>
+          <ul
+            className="links"
+            sx={{
+              p: 0,
+              listStyleType: "none",
+              display: [navIsOpen ? "flex" : "none", "flex"],
+              transition: "all 0.2s ease-out",
               flexDirection: ["column", "row"],
               justifyContent: "space-between",
               alignItems: ["flex-start", "center"],
-              transition: "all 0.1s ease-out"
-            }}
-          >
-            <Flex
-              sx={{
-                width: "100%",
-                justifyContent: "space-between",
-                alignItems: "center"
-              }}
-            >
-              <Link
-                href="/"
-                sx={{
-                  fontSize: [3, 4],
-                  fontFamily: "heading",
-                  fontWeight: 700,
-                  color: "black",
-                  position: "relative",
-                  zIndex: 999
-                }}
-              >
-                Ollie
-              </Link>
-              <MenuButton
-                callback={openNav}
-                className="menu-btn"
-                sx={{
-                  display: ["inline-block", "none"],
-                  ".fake-checkbox:checked .links": {
-                    display: "flex"
-                  },
-                  ".fake-checkbox:not(:checked), .links": {
-                    display: ["none", "flex"]
-                  }
-                }}
-              />
-            </Flex>
-            <ul
-              className="links"
-              sx={{
-                p: 0,
-                listStyleType: "none",
-                display: "flex",
-                flexDirection: ["column", "row"],
-                justifyContent: "space-between",
-                alignItems: ["flex-start", "center"],
-                li: {
-                  mx: [0, 3],
-                  my: [2, 0]
+              li: {
+                mx: [0, 3],
+                my: [2, 0]
+              },
+              a: {
+                py: 1,
+                fontFamily: "body",
+                fontSize: 1,
+                color: "black",
+                position: "relative",
+                textTransform: "uppercase",
+                fontWeight: 700,
+                "::after": {
+                  content: `""`,
+                  width: 0,
+                  height: "3px",
+                  position: "absolute",
+                  left: 0,
+                  transform: "translateX(-50%)",
+                  bottom: 0,
+                  bg: "myPink",
+                  transition: "all 0.15s ease-in"
                 },
-                a: {
-                  py: 1,
-                  fontFamily: "body",
-                  fontSize: 1,
-                  color: "black",
-                  position: "relative",
-                  textTransform: "uppercase",
-                  fontWeight: 700,
+                ":hover": {
                   "::after": {
-                    content: `""`,
-                    width: 0,
-                    height: "3px",
-                    position: "absolute",
-                    left: 0,
-                    transform: "translateX(-50%)",
-                    bottom: 0,
-                    bg: "myPink",
+                    width: "100%",
+                    left: "50%",
                     transition: "all 0.15s ease-in"
-                  },
-                  ":hover": {
-                    "::after": {
-                      width: "100%",
-                      left: "50%",
-                      transition: "all 0.15s ease-in"
-                    }
                   }
                 }
-              }}
-            >
-              <li>
-                <Link href="/blog">Blog</Link>
-              </li>
-              <li>
-                <Link href="#">Timeline</Link>
-              </li>
-              <li>
-                <Link href="#">Contact</Link>
-              </li>
-            </ul>
-          </nav>
-        </Container>
-      </header>
-    </>
+              }
+            }}
+          >
+            <li>
+              <Link href="/blog">Blog</Link>
+            </li>
+            <li>
+              <Link href="#">Timeline</Link>
+            </li>
+            <li>
+              <Link href="#">Contact</Link>
+            </li>
+          </ul>
+        </nav>
+      </Container>
+    </header>
   )
 }
 
