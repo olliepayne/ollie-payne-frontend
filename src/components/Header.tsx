@@ -57,7 +57,8 @@ const Header = () => {
         <nav
           sx={{
             ...navStyles,
-            // py: hasScrolled ? 1 : 0 - mute for now
+            // py: hasScrolled ? 1 : 0 // - mute for now
+            py: 2
           }}
         >
           <Flex
@@ -74,7 +75,6 @@ const Header = () => {
                 fontFamily: "heading",
                 fontWeight: 700,
                 color: "black",
-                textTransform: "uppercase",
                 position: "relative",
                 zIndex: 999
               }}

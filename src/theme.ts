@@ -55,7 +55,6 @@ export const theme: Theme = {
       fontFamily: "body",
       color: "black",
       position: "relative",
-      textTransform: "uppercase",
       fontWeight: 700,
       "::after": {
         content: `""`,
