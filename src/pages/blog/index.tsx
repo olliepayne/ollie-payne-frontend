@@ -34,18 +34,23 @@ const BlogIndexPage = () => {
               <FeaturedArticleCard
                 sx={{
                   flex: "2",
-                  mr: 4
+                  mr: [0, 4]
                 }}
               />
               <ul
                 sx={{
                   flex: "1",
                   listStyleType: "none",
-                  p: 0
+                  p: 0,
+                  m: 0
                 }}
               >
                 <li>
-                  <ArticleCard />
+                  <ArticleCard
+                    sx={{
+                      // width: "100%"
+                    }}
+                  />
                 </li>
               </ul>
             </Flex>

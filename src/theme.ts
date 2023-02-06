@@ -37,10 +37,10 @@ export const theme: Theme = {
   fontSizes: [
     "0.875rem", // 0 - 14px
     "1rem", // 1 - 16px
-    "1.5rem", // 2 - 24px
-    "2.25rem", // 3 - 36px
-    "3.375rem", // 4 - 54px
-    "5.063rem" // 5 - 81px
+    "1.125rem", // 2 - 18px
+    "1.5rem", // 3 - 24px
+    "2.25rem", // 4 - 36px
+    "3.375rem" // 5 - 54px
   ],
   breakpoints: ["769px", "1201px"],
   text: {
@@ -78,7 +78,11 @@ export const theme: Theme = {
     }
   },
   styles: {
-    h1: {},
+    h1: {
+      variant: "text.heading",
+      fontSize: [4, 5],
+      mb: 3
+    },
     h2: {
       variant: "text.heading",
       fontSize: [3, 4],
