@@ -14,6 +14,7 @@ const ArticleCard = ({ className }: IArticleCard) => {
       sx={{
         p: 3,
         justifyContent: "space-between",
+        position: "relative",
         ":hover": {
           cursor: "pointer",
           ".article-title": {
@@ -22,36 +23,40 @@ const ArticleCard = ({ className }: IArticleCard) => {
         }
       }}
     >
-      <Link
-        href="/blog/slug"
+      <Box
         sx={{
-          color: "unset",
+          position: "relative",
+          aspectRatio: "1 / 1",
+          width: "100px",
           display: "inline-block",
-          width: "100%"
+          mr: 3
         }}
       >
-        <Box
+        <Image
+          src="/placeholder.jpeg"
+          alt=""
+          fill
           sx={{
-            position: "relative",
-            aspectRatio: "1 / 1",
-            width: "100px",
-            display: "inline-block",
-            mr: 3
+            objectFit: "cover"
           }}
-        >
-          <Image
-            src="/placeholder.jpeg"
-            alt=""
-            fill
-            sx={{
-              objectFit: "cover"
-            }}
-          />
-        </Box>
-        <Box
+        />
+      </Box>
+      <Box
+        sx={{
+          display: "inline-block",
+          verticalAlign: "top"
+        }}
+      >
+        <Link
+          href="/blog/slug"
           sx={{
-            display: "inline-block",
-            verticalAlign: "top"
+            color: "unset",
+            display: "block",
+            "::after": {
+              content: `""`,
+              inset: 0,
+              position: "absolute"
+            }
           }}
         >
           <Heading
@@ -64,11 +69,11 @@ const ArticleCard = ({ className }: IArticleCard) => {
               textDecoration: "underline"
             }}
           >
-            Title
+            Article Title
           </Heading>
-          <Paragraph>Snippet</Paragraph>
-        </Box>
-      </Link>
+        </Link>
+        <Paragraph>Snippet</Paragraph>
+      </Box>
     </Box>
   )
 }
