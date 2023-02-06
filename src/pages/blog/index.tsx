@@ -3,6 +3,7 @@ import FeaturedArticleCard from "components/FeaturedArticleCard"
 import Layout from "components/Layout"
 import SEO from "components/SEO"
 import { Flex, Container, Heading } from "theme-ui"
+import ArticleCard from "components/ArticleCard"
 
 const BlogIndexPage = () => {
   return (
@@ -43,7 +44,9 @@ const BlogIndexPage = () => {
                   p: 0
                 }}
               >
-                <li>post</li>
+                <li>
+                  <ArticleCard />
+                </li>
               </ul>
             </Flex>
           </Container>

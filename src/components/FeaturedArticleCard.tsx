@@ -18,9 +18,42 @@ const FeaturedArticleCard = ({ className }: IFeaturedArticleCard) => {
         boxShadow: "0 0 4px rgb(0 0 0 / 10%)"
       }}
     >
-      <Link href="#">
-        <Heading as="h4" variant="styles.h4">
-          Title
+      <Box
+        sx={{
+          height: "250px",
+          width: "100%",
+          position: "relative",
+          mb: 3
+        }}
+      >
+        <Image
+          src="/placeholder.jpeg"
+          alt=""
+          fill
+          sx={{
+            objectFit: "cover",
+            // objectPosition: "top center"
+          }}
+        />
+      </Box>
+      <Link
+        href="/blog/slug"
+        sx={{
+          color: "black",
+          transition: "all 0.2s ease",
+          ":hover": {
+            color: "gray"
+          }
+        }}
+      >
+        <Heading
+          as="h4"
+          variant="styles.h4"
+          sx={{
+            fontWeight: 400
+          }}
+        >
+          How to Improve Finger Strength as a Rock Climber
         </Heading>
       </Link>
       <Paragraph>snippet</Paragraph>
