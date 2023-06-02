@@ -22,7 +22,8 @@ const TimelineIndexPage = () => {
                     month: "April",
                     year: 2022
                   },
-                  description: ""
+                  description:
+                    "Applied White Hat SEO strategies such as proper internal-linking structure, keyword research, competitive analysis, local SEO, page optimization, and site- audits for existing clients and leads. Combined SEO with Frontend development skills to optimize HTML structure and hardcode metadata."
                 }
               ]}
             />

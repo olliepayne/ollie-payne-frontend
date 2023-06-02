@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import { Box, Heading } from "theme-ui"
+import { Box, Heading, Paragraph } from "theme-ui"
 import { timelineEvents } from "../../public/testData.json"
 
 interface ITimeline {
@@ -28,21 +28,33 @@ const Timeline = ({ events }: ITimeline) => {
           <span
             sx={{
               display: "inline-block",
-              width: "15px",
-              height: "15px",
-              backgroundColor: "myLightGray",
+              width: "10px",
+              height: "10px",
+              backgroundColor: "myGray",
               borderRadius: "50%"
             }}
           />
-          <Box
+          <Heading
+            as="h3"
+            variant="styles.h3"
             sx={{
-              px: 4,
-              display: "inline-block"
+              mx: 4,
+              display: "inline-block",
+              verticalAlign: "middle"
             }}
           >
-            <Heading as="h3" variant="styles.h3">
-              {event.title}
-            </Heading>
+            {event.title}
+          </Heading>
+          <Box
+            sx={{
+              mx: "4px",
+              px: 4,
+              borderLeftColor: "myGray",
+              borderLeftStyle: "solid",
+              borderLeftWidth: "2px"
+            }}
+          >
+            <Paragraph>{event.description}</Paragraph>
           </Box>
         </Box>
       ))}
