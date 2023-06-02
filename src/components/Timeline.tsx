@@ -1,13 +1,20 @@
 /** @jsxImportSource theme-ui */
 import { Box, Heading } from "theme-ui"
+import { timelineEvents } from "../../public/testData.json"
 
 interface ITimeline {
   events?: [
     {
       title: string
       institutionName: string
-      dateStarted: string
-      dateEnded?: string
+      startDate: {
+        month: string
+        year: number
+      }
+      // endDate?: {
+      //   month: string
+      //   year: number
+      // }
       description: string
     }
   ]
@@ -19,7 +26,7 @@ const Timeline = ({ events }: ITimeline) => {
       {events?.map((event, index) => (
         <Box>
           <Heading as="h3" variant="styles.h3">
-
+            {event.title}
           </Heading>
         </Box>
       ))}
