@@ -47,9 +47,11 @@ const BlogIndexPage = () => {
               >
                 <li>
                   <ArticleCard
-                    sx={{
-                      // width: "100%"
-                    }}
+                    sx={
+                      {
+                        // width: "100%"
+                      }
+                    }
                   />
                 </li>
               </ul>

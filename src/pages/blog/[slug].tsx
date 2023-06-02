@@ -8,7 +8,11 @@ const BlogPostPage = () => {
   return (
     <Layout>
       <SEO title="Article Title" metaDescription="Article description" />
-      <main>
+      <main
+        sx={{
+          minHeight: "3000px"
+        }}
+      >
         <section
           sx={{
             py: 4
@@ -21,7 +25,7 @@ const BlogPostPage = () => {
             <Box
               sx={{
                 position: "relative",
-                height: "400px",
+                height: "400px"
               }}
             >
               <Image

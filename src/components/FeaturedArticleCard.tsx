@@ -13,9 +13,9 @@ const FeaturedArticleCard = ({ className }: IFeaturedArticleCard) => {
       className={className}
       sx={{
         p: 3,
-        // aspectRatio: "1 / 1",
-        bg: "subtlePink",
-        boxShadow: "0 0 4px rgb(0 0 0 / 10%)"
+        bg: "myLightGray",
+        boxShadow: "0 0 4px rgb(0 0 0 / 10%)",
+        position: "relative"
       }}
     >
       <Box
@@ -31,8 +31,7 @@ const FeaturedArticleCard = ({ className }: IFeaturedArticleCard) => {
           alt=""
           fill
           sx={{
-            objectFit: "cover",
-            // objectPosition: "top center"
+            objectFit: "cover"
           }}
         />
       </Box>
@@ -43,6 +42,11 @@ const FeaturedArticleCard = ({ className }: IFeaturedArticleCard) => {
           transition: "all 0.2s ease",
           ":hover": {
             color: "gray"
+          },
+          "::after": {
+            content: `""`,
+            position: "absolute",
+            inset: 0
           }
         }}
       >
@@ -56,7 +60,7 @@ const FeaturedArticleCard = ({ className }: IFeaturedArticleCard) => {
           How to Improve Finger Strength as a Rock Climber
         </Heading>
       </Link>
-      <Paragraph>snippet</Paragraph>
+      <Paragraph>Lorem ipsum delor sit.</Paragraph>
     </Box>
   )
 }

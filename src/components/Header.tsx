@@ -17,7 +17,8 @@ const headerStyles: ThemeUICSSObject = {
   backdropFilter: "blur(5px)",
   a: {
     textDecoration: "none"
-  }
+  },
+  zIndex: 10
 }
 
 const Header = () => {
