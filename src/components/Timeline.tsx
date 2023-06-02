@@ -25,9 +25,25 @@ const Timeline = ({ events }: ITimeline) => {
     <Box>
       {events?.map((event, index) => (
         <Box>
-          <Heading as="h3" variant="styles.h3">
-            {event.title}
-          </Heading>
+          <span
+            sx={{
+              display: "inline-block",
+              width: "15px",
+              height: "15px",
+              backgroundColor: "myLightGray",
+              borderRadius: "50%"
+            }}
+          />
+          <Box
+            sx={{
+              px: 4,
+              display: "inline-block"
+            }}
+          >
+            <Heading as="h3" variant="styles.h3">
+              {event.title}
+            </Heading>
+          </Box>
         </Box>
       ))}
     </Box>
