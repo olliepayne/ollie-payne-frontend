@@ -14,16 +14,14 @@ const BlogPostPage = () => {
             py: 4
           }}
         >
-          <Container variant="narrow">
-            <Heading as="h1" variant="styles.h1">
-              Article Title
-            </Heading>
+          <Container>
+            <Heading as="h1" variant="styles.h1"></Heading>
           </Container>
           <Container>
             <Box
               sx={{
                 position: "relative",
-                height: "400px"
+                height: "400px",
               }}
             >
               <Image
@@ -31,7 +29,8 @@ const BlogPostPage = () => {
                 alt=""
                 fill
                 sx={{
-                  objectFit: "cover"
+                  objectFit: "cover",
+                  borderRadius: "8px"
                 }}
               />
             </Box>

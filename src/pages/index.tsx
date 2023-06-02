@@ -9,12 +9,12 @@ export default function Home() {
   return (
     <Layout>
       <SEO
-        title="Ollie Payne - Digital Marketer"
+        title="Ollie Payne - Frontend Developer & Digital Marketer"
         metaDescription="Description"
       />
       <main
         sx={{
-          minHeight: "3000px"
+          // minHeight: "3000px"
         }}
       >
         <section
@@ -51,11 +51,10 @@ export default function Home() {
               </ul>
               <Box
                 sx={{
-                  flex: "1 1",
-                  // height: "150px",
-                  aspectRatio: "1 / 1",
+                  // flex: "1 1",
+                  height: "150px",
+                  // aspectRatio: "1 / 1",
                   borderRadius: "50%",
-                  // border: " solid 2px black",
                   borderStyle: "solid",
                   borderWidth: "4px",
                   borderColor: "#1C1C1C",
