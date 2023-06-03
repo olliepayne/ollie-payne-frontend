@@ -118,13 +118,13 @@ const Header = () => {
             </li>
             <li>
               <Link
-                href="/timeline"
+                href="/my-experience"
                 sx={{
                   variant: "links.underlineLeftToRight",
                   fontSize: 1
                 }}
               >
-                Timeline
+                My Experience
               </Link>
             </li>
             <li>

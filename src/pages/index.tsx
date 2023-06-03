@@ -12,11 +12,7 @@ export default function Home() {
         title="Ollie Payne - Frontend Developer & Digital Marketer"
         metaDescription="Description"
       />
-      <main
-        sx={{
-          // minHeight: "3000px"
-        }}
-      >
+      <main>
         <section
           sx={{
             py: 3
@@ -34,7 +30,7 @@ export default function Home() {
             >
               <ul
                 sx={{
-                  // flex: "2",
+                  pl: 3,
                   m: 0,
                   mr: 4
                 }}
@@ -49,9 +45,9 @@ export default function Home() {
                   <Paragraph>Competitive sport climber and boulderer</Paragraph>
                 </li>
               </ul>
-              <Box
+              {/* <Box
                 sx={{
-                  // flex: "1 1",
+                  width: "150px",
                   height: "150px",
                   // aspectRatio: "1 / 1",
                   borderRadius: "50%",
@@ -61,16 +57,21 @@ export default function Home() {
                   position: "relative"
                 }}
               >
-                <Image
-                  src="/placeholder.jpeg"
-                  alt=""
-                  fill
-                  sx={{
-                    objectFit: "cover",
-                    borderRadius: "50%"
-                  }}
-                />
-              </Box>
+                
+              </Box> */}
+              <Image
+                src="/placeholder.jpeg"
+                alt=""
+                width={150}
+                height={150}
+                sx={{
+                  objectFit: "cover",
+                  borderRadius: "50%",
+                  borderStyle: "solid",
+                  borderWidth: "4px",
+                  borderColor: "#1C1C1C"
+                }}
+              />
             </Flex>
           </Container>
         </section>

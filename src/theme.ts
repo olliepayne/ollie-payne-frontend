@@ -46,7 +46,6 @@ export const theme: Theme = {
   text: {
     heading: {
       fontWeight: 700
-      // textTransform: "uppercase"
     }
   },
   links: {

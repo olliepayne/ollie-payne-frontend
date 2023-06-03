@@ -27,6 +27,7 @@ const Timeline = ({ events }: ITimeline) => {
           key={index}
           className="event"
           sx={{
+            pt: 2,
             justifyContent: "start"
           }}
         >
@@ -38,8 +39,8 @@ const Timeline = ({ events }: ITimeline) => {
           >
             <span
               sx={{
-                width: "10px",
-                height: "10px",
+                width: "8px",
+                height: "8px",
                 backgroundColor: "myGray",
                 display: "block",
                 borderRadius: "50%"
@@ -47,7 +48,7 @@ const Timeline = ({ events }: ITimeline) => {
             />
             <span
               sx={{
-                width: "3px",
+                width: "2px",
                 flex: "1 auto",
                 display: "block",
                 backgroundColor: "myGray",
@@ -58,6 +59,7 @@ const Timeline = ({ events }: ITimeline) => {
           <Box
             sx={{
               ml: 4,
+              mb: 3,
               display: "inline-block"
             }}
           >
@@ -90,7 +92,8 @@ const Timeline = ({ events }: ITimeline) => {
               </time>
               {event.endDate ? (
                 <time>
-                  {" "} {event.endDate.month} {event.endDate.year}
+                  {" "}
+                  {event.endDate.month} {event.endDate.year}
                 </time>
               ) : (
                 " Present"
