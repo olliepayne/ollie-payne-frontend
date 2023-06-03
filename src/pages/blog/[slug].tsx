@@ -25,7 +25,7 @@ const BlogPostPage = () => {
             <Box
               sx={{
                 position: "relative",
-                height: "400px"
+                height: ["250px", "400px"]
               }}
             >
               <Image

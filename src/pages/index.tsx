@@ -2,7 +2,7 @@
 import SEO from "components/SEO"
 import { Container, Heading, Flex, Paragraph, Box } from "theme-ui"
 import Image from "next/image"
-import FakeRegion from "components/FakeRegion"
+// import FakeRegion from "components/FakeRegion"
 import Layout from "components/Layout"
 
 export default function Home() {
@@ -36,29 +36,15 @@ export default function Home() {
                 }}
               >
                 <li>
-                  <Paragraph>SEO Specialist</Paragraph>
+                  <Paragraph>SEO Analyst</Paragraph>
                 </li>
                 <li>
-                  <Paragraph>Web Developer</Paragraph>
+                  <Paragraph>Front-End Developer</Paragraph>
                 </li>
                 <li>
                   <Paragraph>Competitive sport climber and boulderer</Paragraph>
                 </li>
               </ul>
-              {/* <Box
-                sx={{
-                  width: "150px",
-                  height: "150px",
-                  // aspectRatio: "1 / 1",
-                  borderRadius: "50%",
-                  borderStyle: "solid",
-                  borderWidth: "4px",
-                  borderColor: "#1C1C1C",
-                  position: "relative"
-                }}
-              >
-                
-              </Box> */}
               <Image
                 src="/placeholder.jpeg"
                 alt=""

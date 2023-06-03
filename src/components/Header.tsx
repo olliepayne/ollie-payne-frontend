@@ -75,9 +75,7 @@ const Header = () => {
                 fontSize: [3, 4],
                 fontFamily: "heading",
                 fontWeight: 700,
-                color: "black",
-                position: "relative",
-                zIndex: 999
+                color: "black"
               }}
             >
               Ollie
@@ -97,23 +95,24 @@ const Header = () => {
               display: [navIsOpen ? "flex" : "none", "flex"],
               transition: "all 0.2s ease-out",
               flexDirection: ["column", "row"],
-              justifyContent: "space-between",
+              justifyContent: "flex-end",
               alignItems: ["flex-start", "center"],
               li: {
                 mx: [0, 3],
-                my: [2, 0]
+                my: [2, 0],
+                flexShrink: "0"
               }
             }}
           >
             <li>
               <Link
-                href="/blog"
+                href="/#"
                 sx={{
                   variant: "links.underlineLeftToRight",
                   fontSize: 1
                 }}
               >
-                Blog
+                Portfolio
               </Link>
             </li>
             <li>
@@ -125,6 +124,17 @@ const Header = () => {
                 }}
               >
                 My Experience
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/blog"
+                sx={{
+                  variant: "links.underlineLeftToRight",
+                  fontSize: 1
+                }}
+              >
+                Blog
               </Link>
             </li>
             <li>
