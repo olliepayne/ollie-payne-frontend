@@ -8,6 +8,8 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown"
 import { blogPosts } from "../../../public/blogPosts.json"
 const { pageTitle, metaDescription, h1, datePublished } = blogPosts[0]
 
+import markdown from "../../../public/markdown.md"
+
 // interface IBlogPostPage {
 //   pageTitle: string
 //   metaDescription: string
@@ -60,7 +62,7 @@ const BlogPostPage = () => {
         {/* Markdown */}
         <section>
           <Container variant="narrow">
-            <ReactMarkdown children={} />
+            <ReactMarkdown children={markdown} />
           </Container>
         </section>
       </main>
