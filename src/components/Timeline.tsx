@@ -1,23 +1,22 @@
 /** @jsxImportSource theme-ui */
-import { Box, Flex, Heading, Paragraph } from "theme-ui"
+import { Box, Flex, Heading, Paragraph, Text } from "theme-ui"
 import { timelineEvents } from "../../public/testData.json"
 
 interface ITimeline {
-  events?: [
-    {
-      title: string
-      institutionName: string
-      startDate: {
-        month: string
-        year: number
-      }
-      // endDate?: {
-      //   month: string
-      //   year: number
-      // }
-      description: string
+  events?: {
+    institutionName: string
+    title: string
+    timeInvestment: string
+    startDate: {
+      month: string
+      year: number
     }
-  ]
+    endDate?: {
+      month: string
+      year: number
+    }
+    description: string
+  }[]
 }
 
 const Timeline = ({ events }: ITimeline) => {
@@ -69,9 +68,41 @@ const Timeline = ({ events }: ITimeline) => {
                 mt: 0
               }}
             >
+              {event.institutionName}
+            </Heading>
+            <Heading
+              as="h4"
+              variant="styles.h4"
+              sx={{
+                mt: 0
+              }}
+            >
               {event.title}
             </Heading>
-            <Paragraph>{event.description}</Paragraph>
+            <Text
+              sx={{
+                display: "block",
+                fontFamily: "body"
+              }}
+            >
+              <time>
+                {event.startDate.month} {event.startDate.year} -
+              </time>
+              {event.endDate ? (
+                <time>
+                  {" "} {event.endDate.month} {event.endDate.year}
+                </time>
+              ) : (
+                " Present"
+              )}
+            </Text>
+            <Paragraph
+              sx={{
+                mt: 2
+              }}
+            >
+              {event.description}
+            </Paragraph>
           </Box>
         </Flex>
       ))}

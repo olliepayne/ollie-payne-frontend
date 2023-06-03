@@ -22,7 +22,23 @@ const TimelineIndexPage = () => {
                 {
                   title: "SEO Analyst",
                   institutionName: "Eightfold Technology",
+                  timeInvestment: "Contract",
                   startDate: {
+                    month: "April",
+                    year: 2022
+                  },
+                  description:
+                    "Applied White Hat SEO strategies such as proper internal-linking structure, keyword research, competitive analysis, local SEO, page optimization, and site- audits for existing clients and leads. Combined SEO with Frontend development skills to optimize HTML structure and hardcode metadata."
+                },
+                {
+                  title: "Jr Developer",
+                  institutionName: "Eightfold Technology",
+                  timeInvestment: "Full Time",
+                  startDate: {
+                    month: "October",
+                    year: 2021
+                  },
+                  endDate: {
                     month: "April",
                     year: 2022
                   },
