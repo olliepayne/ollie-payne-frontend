@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import { Box, Heading, Paragraph } from "theme-ui"
+import { Box, Flex, Heading, Paragraph } from "theme-ui"
 import { timelineEvents } from "../../public/testData.json"
 
 interface ITimeline {
@@ -22,41 +22,58 @@ interface ITimeline {
 
 const Timeline = ({ events }: ITimeline) => {
   return (
-    <Box>
+    <Box className="timeline">
       {events?.map((event, index) => (
-        <Box>
-          <span
+        <Flex
+          key={index}
+          className="event"
+          sx={{
+            justifyContent: "start"
+          }}
+        >
+          <Flex
             sx={{
-              display: "inline-block",
-              width: "10px",
-              height: "10px",
-              backgroundColor: "myGray",
-              borderRadius: "50%"
-            }}
-          />
-          <Heading
-            as="h3"
-            variant="styles.h3"
-            sx={{
-              mx: 4,
-              display: "inline-block",
-              verticalAlign: "middle"
+              flexDirection: "column",
+              alignItems: "center"
             }}
           >
-            {event.title}
-          </Heading>
+            <span
+              sx={{
+                width: "10px",
+                height: "10px",
+                backgroundColor: "myGray",
+                display: "block",
+                borderRadius: "50%"
+              }}
+            />
+            <span
+              sx={{
+                width: "3px",
+                flex: "1 auto",
+                display: "block",
+                backgroundColor: "myGray",
+                mt: 2
+              }}
+            />
+          </Flex>
           <Box
             sx={{
-              mx: "4px",
-              px: 4,
-              borderLeftColor: "myGray",
-              borderLeftStyle: "solid",
-              borderLeftWidth: "2px"
+              ml: 4,
+              display: "inline-block"
             }}
           >
+            <Heading
+              as="h3"
+              variant="styles.h3"
+              sx={{
+                mt: 0
+              }}
+            >
+              {event.title}
+            </Heading>
             <Paragraph>{event.description}</Paragraph>
           </Box>
-        </Box>
+        </Flex>
       ))}
     </Box>
   )

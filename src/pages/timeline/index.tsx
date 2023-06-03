@@ -11,7 +11,11 @@ const TimelineIndexPage = () => {
     <Layout>
       <SEO title="My Experience" metaDescription="" />
       <main>
-        <section sx={{}}>
+        <section
+          sx={{
+            py: 4
+          }}
+        >
           <Container variant="narrow">
             <Timeline
               events={[
