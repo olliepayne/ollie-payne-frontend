@@ -3,6 +3,7 @@ import Layout from "components/Layout"
 import SEO from "components/SEO"
 import Image from "next/image"
 import { Box, Container, Heading, Text } from "theme-ui"
+import { ReactMarkdown } from "react-markdown/lib/react-markdown"
 
 import { blogPosts } from "../../../public/blogPosts.json"
 const { pageTitle, metaDescription, h1, datePublished } = blogPosts[0]
@@ -59,7 +60,7 @@ const BlogPostPage = () => {
         {/* Markdown */}
         <section>
           <Container variant="narrow">
-            {/* markdown parser goes here */}
+            <ReactMarkdown children={} />
           </Container>
         </section>
       </main>
