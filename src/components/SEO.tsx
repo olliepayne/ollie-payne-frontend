@@ -1,11 +1,11 @@
 import Head from "next/head"
 
-interface SEOProps {
+interface ISEO {
   title: string
   metaDescription: string
 }
 
-const SEO = ({ title, metaDescription }: SEOProps) => {
+const SEO = ({ title, metaDescription }: ISEO) => {
   return (
     <Head>
       <title>{title}</title>
