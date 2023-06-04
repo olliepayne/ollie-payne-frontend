@@ -25,12 +25,10 @@ export const theme: Theme = {
   layout: {
     container: {
       maxWidth: 1200,
-      magin: "0 auto",
       px: 3
     },
     narrow: {
       maxWidth: 800,
-      magin: "0 auto",
       px: 3
     }
   },
@@ -44,8 +42,14 @@ export const theme: Theme = {
   ],
   breakpoints: ["769px", "1201px"],
   text: {
+    default: {
+      fontFamily: "body"
+    },
     heading: {
       fontWeight: 700
+    },
+    paragraph: {
+      fontFamily: "body"
     }
   },
   links: {

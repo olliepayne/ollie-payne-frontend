@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import SEO from "components/SEO"
-import { Container, Heading, Flex, Paragraph, Box } from "theme-ui"
+import { Container, Heading, Flex, Paragraph, Box, Text } from "theme-ui"
 import Image from "next/image"
 // import FakeRegion from "components/FakeRegion"
 import Layout from "components/Layout"
@@ -16,7 +16,7 @@ export default function Home() {
         {/* Services / About me */}
         <section
           sx={{
-            py: 3
+            py: [4, 5]
           }}
         >
           <Container>
@@ -26,36 +26,55 @@ export default function Home() {
             <Flex
               sx={{
                 justifyContent: "space-between",
-                alignItems: "center"
+                alignItems: "center",
+                flexDirection: ["column", "row"]
               }}
             >
-              <ul
+              <Container
+                variant="narrow"
                 sx={{
-                  pl: 3,
-                  m: 0,
-                  mr: 4
+                  ml: 0,
+                  pl: 0
                 }}
               >
-                <li>
-                  <Paragraph>SEO Analyst</Paragraph>
-                </li>
-                <li>
-                  <Paragraph>Front-End Developer</Paragraph>
-                </li>
-                <li>
-                  <Paragraph>Competitive sport climber and boulderer</Paragraph>
-                </li>
-              </ul>
+                <ul
+                  sx={{
+                    pl: 3
+                  }}
+                >
+                  <li>
+                    <Text>SEO Analyst</Text>
+                  </li>
+                  <li>
+                    <Text>Front-End Developer</Text>
+                  </li>
+                  <li>
+                    <Text>Competitive sport climber and boulderer</Text>
+                  </li>
+                </ul>
+                <Paragraph
+                  sx={{
+                    mt: 3
+                  }}
+                >
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
+                  molestie tristique lorem a finibus. Praesent vel dui nec metus
+                  vulputate hendrerit ornare nec purus. Mauris sagittis augue
+                  enim, id suscipit turpis convallis sed. Pellentesque molestie
+                  semper magna vel sodales. Aliquam erat volutpat.
+                </Paragraph>
+              </Container>
               <Image
                 src="/placeholder.jpeg"
                 alt=""
                 width={150}
                 height={150}
                 sx={{
+                  mt: [4, 0],
                   objectFit: "cover",
                   borderRadius: "50%",
                   borderStyle: "solid",
-                  borderWidth: "4px",
+                  borderWidth: "2px",
                   borderColor: "#1C1C1C"
                 }}
               />
@@ -67,7 +86,7 @@ export default function Home() {
         <section
           sx={{
             bg: "myLightGray",
-            py: 3
+            py: [4, 5]
           }}
         >
           <Container>
@@ -80,7 +99,7 @@ export default function Home() {
         {/* Contact */}
         <section
           sx={{
-            py: 3
+            py: [4, 5]
           }}
         >
           <Container>
