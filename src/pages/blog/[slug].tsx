@@ -43,7 +43,7 @@ const BlogPostPage = () => {
               sx={{
                 position: "relative",
                 height: ["250px", "400px"],
-                my: [4, 5]
+                my: [4, 5],
               }}
             >
               <Image
@@ -52,7 +52,8 @@ const BlogPostPage = () => {
                 fill
                 sx={{
                   objectFit: "cover",
-                  borderRadius: "8px"
+                  borderRadius: "8px",
+                  filter: "drop-shadow(2px 2px 6px rgb(0 0 0 / 0.3))"
                 }}
               />
             </Box>
@@ -62,7 +63,7 @@ const BlogPostPage = () => {
         {/* Markdown */}
         <section>
           <Container variant="narrow">
-            <ReactMarkdown children={markdown} />
+            {/* <ReactMarkdown children={markdown} /> */}
           </Container>
         </section>
       </main>

@@ -13,6 +13,7 @@ export default function Home() {
         metaDescription="Description"
       />
       <main>
+        {/* Services / About me */}
         <section
           sx={{
             py: 3
@@ -20,7 +21,7 @@ export default function Home() {
         >
           <Container>
             <Heading as="h2" variant="styles.h2">
-              About me
+              What I am
             </Heading>
             <Flex
               sx={{
@@ -61,6 +62,8 @@ export default function Home() {
             </Flex>
           </Container>
         </section>
+
+        {/* Blog */}
         <section
           sx={{
             bg: "myLightGray",
@@ -73,6 +76,8 @@ export default function Home() {
             </Heading>
           </Container>
         </section>
+
+        {/* Contact */}
         <section
           sx={{
             py: 3
@@ -80,7 +85,7 @@ export default function Home() {
         >
           <Container>
             <Heading as="h2" variant="styles.h2">
-              Interested? Get in Touch
+              How Can I Help?
             </Heading>
           </Container>
         </section>
