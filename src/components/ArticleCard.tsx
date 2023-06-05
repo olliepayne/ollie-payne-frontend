@@ -9,7 +9,7 @@ interface IArticleCard {
 
 const ArticleCard = ({ className }: IArticleCard) => {
   return (
-    <Box
+    <article
       className={className}
       sx={{
         p: 3,
@@ -74,7 +74,7 @@ const ArticleCard = ({ className }: IArticleCard) => {
         </Link>
         <Paragraph>Snippet</Paragraph>
       </Box>
-    </Box>
+    </article>
   )
 }
 

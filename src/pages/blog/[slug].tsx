@@ -3,7 +3,7 @@ import Layout from "components/Layout"
 import SEO from "components/SEO"
 import Image from "next/image"
 import { Box, Container, Heading, Text } from "theme-ui"
-import { ReactMarkdown } from "react-markdown/lib/react-markdown"
+import ReactMarkdown from "react-markdown"
 
 import { blogPosts } from "../../../public/blogPosts.json"
 const { pageTitle, metaDescription, h1, datePublished } = blogPosts[0]
@@ -20,21 +20,26 @@ const BlogPostPage = () => {
   return (
     <Layout>
       <SEO title={pageTitle} metaDescription={metaDescription} />
-      <main
+      <article
         sx={{
           minHeight: "3000px"
         }}
       >
+        {/* metadata / frontmatter */}
         <section
           sx={{
-            py: 4
+            // py: 4
           }}
         >
           <Container variant="narrow">
             <Heading as="h1" variant="styles.h1">
               {h1}
             </Heading>
-            <Text>
+            <Text
+              sx={{
+                fontStyle: "italic"
+              }}
+            >
               <time dateTime={datePublished}>{datePublished}</time>
             </Text>
           </Container>
@@ -43,7 +48,7 @@ const BlogPostPage = () => {
               sx={{
                 position: "relative",
                 height: ["250px", "400px"],
-                my: [4, 5],
+                my: 4
               }}
             >
               <Image
@@ -60,13 +65,13 @@ const BlogPostPage = () => {
           </Container>
         </section>
 
-        {/* Markdown */}
+        {/* markdown / blog post content */}
         <section>
           <Container variant="narrow">
-            {/* <ReactMarkdown children={markdown} /> */}
+            <ReactMarkdown>{markdown}</ReactMarkdown>
           </Container>
         </section>
-      </main>
+      </article>
     </Layout>
   )
 }

@@ -27,6 +27,10 @@ export const theme: Theme = {
       maxWidth: 1200,
       px: 3
     },
+    medium: {
+      maxWidth: 1000,
+      px: 3
+    },
     narrow: {
       maxWidth: 800,
       px: 3

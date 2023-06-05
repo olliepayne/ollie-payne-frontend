@@ -9,7 +9,7 @@ interface IFeaturedArticleCard {
 
 const FeaturedArticleCard = ({ className }: IFeaturedArticleCard) => {
   return (
-    <Box
+    <article
       className={className}
       sx={{
         p: 3,
@@ -61,7 +61,7 @@ const FeaturedArticleCard = ({ className }: IFeaturedArticleCard) => {
         </Heading>
       </Link>
       <Paragraph>Lorem ipsum delor sit.</Paragraph>
-    </Box>
+    </article>
   )
 }
 
