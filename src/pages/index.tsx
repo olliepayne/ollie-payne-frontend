@@ -109,6 +109,10 @@ export default function Home() {
           <Heading as="h2" variant="styles.h2">
             How Can I Help?
           </Heading>
+          <Text>
+            Don't hesitate to reach out. I’d be happy to work with you to find a
+            solution to your problem.
+          </Text>
         </Container>
       </section>
     </Layout>
