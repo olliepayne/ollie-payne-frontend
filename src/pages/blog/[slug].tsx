@@ -19,7 +19,7 @@ import markdown from "../../../public/markdown.md"
 interface ICustomComponentProps {
   children: React.ReactNode | React.ReactNode[]
 }
-const components: any = {
+const components: any = { // using type any to save time -- not critical
   p: Paragraph,
   h2: ({ children }: ICustomComponentProps) => (
     <Heading as="h2" variant="styles.h2">

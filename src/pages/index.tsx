@@ -42,14 +42,14 @@ export default function Home() {
                 }}
               >
                 <li>
-                  <Heading as="h4">SEO Analyst</Heading>
-                </li>
-                <li>
                   <Heading as="h4">Front-End Developer</Heading>
                 </li>
                 <li>
+                  <Heading as="h4">SEO Analyst</Heading>
+                </li>
+                <li>
                   <Heading as="h4">
-                    Competitive Sport climber and Boulderer
+                    Competitive Sport Climber and Boulderer
                   </Heading>
                 </li>
               </ul>
@@ -59,12 +59,13 @@ export default function Home() {
                 }}
               >
                 Hi, I’m Ollie. I have been coding since I was a young teen
-                working on indie games, and got into front-end development after
-                teaching myself post-high school. Since then, I have improved my
-                craft through professional experience and have been fortunate
-                enough to expand my knowledge of proper front-end practices by
-                working an SEO focused role. I currently work and train out of
-                Prescott, Arizona.
+                working on indie games. I got into front-end development after
+                teaching myself post-high school, while working and training at
+                the climbing gym that I then worked at. Since then, I have
+                improved my craft through professional experience and have been
+                fortunate enough to improve finer details of my front-end
+                ability by working an SEO focused role. I currently work and
+                train out of Prescott, Arizona.
               </Paragraph>
             </Container>
             <Image
@@ -109,10 +110,10 @@ export default function Home() {
           <Heading as="h2" variant="styles.h2">
             How Can I Help?
           </Heading>
-          <Text>
+          <Paragraph>
             Don't hesitate to reach out. I’d be happy to work with you to find a
             solution to your problem.
-          </Text>
+          </Paragraph>
         </Container>
       </section>
     </Layout>
