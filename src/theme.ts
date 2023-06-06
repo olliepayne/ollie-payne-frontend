@@ -53,7 +53,8 @@ export const theme: Theme = {
       fontWeight: 700
     },
     paragraph: {
-      fontFamily: "body"
+      fontFamily: "body",
+      lineHeight: 1.5
     }
   },
   links: {

@@ -42,13 +42,15 @@ export default function Home() {
                 }}
               >
                 <li>
-                  <Text>SEO Analyst</Text>
+                  <Heading as="h4">SEO Analyst</Heading>
                 </li>
                 <li>
-                  <Text>Front-End Developer</Text>
+                  <Heading as="h4">Front-End Developer</Heading>
                 </li>
                 <li>
-                  <Text>Competitive sport climber and boulderer</Text>
+                  <Heading as="h4">
+                    Competitive Sport climber and Boulderer
+                  </Heading>
                 </li>
               </ul>
               <Paragraph
@@ -56,11 +58,13 @@ export default function Home() {
                   mt: 3
                 }}
               >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-                molestie tristique lorem a finibus. Praesent vel dui nec metus
-                vulputate hendrerit ornare nec purus. Mauris sagittis augue
-                enim, id suscipit turpis convallis sed. Pellentesque molestie
-                semper magna vel sodales. Aliquam erat volutpat.
+                Hi, I’m Ollie. I have been coding since I was a young teen
+                working on indie games, and got into front-end development after
+                teaching myself post-high school. Since then, I have improved my
+                craft through professional experience and have been fortunate
+                enough to expand my knowledge of proper front-end practices by
+                working an SEO focused role. I currently work and train out of
+                Prescott, Arizona.
               </Paragraph>
             </Container>
             <Image

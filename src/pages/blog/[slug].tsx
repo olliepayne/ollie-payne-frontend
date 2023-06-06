@@ -4,7 +4,6 @@ import SEO from "components/SEO"
 import Image from "next/image"
 import { Box, Container, Heading, Text, Paragraph } from "theme-ui"
 import ReactMarkdown from "react-markdown"
-import { theme } from "theme"
 
 import { blogPosts } from "../../../public/blogPosts.json"
 const { pageTitle, metaDescription, h1, datePublished } = blogPosts[0]
@@ -20,7 +19,7 @@ import markdown from "../../../public/markdown.md"
 interface ICustomComponentProps {
   children: React.ReactNode | React.ReactNode[]
 }
-const components = {
+const components: any = {
   p: Paragraph,
   h2: ({ children }: ICustomComponentProps) => (
     <Heading as="h2" variant="styles.h2">
