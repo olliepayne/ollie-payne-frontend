@@ -51,7 +51,7 @@ const BlogPostPage = () => {
   return (
     <Layout>
       <SEO title={pageTitle} metaDescription={metaDescription} />
-      <Container variant="narrow">
+      <Container>
         <BreadcrumbNav />
       </Container>
       <article

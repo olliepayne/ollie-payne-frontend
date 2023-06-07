@@ -11,8 +11,12 @@ const TimelineIndexPage = () => {
   return (
     <Layout>
       <SEO title="My Experience" metaDescription="" />
-      <BreadcrumbNav />
-      <main>
+      {/* <BreadcrumbNav /> */}
+      <main
+        sx={{
+          minHeight: "100vh"
+        }}
+      >
         <section
           sx={{
             py: 4

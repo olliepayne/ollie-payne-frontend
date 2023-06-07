@@ -22,10 +22,9 @@ const BreadcrumbNav = () => {
         p: 0,
         li: {
           fontFamily: "body",
-          fontWeight: 700,
           a: {
             textDecoration: "none",
-            color: "myGray",
+            color: "black",
             ":hover": {
               textDecoration: "underline"
             }
@@ -48,7 +47,13 @@ const BreadcrumbNav = () => {
           {index < pathSplit.length - 1 ? (
             <Link href={`/${pathLink}`}>{pathLinkToCamelCase(pathLink)}</Link>
           ) : (
-            <Text>{pathLinkToCamelCase(pathLink)}</Text>
+            <Text
+              sx={{
+                fontWeight: 700
+              }}
+            >
+              {pathLinkToCamelCase(pathLink)}
+            </Text>
           )}
         </li>
       ))}

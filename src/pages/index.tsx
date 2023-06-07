@@ -60,11 +60,11 @@ export default function Home() {
               >
                 Hi, I’m Ollie. I have been coding since I was a young teen
                 working on indie games. I got into front-end development after
-                teaching myself post-high school, while working and training at
+                teaching myself post-high school, while also training at
                 the climbing gym that I then worked at. Since then, I have
                 improved my craft through professional experience and have been
-                fortunate enough to improve finer details of my front-end
-                ability by working an SEO focused role. I currently work and
+                fortunate enough to improve finer details of my Front-End
+                ability by spending some time working as an SEO Analyst. I currently work and
                 train out of Prescott, Arizona.
               </Paragraph>
             </Container>
