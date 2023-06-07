@@ -88,7 +88,7 @@ export const theme: Theme = {
     h1: {
       variant: "text.heading",
       fontSize: [4, 5],
-      my: 3
+      my: 4
     },
     h2: {
       variant: "text.heading",

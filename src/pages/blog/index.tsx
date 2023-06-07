@@ -16,6 +16,9 @@ const BlogIndexPage = () => {
           }}
         >
           <Container>
+            <Heading as="h1" variant="styles.h1">
+              Blog
+            </Heading>
             <Heading
               as="h3"
               variant="styles.h3"

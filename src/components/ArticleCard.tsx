@@ -15,6 +15,7 @@ const ArticleCard = ({ className }: IArticleCard) => {
         p: 3,
         justifyContent: "space-between",
         position: "relative",
+        bg: "myLightGray",
         ":hover": {
           cursor: "pointer",
           ".article-title": {
