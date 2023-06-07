@@ -86,7 +86,7 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* Blog */}
+      {/* projects */}
       <section
         sx={{
           bg: "myLightGray",
@@ -95,12 +95,12 @@ export default function Home() {
       >
         <Container>
           <Heading as="h2" variant="styles.h2">
-            Blog
+            My Favorite Projects
           </Heading>
         </Container>
       </section>
 
-      {/* Contact */}
+      {/* contact */}
       <section
         sx={{
           py: [4, 5]
