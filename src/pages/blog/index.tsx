@@ -4,6 +4,19 @@ import Layout from "components/Layout"
 import SEO from "components/SEO"
 import { Flex, Container, Heading } from "theme-ui"
 import ArticleCard from "components/ArticleCard"
+import type { InferGetStaticPropsType, GetStaticProps } from "next"
+
+const blogPostsUrl = `${process.env.STRAPI_URL}/blog-posts`
+console.log(blogPostsUrl)
+// export const getStaticProps: GetStaticProps = async () => {
+//   const res = await fetch(blogPostsUrl)
+//   const data = await res.json()
+//   return {
+//     props: {
+//       data
+//     }
+//   }
+// }
 
 const BlogIndexPage = () => {
   return (
@@ -26,7 +39,7 @@ const BlogIndexPage = () => {
                 mb: 2
               }}
             >
-              Featured Articles
+              Recent Articles
             </Heading>
             <Flex
               sx={{
@@ -74,7 +87,7 @@ const BlogIndexPage = () => {
                 mb: 2
               }}
             >
-              Filter
+              Explore Categories
             </Heading>
           </Container>
         </section>
