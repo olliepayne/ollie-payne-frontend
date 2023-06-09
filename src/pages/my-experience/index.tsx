@@ -7,7 +7,23 @@ import BreadcrumbNav from "components/BreadcrumbNav"
 
 // import { timelineEvents } from "../../../public/testData.json"
 
-const TimelineIndexPage = () => {
+// Data fetching
+const timelineEventsUrl = `${process.env.STRAPI_API_URL}/api/timeline-events`
+
+export const getStaticProps = async () => {
+  const res = await fetch(timelineEventsUrl)
+  const data = await res.json()
+
+  return {
+    props: {
+      data
+    }
+  }
+}
+
+const TimelineIndexPage = (props) => {
+  console.log(props)
+
   return (
     <Layout>
       <SEO title="My Experience" metaDescription="" />

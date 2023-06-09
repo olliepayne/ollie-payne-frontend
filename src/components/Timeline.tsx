@@ -6,8 +6,8 @@ interface ITimeline {
   events?: {
     institutionName: string
     title: string
-    timeInvestment: string
-    startDate: {
+    timeInvestment?: string
+    startDate?: {
       month: string
       year: number
     }
@@ -88,7 +88,7 @@ const Timeline = ({ events }: ITimeline) => {
               }}
             >
               <time>
-                {event.startDate.month} {event.startDate.year} -
+                {event.startDate?.month} {event.startDate?.year} -
               </time>
               {event.endDate ? (
                 <time>
