@@ -6,11 +6,9 @@ import { Flex, Container, Heading, Grid } from "theme-ui"
 import ArticleCard from "components/ArticleCard"
 import { InferGetStaticPropsType, GetStaticProps } from "next"
 
+// Data fetching
 const blogPostsUrl = `${process.env.STRAPI_API_URL}/api/blog-posts`
 
-type Data = {}
-
-// rewrite as Typescript
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(blogPostsUrl)
   const data = await res.json()

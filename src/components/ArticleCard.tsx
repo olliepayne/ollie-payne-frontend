@@ -58,7 +58,7 @@ const ArticleCard = ({ className, blogPost }: IArticleCard) => {
         }}
       >
         <Link
-          href="/blog/slug"
+          href={`/blog/${blogPost.slug}`}
           sx={{
             color: "unset",
             display: "block",

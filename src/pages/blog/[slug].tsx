@@ -10,6 +10,7 @@ import BreadcrumbNav from "components/BreadcrumbNav"
 import { blogPosts } from "../../../public/blogPosts.json"
 const { pageTitle, metaDescription, h1, datePublished } = blogPosts[0]
 import markdown from "../../../public/markdown.md"
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 
 // interface IBlogPostPage {
 //   pageTitle: string
@@ -47,7 +48,44 @@ const components: any = {
   )
 }
 
-const BlogPostPage = () => {
+// Data fetching
+const blogPostsUrl = `${process.env.STRAPI_API_URL}/api/blog-posts`
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const res = await fetch(blogPostsUrl)
+  const payload = await res.json()
+
+  const paths = payload.data.map((blogPost) => {
+    return {
+      params: {
+        slug: blogPost.attributes.slug
+      }
+    }
+  })
+
+  return {
+    paths,
+    fallback: false
+  }
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const res = await fetch(
+    `${blogPostsUrl}/blog-posts?filters[slug][$eq]=${params?.slug}`
+  )
+  const data = await res.json()
+
+  return {
+    props: {
+      data
+    }
+  }
+}
+
+// Add: Types
+const BlogPostPage = (props) => {
+  console.log(props)
+
   return (
     <Layout>
       <SEO title={pageTitle} metaDescription={metaDescription} />
