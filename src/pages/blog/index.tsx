@@ -4,32 +4,29 @@ import Layout from "components/Layout"
 import SEO from "components/SEO"
 import { Flex, Container, Heading, Grid } from "theme-ui"
 import ArticleCard from "components/ArticleCard"
-import type { InferGetStaticPropsType, GetStaticProps } from "next"
+import { InferGetStaticPropsType, GetStaticProps } from "next"
 
 const blogPostsUrl = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/blog-posts`
-// console.log(blogPostsUrl)
-// const testFetch = async () => {
-//   const res = await fetch(blogPostsUrl)
-//   const data = await res.json()
-//   console.log(data)
-// }
-// testFetch()
-// type Repo = {
-//   data: any
-// }
+console.log(blogPostsUrl)
+
+type Data = {}
 
 // rewrite as Typescript
-export const getStaticProps = async () => {
-  const res = await fetch("http://localhost:1337/api/blog-posts")
-  const repo = await res.json()
+export const getStaticProps: GetStaticProps = async () => {
+  const response = await fetch(blogPostsUrl)
+  const data = await response.json()
   return {
     props: {
-      repo
+      data
     }
   }
 }
 
-const BlogIndexPage = () => {
+const BlogIndexPage = ({
+  props
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
+  console.log(props)
+
   return (
     <Layout>
       <SEO title="Blog | Ollie Payne" metaDescription="" />
@@ -63,13 +60,7 @@ const BlogIndexPage = () => {
                 m: 0
               }}
             >
-              <li
-                sx={
-                  {
-                    // gridColumn: "auto"
-                  }
-                }
-              >
+              <li>
                 <ArticleCard />
               </li>
               <li>
@@ -81,24 +72,24 @@ const BlogIndexPage = () => {
             </ul>
           </Container>
         </section>
-        <section
-          sx={{
-            py: 3
-          }}
-        >
-          <Container>
-            <Heading
-              as="h3"
-              variant="styles.h3"
-              sx={{
-                mb: 2
-              }}
-            >
-              Explore Categories
-            </Heading>
-          </Container>
-        </section>
       </main>
+      <section
+        sx={{
+          py: 3
+        }}
+      >
+        <Container>
+          <Heading
+            as="h3"
+            variant="styles.h3"
+            sx={{
+              mb: 2
+            }}
+          >
+            Explore Categories
+          </Heading>
+        </Container>
+      </section>
     </Layout>
   )
 }

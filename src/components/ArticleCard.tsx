@@ -27,10 +27,8 @@ const ArticleCard = ({ className }: IArticleCard) => {
       <Box
         sx={{
           position: "relative",
-          // aspectRatio: "1 / 1",
           height: "250px",
-          width: "100%",
-          mr: 3
+          width: "100%"
         }}
       >
         <Image
