@@ -2,14 +2,14 @@
 import FeaturedArticleCard from "components/FeaturedArticleCard"
 import Layout from "components/Layout"
 import SEO from "components/SEO"
-import { Flex, Container, Heading } from "theme-ui"
+import { Flex, Container, Heading, Grid } from "theme-ui"
 import ArticleCard from "components/ArticleCard"
 import type { InferGetStaticPropsType, GetStaticProps } from "next"
 
-const blogPostsUrl = `${process.env.STRAPI_URL}/blog-posts`
-console.log(blogPostsUrl)
+const blogPostsUrl = `${process.env.STRAPI_URL}/api/blog-posts`
+// console.log(blogPostsUrl)
 // export const getStaticProps: GetStaticProps = async () => {
-//   const res = await fetch(blogPostsUrl)
+//   const res = await fetch("http://localhost:1337/api/blog-posts")
 //   const data = await res.json()
 //   return {
 //     props: {
@@ -41,37 +41,33 @@ const BlogIndexPage = () => {
             >
               Recent Articles
             </Heading>
-            <Flex
+            <ul
               sx={{
-                justifyContent: "space-between",
-                flexDirection: ["column", "row"]
+                display: "grid",
+                columnGap: 3,
+                rowGap: 3,
+                gridTemplateColumns: ["1", "repeat(3, 1fr)"],
+                listStyleType: "none",
+                p: 0,
+                m: 0
               }}
             >
-              <FeaturedArticleCard
-                sx={{
-                  flex: "2",
-                  mr: [0, 4]
-                }}
-              />
-              <ul
-                sx={{
-                  flex: "1",
-                  listStyleType: "none",
-                  p: 0,
-                  m: 0
-                }}
+              <li
+                sx={
+                  {
+                    // gridColumn: "auto"
+                  }
+                }
               >
-                <li>
-                  <ArticleCard
-                    sx={
-                      {
-                        // width: "100%"
-                      }
-                    }
-                  />
-                </li>
-              </ul>
-            </Flex>
+                <ArticleCard />
+              </li>
+              <li>
+                <ArticleCard />
+              </li>
+              <li>
+                <ArticleCard />
+              </li>
+            </ul>
           </Container>
         </section>
         <section
