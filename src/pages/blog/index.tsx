@@ -6,15 +6,14 @@ import { Flex, Container, Heading, Grid } from "theme-ui"
 import ArticleCard from "components/ArticleCard"
 import { InferGetStaticPropsType, GetStaticProps } from "next"
 
-const blogPostsUrl = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/blog-posts`
-console.log(blogPostsUrl)
+const blogPostsUrl = `${process.env.STRAPI_API_URL}/api/blog-posts`
 
 type Data = {}
 
 // rewrite as Typescript
 export const getStaticProps: GetStaticProps = async () => {
-  const response = await fetch(blogPostsUrl)
-  const data = await response.json()
+  const res = await fetch(blogPostsUrl)
+  const data = await res.json()
   return {
     props: {
       data
@@ -23,10 +22,8 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const BlogIndexPage = ({
-  props
+  data: { data, meta }
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  console.log(props)
-
   return (
     <Layout>
       <SEO title="Blog | Ollie Payne" metaDescription="" />
@@ -60,15 +57,11 @@ const BlogIndexPage = ({
                 m: 0
               }}
             >
-              <li>
-                <ArticleCard />
-              </li>
-              <li>
-                <ArticleCard />
-              </li>
-              <li>
-                <ArticleCard />
-              </li>
+              {data.map((blogPost, index) => (
+                <li key={index}>
+                  <ArticleCard blogPost={blogPost.attributes} />
+                </li>
+              ))}
             </ul>
           </Container>
         </section>

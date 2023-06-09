@@ -3,11 +3,22 @@ import { Box, Heading, Paragraph, Flex } from "theme-ui"
 import Link from "next/link"
 import Image from "next/image"
 
-interface IArticleCard {
-  className?: string
+type BlogPost = {
+  slug: string
+  pageTitle: string
+  datePublished: string
+  h1: string
+  content: string
 }
 
-const ArticleCard = ({ className }: IArticleCard) => {
+interface IArticleCard {
+  className?: string
+  blogPost: BlogPost
+}
+
+const ArticleCard = ({ className, blogPost }: IArticleCard) => {
+  console.log(blogPost)
+
   return (
     <article
       className={className}
@@ -27,7 +38,7 @@ const ArticleCard = ({ className }: IArticleCard) => {
       <Box
         sx={{
           position: "relative",
-          height: "250px",
+          height: ["150px", "250px"],
           width: "100%"
         }}
       >
@@ -68,7 +79,7 @@ const ArticleCard = ({ className }: IArticleCard) => {
               textDecoration: "underline"
             }}
           >
-            Article Title
+            {blogPost.pageTitle}
           </Heading>
         </Link>
         <Paragraph>Snippet</Paragraph>
