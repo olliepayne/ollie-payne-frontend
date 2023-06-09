@@ -58,7 +58,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = payload.data.map((blogPost) => {
     return {
       params: {
-        slug: blogPost.attributes.slug
+        slug: blogPost.attributes.slug,
+        id: blogPost.id
       }
     }
   })
@@ -70,9 +71,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const res = await fetch(
-    `${blogPostsUrl}/blog-posts?filters[slug][$eq]=${params?.slug}`
-  )
+  const res = await fetch(`${blogPostsUrl}?filters[slug][$eq]=${params?.slug}`)
+  // const res = await fetch(`${blogPostsUrl}/${params?.id}`)
   const data = await res.json()
 
   return {
@@ -84,11 +84,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 // Add: Types
 const BlogPostPage = (props) => {
-  console.log(props)
+  // console.log(props?.data?.data[0].attributes)
+  const blogPost = props?.data?.data[0].attributes
 
   return (
     <Layout>
-      <SEO title={pageTitle} metaDescription={metaDescription} />
+      <SEO title={blogPost.pageTitle} metaDescription={metaDescription} />
       <Container>
         <BreadcrumbNav />
       </Container>
@@ -97,7 +98,7 @@ const BlogPostPage = (props) => {
           pb: 5
         }}
       >
-        {/* metadata / frontmatter */}
+        {/* Metadata / frontmatter */}
         <section
           sx={
             {
@@ -107,7 +108,7 @@ const BlogPostPage = (props) => {
         >
           <Container variant="narrow">
             <Heading as="h1" variant="styles.h1">
-              {h1}
+              {blogPost.h1}
             </Heading>
             <Text
               sx={{
@@ -142,7 +143,7 @@ const BlogPostPage = (props) => {
         {/* markdown / blog post content */}
         <section>
           <Container variant="narrow">
-            <ReactMarkdown components={components}>{markdown}</ReactMarkdown>
+            <ReactMarkdown components={components}>{blogPost.content}</ReactMarkdown>
           </Container>
         </section>
       </article>
