@@ -4,20 +4,22 @@ import { useRouter } from "next/router"
 import { Text } from "theme-ui"
 
 const BreadcrumbNav = () => {
+  // Get the current path and split each folder + current slug into an array
   const { asPath } = useRouter()
   let pathSplit = asPath.split("/")
   pathSplit = pathSplit.splice(1, pathSplit.length)
 
-  type PathLinkToCamelCase = (pathLink: string) => string
-  const pathLinkToCamelCase: PathLinkToCamelCase = (pathLink: string) =>
-    `${pathLink.charAt(0).toUpperCase()}${pathLink.slice(1, pathLink.length)}`
-
+  // Check if the slug has any "-", split and rejoin
   const slug = pathSplit[pathSplit.length - 1]
   if (slug.includes("-")) {
     const slugSplit = slug.split("-")
     pathSplit[pathSplit.length - 1] = slugSplit.join(" ")
   }
-  // console.log(pathSplit[pathSplit.length - 1])
+
+  // Turn the current pathLink from our .map() into camel case
+  type PathLinkToCamelCase = (pathLink: string) => string
+  const pathLinkToCamelCase: PathLinkToCamelCase = (pathLink: string) =>
+    `${pathLink.charAt(0).toUpperCase()}${pathLink.slice(1, pathLink.length)}`
 
   return (
     <ul
