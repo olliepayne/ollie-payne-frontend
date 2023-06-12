@@ -1,5 +1,6 @@
 /** @jsxImportSource theme-ui */
 import { TimelineEvent, TimelineEventData } from "helpers/myTypes"
+import { parsedKebabDate } from "helpers/parsedDate"
 import { Box, Flex, Heading, Paragraph, Text } from "theme-ui"
 
 // Props
@@ -75,17 +76,21 @@ const Timeline = ({ events }: Timeline) => {
                 fontFamily: "body"
               }}
             >
-              {/* <time>
-                {startDate?.month} {startDate?.year} -
+              <time>
+                {parsedKebabDate(event.attributes.startDate, "SHORT").month}{" "}
+                {parsedKebabDate(event.attributes.startDate, "SHORT").year} -
               </time>
-              {event.endDate ? (
+              {event.attributes.endDate ? (
                 <time>
                   {" "}
-                  {event.endDate.month} {event.endDate.year}
+                  {
+                    parsedKebabDate(event.attributes.endDate, "SHORT").month
+                  }{" "}
+                  {parsedKebabDate(event.attributes.endDate, "SHORT").year}
                 </time>
               ) : (
                 " Present"
-              )} */}
+              )}
             </Text>
             <Paragraph
               sx={{

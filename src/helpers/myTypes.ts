@@ -32,15 +32,9 @@ export type BlogPost = {
 export type TimelineEventAttributes = {
   institutionName: string
   occupationTitle: string
-  // timeInvestment?: string
-  startDate: {
-    month: string
-    year: number
-  }
-  endDate?: {
-    month: string
-    year: number
-  }
+  commitment: string
+  startDate: string
+  endDate?: string
   description: string
 }
 

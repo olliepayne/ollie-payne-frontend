@@ -29,7 +29,7 @@ const shortMonths = [
 ]
 
 type MonthFormat = "SHORT" | "FULL"
-export const parseKebabDate = (kebabDate: string, monthFormat: MonthFormat) => {
+export const parsedKebabDate = (kebabDate: string, monthFormat: MonthFormat) => {
   const splitKebabDate = kebabDate.split("-")
 
   let day: string = splitKebabDate[2]

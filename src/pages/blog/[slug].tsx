@@ -9,7 +9,7 @@ import { GetStaticPaths, GetStaticProps } from "next"
 import ContactSection from "components/ContactSection"
 import { getStrapiUrl } from "helpers/api"
 import { BlogPost, BlogPostData } from "helpers/myTypes"
-import { parseKebabDate } from "helpers/parseDate"
+import { parsedKebabDate } from "helpers/parsedDate"
 
 // Markdown custom component props & custom components
 type ICustomComponentProps = {
@@ -85,7 +85,7 @@ const BlogPostPage = ({ data: { data } }: IBlogPostPage) => {
   // Destructure data
   const { pageTitle, metaDescription, h1, datePublished, dateEdited, content } =
     data[0].attributes
-  const parsedDatePublished = parseKebabDate(datePublished, "SHORT")
+  const parsedDatePublished = parsedKebabDate(datePublished, "SHORT")
 
   return (
     <Layout>
