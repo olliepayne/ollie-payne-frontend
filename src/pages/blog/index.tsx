@@ -5,9 +5,10 @@ import { Flex, Container, Heading } from "theme-ui"
 import ArticleCard from "components/ArticleCard"
 import { InferGetStaticPropsType, GetStaticProps } from "next"
 import { BlogPost } from "helpers/myTypes"
+import { getStrapiUrl } from "helpers/api"
 
 // Data fetching
-const blogPostsUrl = `${process.env.STRAPI_API_URL}/api/blog-posts`
+const blogPostsUrl = `${getStrapiUrl()}/api/blog-posts`
 
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(blogPostsUrl)
@@ -19,9 +20,24 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-const BlogIndexPage = ({
-  data: { data, meta }
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+// Change: move this into myTypes.ts
+interface IBlogIndexPage {
+  data: {
+    data: {
+      attributes: BlogPost
+      id: number
+    }[]
+    meta: {
+      pagination: {
+        page: number
+        pageSize: number
+        pageCount: number
+        total: number
+      }
+    }
+  }
+}
+const BlogIndexPage = ({ data: { data, meta } }: IBlogIndexPage) => {
   return (
     <Layout>
       <SEO title="Blog | Ollie Payne" metaDescription="" />

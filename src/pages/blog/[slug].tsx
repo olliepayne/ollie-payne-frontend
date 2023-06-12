@@ -5,13 +5,10 @@ import Image from "next/image"
 import { Box, Container, Heading, Text, Paragraph } from "theme-ui"
 import ReactMarkdown from "react-markdown"
 import BreadcrumbNav from "components/BreadcrumbNav"
-
-// test data
-import { blogPosts } from "../../../public/blogPosts.json"
-const { pageTitle, metaDescription, h1, datePublished } = blogPosts[0]
-import markdown from "../../../public/markdown.md"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ContactSection from "components/ContactSection"
+import { getStrapiUrl } from "helpers/api"
+import { BlogPost } from "helpers/myTypes"
 
 // interface IBlogPostPage {
 //   pageTitle: string
@@ -19,6 +16,7 @@ import ContactSection from "components/ContactSection"
 //   h1: string
 // }
 
+// Markdown custom component
 interface ICustomComponentProps {
   children: React.ReactNode | React.ReactNode[]
 }
@@ -50,7 +48,7 @@ const components: any = {
 }
 
 // Data fetching
-const blogPostsUrl = `${process.env.STRAPI_API_URL}/api/blog-posts`
+const blogPostsUrl = `${getStrapiUrl()}/api/blog-posts`
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch(blogPostsUrl)
@@ -83,14 +81,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 }
 
-// Add: Types
-const BlogPostPage = (props) => {
+interface IBlogPostPage {
+  data: {
+    data: {
+      attributes: BlogPost
+    }[]
+  }
+}
+
+const BlogPostPage = ({ data: { data } }: IBlogPostPage) => {
   // console.log(props?.data?.data[0].attributes)
-  const blogPost = props?.data?.data[0].attributes
+  const { pageTitle, metaDescription, h1, datePublished, dateEdited, content } =
+    data[0].attributes
 
   return (
     <Layout>
-      <SEO title={blogPost.pageTitle} metaDescription={metaDescription} />
+      <SEO title={pageTitle} metaDescription={"metaDescription"} />
       <Container>
         <BreadcrumbNav />
       </Container>
@@ -109,7 +115,7 @@ const BlogPostPage = (props) => {
         >
           <Container variant="narrow">
             <Heading as="h1" variant="styles.h1">
-              {blogPost.h1}
+              {h1}
             </Heading>
             <Text
               sx={{
@@ -144,7 +150,7 @@ const BlogPostPage = (props) => {
         {/* Markdown / blog post content */}
         <section>
           <Container variant="narrow">
-            <ReactMarkdown components={components}>{blogPost.content}</ReactMarkdown>
+            <ReactMarkdown components={components}>{content}</ReactMarkdown>
           </Container>
         </section>
       </article>
