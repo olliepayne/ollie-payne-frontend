@@ -117,13 +117,13 @@ const Header = () => {
             </li>
             <li>
               <Link
-                href="/my-experience"
+                href="/experience"
                 sx={{
                   variant: "links.underlineLeftToRight",
                   fontSize: 1
                 }}
               >
-                My Experience
+                Experience
               </Link>
             </li>
             <li>
@@ -141,11 +141,23 @@ const Header = () => {
               <Link
                 href="#"
                 sx={{
-                  variant: "links.underlineLeftToRight",
-                  fontSize: 1
+                  py: 2,
+                  px: 3,
+                  // variant: "links.underlineLeftToRight",
+                  fontSize: 1,
+                  fontFamily: "body",
+                  color: "black",
+                  backgroundColor: "transparent",
+                  borderWidth: "2px",
+                  borderStyle: "solid",
+                  borderColor: "myPink",
+                  transition: "all 0.2s ease-out",
+                  ":hover": {
+                    backgroundColor: "myPink"
+                  }
                 }}
               >
-                Contact
+                Hire Me
               </Link>
             </li>
           </ul>

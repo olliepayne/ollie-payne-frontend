@@ -50,7 +50,8 @@ export const theme: Theme = {
       fontFamily: "body"
     },
     heading: {
-      fontWeight: 700
+      fontWeight: 700,
+      textTransform: "uppercase"
     },
     paragraph: {
       fontFamily: "body",
@@ -59,6 +60,7 @@ export const theme: Theme = {
   },
   links: {
     underlineLeftToRight: {
+      textTransform: "uppercase",
       py: 1,
       fontFamily: "body",
       color: "black",
