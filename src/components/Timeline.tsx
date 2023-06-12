@@ -1,25 +1,13 @@
 /** @jsxImportSource theme-ui */
+import { TimelineEvent, TimelineEventData } from "helpers/myTypes"
 import { Box, Flex, Heading, Paragraph, Text } from "theme-ui"
-import { timelineEvents } from "../../public/testData.json"
 
-interface ITimeline {
-  events?: {
-    institutionName: string
-    title: string
-    timeInvestment?: string
-    startDate?: {
-      month: string
-      year: number
-    }
-    endDate?: {
-      month: string
-      year: number
-    }
-    description: string
-  }[]
+// Props
+type Timeline = {
+  events: TimelineEventData[]
 }
 
-const Timeline = ({ events }: ITimeline) => {
+const Timeline = ({ events }: Timeline) => {
   return (
     <Box className="timeline">
       {events?.map((event, index) => (
@@ -70,7 +58,7 @@ const Timeline = ({ events }: ITimeline) => {
                 mt: 0
               }}
             >
-              {event.institutionName}
+              {event.attributes.institutionName}
             </Heading>
             <Heading
               as="h4"
@@ -79,7 +67,7 @@ const Timeline = ({ events }: ITimeline) => {
                 mt: 0
               }}
             >
-              {event.title}
+              {event.attributes.occupationTitle}
             </Heading>
             <Text
               sx={{
@@ -87,8 +75,8 @@ const Timeline = ({ events }: ITimeline) => {
                 fontFamily: "body"
               }}
             >
-              <time>
-                {event.startDate?.month} {event.startDate?.year} -
+              {/* <time>
+                {startDate?.month} {startDate?.year} -
               </time>
               {event.endDate ? (
                 <time>
@@ -97,14 +85,14 @@ const Timeline = ({ events }: ITimeline) => {
                 </time>
               ) : (
                 " Present"
-              )}
+              )} */}
             </Text>
             <Paragraph
               sx={{
                 mt: 2
               }}
             >
-              {event.description}
+              {event.attributes.description}
             </Paragraph>
           </Box>
         </Flex>
