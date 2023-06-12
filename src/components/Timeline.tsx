@@ -74,7 +74,6 @@ const Timeline = ({ events }: Timeline) => {
                 mt: 0
               }}
             >
-              {/* {event.attributes.institutionName} */}
               {!isSameInstitution(event, index) &&
                 event.attributes.institutionName}
             </Heading>
