@@ -13,8 +13,8 @@ export default function Home() {
         title="Ollie Payne - Frontend Developer & Digital Marketer"
         metaDescription="Description"
       />
-      {/* Hero */}
-      <section sx={{}}>
+      {/* Hero image */}
+      <section>
         <Box
           sx={{
             height: "400px",
@@ -27,11 +27,11 @@ export default function Home() {
             sx={{
               width: "100%",
               height: "100%",
-              position: "relative",
-              zIndex: 2,
-              bg: "black",
-              opacity: 0.1,
-              display: "block"
+              position: "absolute",
+              inset: 0,
+              zIndex: 1,
+              backgroundColor: "rgb(0 0 0 / 0.25)",
+              backdropFilter: "blur(6px)"
             }}
           />
           <Image
@@ -39,8 +39,8 @@ export default function Home() {
             alt=""
             fill
             sx={{
-              objectFit: "cover",
-              filter: "blur(6px)"
+              objectFit: "cover"
+              // filter: "blur(6px)"
             }}
           />
         </Box>
@@ -93,7 +93,7 @@ export default function Home() {
                 }}
               >
                 Hi, I’m Ollie. I have been coding since I was a young teen
-                working on indie games. I got into front-end development after
+                working on indie games. I got into Front-End development after
                 teaching myself post-high school, while also training at the
                 climbing gym that I then worked at. Since then, I have improved
                 my craft through professional experience and have been fortunate

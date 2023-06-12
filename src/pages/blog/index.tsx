@@ -53,16 +53,16 @@ const BlogIndexPage = ({ blogPosts: { data, meta } }: IBlogIndexPage) => {
             </Heading>
             <ul
               sx={{
-                display: "flex",
+                display: "grid",
                 justifyContent: "flex-start",
-                flexWrap: "wrap",
                 listStyleType: "none",
+                gridTemplateColumns: ["1fr", "repeat(3, 1fr)"],
                 rowGap: 3,
                 columnGap: 3,
                 p: 0,
                 m: 0,
                 li: {
-                  flex: "0 1 33%"
+                  flex: "0 1 1fr"
                 }
               }}
             >
