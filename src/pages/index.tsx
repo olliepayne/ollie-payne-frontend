@@ -13,6 +13,39 @@ export default function Home() {
         title="Ollie Payne - Frontend Developer & Digital Marketer"
         metaDescription="Description"
       />
+      {/* Hero */}
+      <section sx={{}}>
+        <Box
+          sx={{
+            height: "400px",
+            position: "relative",
+            overflow: "hidden"
+          }}
+        >
+          {/* Gray overylay */}
+          <span
+            sx={{
+              width: "100%",
+              height: "100%",
+              position: "relative",
+              zIndex: 2,
+              bg: "black",
+              opacity: 0.1,
+              display: "block"
+            }}
+          />
+          <Image
+            src="/placeholder.jpeg"
+            alt=""
+            fill
+            sx={{
+              objectFit: "cover",
+              filter: "blur(6px)"
+            }}
+          />
+        </Box>
+      </section>
+
       {/* Services / About me */}
       <section
         sx={{
@@ -61,12 +94,12 @@ export default function Home() {
               >
                 Hi, I’m Ollie. I have been coding since I was a young teen
                 working on indie games. I got into front-end development after
-                teaching myself post-high school, while also training at
-                the climbing gym that I then worked at. Since then, I have
-                improved my craft through professional experience and have been
-                fortunate enough to improve finer details of my Front-End
-                ability by spending some time working as an SEO Analyst. I currently work and
-                train out of Prescott, Arizona.
+                teaching myself post-high school, while also training at the
+                climbing gym that I then worked at. Since then, I have improved
+                my craft through professional experience and have been fortunate
+                enough to improve finer details of my Front-End ability by
+                spending some time working as an SEO Analyst. I currently work
+                and train out of Prescott, Arizona.
               </Paragraph>
             </Container>
             <Image
