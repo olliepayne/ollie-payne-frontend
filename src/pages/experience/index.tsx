@@ -21,13 +21,13 @@ export const getStaticProps = async () => {
 }
 
 // Props
-type TimelineIndexPage = {
+type ExperienceIndexPage = {
   data: {
     data: TimelineEventData[]
   }
 }
 
-const TimelineIndexPage = (props: TimelineIndexPage) => {
+const ExperienceIndexPage = (props: ExperienceIndexPage) => {
   const timelineEvents = props.data.data
 
   return (
@@ -53,4 +53,4 @@ const TimelineIndexPage = (props: TimelineIndexPage) => {
   )
 }
 
-export default TimelineIndexPage
+export default ExperienceIndexPage

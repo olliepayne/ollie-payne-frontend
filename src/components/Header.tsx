@@ -139,7 +139,7 @@ const Header = () => {
             </li>
             <li>
               <Link
-                href="#"
+                href="/contact"
                 sx={{
                   py: 2,
                   px: 3,
