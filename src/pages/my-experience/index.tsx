@@ -29,8 +29,6 @@ type TimelineIndexPage = {
 
 const TimelineIndexPage = (props: TimelineIndexPage) => {
   const timelineEvents = props.data.data
-  console.log(timelineEvents)
-  // console.log(props)
 
   return (
     <Layout>

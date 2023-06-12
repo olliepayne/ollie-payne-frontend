@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import { TimelineEvent, TimelineEventData } from "helpers/myTypes"
-import { parsedKebabDate } from "helpers/parsedDate"
+import { parsedKebabDate } from "helpers/dateParser"
 import { Box, Flex, Heading, Paragraph, Text } from "theme-ui"
 
 // Props

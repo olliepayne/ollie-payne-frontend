@@ -29,16 +29,22 @@ const shortMonths = [
 ]
 
 type MonthFormat = "SHORT" | "FULL"
-export const parsedKebabDate = (kebabDate: string, monthFormat: MonthFormat) => {
+export const parsedKebabDate = (
+  kebabDate: string,
+  monthFormat: MonthFormat
+) => {
   const splitKebabDate = kebabDate.split("-")
+  console.log(splitKebabDate)
 
-  let day: string = splitKebabDate[2]
-  if (day[0] === "0") {
-    day = day.slice(1, day.length)
-  }
+  // Month !Bug
   let month: string = ""
-
-  const monthIndex = parseInt(splitKebabDate[1].split("0")[1]) - 1
+  let monthIndex: number
+  const kebabMonth = splitKebabDate[1]
+  if (kebabMonth[0] === "0") {
+    monthIndex = parseInt(kebabMonth.split("0")[1]) - 1
+  } else {
+    monthIndex = parseInt(kebabMonth) - 1
+  }
 
   if (monthFormat === "FULL") {
     month = months[monthIndex]
@@ -46,9 +52,15 @@ export const parsedKebabDate = (kebabDate: string, monthFormat: MonthFormat) => 
     month = shortMonths[monthIndex]
   }
 
+  // Day
+  let day: string = splitKebabDate[2]
+  if (day[0] === "0") {
+    day = day.slice(1, day.length)
+  }
+
   return {
-    day,
     month,
+    day,
     year: splitKebabDate[0]
   }
 }

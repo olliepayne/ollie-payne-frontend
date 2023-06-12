@@ -9,7 +9,7 @@ import { GetStaticPaths, GetStaticProps } from "next"
 import ContactSection from "components/ContactSection"
 import { getStrapiUrl } from "helpers/api"
 import { BlogPost, BlogPostData } from "helpers/myTypes"
-import { parsedKebabDate } from "helpers/parsedDate"
+import { parsedKebabDate } from "helpers/dateParser"
 
 // Markdown custom component props & custom components
 type ICustomComponentProps = {
