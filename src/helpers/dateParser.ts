@@ -34,9 +34,8 @@ export const parsedKebabDate = (
   monthFormat: MonthFormat
 ) => {
   const splitKebabDate = kebabDate.split("-")
-  console.log(splitKebabDate)
 
-  // Month !Bug
+  // Month
   let month: string = ""
   let monthIndex: number
   const kebabMonth = splitKebabDate[1]
