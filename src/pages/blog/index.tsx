@@ -20,23 +20,11 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-// Change: move this into myTypes.ts
-interface IBlogIndexPage {
-  data: {
-    data: {
-      attributes: BlogPost
-      id: number
-    }[]
-    meta: {
-      pagination: {
-        page: number
-        pageSize: number
-        pageCount: number
-        total: number
-      }
-    }
-  }
+// Props
+type IBlogIndexPage = {
+  data: BlogPost
 }
+
 const BlogIndexPage = ({ data: { data, meta } }: IBlogIndexPage) => {
   return (
     <Layout>

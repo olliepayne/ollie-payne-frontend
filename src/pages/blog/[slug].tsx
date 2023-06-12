@@ -5,22 +5,17 @@ import Image from "next/image"
 import { Box, Container, Heading, Text, Paragraph } from "theme-ui"
 import ReactMarkdown from "react-markdown"
 import BreadcrumbNav from "components/BreadcrumbNav"
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
+import { GetStaticPaths, GetStaticProps } from "next"
 import ContactSection from "components/ContactSection"
 import { getStrapiUrl } from "helpers/api"
-import { BlogPost } from "helpers/myTypes"
+import { BlogPost, BlogPostData } from "helpers/myTypes"
 import { parseKebabDate } from "helpers/parseDate"
 
-// interface IBlogPostPage {
-//   pageTitle: string
-//   metaDescription: string
-//   h1: string
-// }
-
-// Markdown custom component
-interface ICustomComponentProps {
+// Markdown custom component props & custom components
+type ICustomComponentProps = {
   children: React.ReactNode | React.ReactNode[]
 }
+
 const components: any = {
   // using type any to save time -- not critical
   p: Paragraph,
@@ -53,9 +48,9 @@ const blogPostsUrl = `${getStrapiUrl()}/api/blog-posts`
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch(blogPostsUrl)
-  const payload = await res.json()
+  const data = await res.json()
 
-  const paths = payload.data.map((blogPost) => {
+  const paths = data.data.map((blogPost: BlogPostData) => {
     return {
       params: {
         slug: blogPost.attributes.slug,
@@ -81,17 +76,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 }
 
-interface IBlogPostPage {
-  data: {
-    data: {
-      attributes: BlogPost
-    }[]
-  }
+// Props
+type IBlogPostPage = {
+  data: BlogPost
 }
 
 const BlogPostPage = ({ data: { data } }: IBlogPostPage) => {
-  // console.log(props?.data?.data[0].attributes)
-
   // Destructure data
   const { pageTitle, metaDescription, h1, datePublished, dateEdited, content } =
     data[0].attributes
@@ -99,7 +89,7 @@ const BlogPostPage = ({ data: { data } }: IBlogPostPage) => {
 
   return (
     <Layout>
-      <SEO title={pageTitle} metaDescription={"metaDescription"} />
+      <SEO title={pageTitle} metaDescription={metaDescription} />
       <Container>
         <BreadcrumbNav />
       </Container>

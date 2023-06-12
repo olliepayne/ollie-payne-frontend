@@ -10,11 +10,14 @@ const BreadcrumbNav = () => {
   pathSplit = pathSplit.splice(1, pathSplit.length)
 
   // Check if the slug has any "-", split and rejoin
-  const slug = pathSplit[pathSplit.length - 1]
-  if (slug.includes("-")) {
-    const slugSplit = slug.split("-")
-    pathSplit[pathSplit.length - 1] = slugSplit.join(" ")
+  const parseSlug = () => {
+    const slug = pathSplit[pathSplit.length - 1]
+    if (slug.includes("-")) {
+      const slugSplit = slug.split("-")
+      pathSplit[pathSplit.length - 1] = slugSplit.join(" ")
+    }
   }
+  parseSlug()
 
   // Turn the current pathLink from our .map() into camel case
   type PathLinkToCamelCase = (pathLink: string) => string
