@@ -1,4 +1,4 @@
-type Meta = {
+export type Meta = {
   pagination: {
     page: number
     pageSize: number
@@ -21,11 +21,6 @@ export type BlogPostAttributes = {
 export type BlogPostData = {
   attributes: BlogPostAttributes
   id: number
-}
-
-export type BlogPost = {
-  data: BlogPostData[]
-  meta: Meta
 }
 
 // Timeline event

@@ -8,7 +8,7 @@ import BreadcrumbNav from "components/BreadcrumbNav"
 import { GetStaticPaths, GetStaticProps } from "next"
 import ContactSection from "components/ContactSection"
 import { getStrapiUrl } from "helpers/api"
-import { BlogPost, BlogPostData } from "helpers/myTypes"
+import { BlogPostData, Meta } from "helpers/myTypes"
 import { parsedKebabDate } from "helpers/dateParser"
 
 // Markdown custom component props & custom components
@@ -67,21 +67,24 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const res = await fetch(`${blogPostsUrl}?filters[slug][$eq]=${params?.slug}`)
-  const data = await res.json()
+  const blogPost = await res.json()
 
   return {
     props: {
-      data
+      blogPost
     }
   }
 }
 
 // Props
 type IBlogPostPage = {
-  data: BlogPost
+  blogPost: {
+    data: BlogPostData[]
+    meta: Meta
+  }
 }
 
-const BlogPostPage = ({ data: { data } }: IBlogPostPage) => {
+const BlogPostPage = ({ blogPost: { data } }: IBlogPostPage) => {
   // Destructure data
   const { pageTitle, metaDescription, h1, datePublished, dateEdited, content } =
     data[0].attributes
