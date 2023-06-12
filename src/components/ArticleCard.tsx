@@ -17,8 +17,6 @@ interface IArticleCard {
 }
 
 const ArticleCard = ({ className, blogPost }: IArticleCard) => {
-  console.log(blogPost)
-
   return (
     <article
       className={className}

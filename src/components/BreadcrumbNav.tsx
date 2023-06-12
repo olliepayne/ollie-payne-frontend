@@ -7,10 +7,17 @@ const BreadcrumbNav = () => {
   const { asPath } = useRouter()
   let pathSplit = asPath.split("/")
   pathSplit = pathSplit.splice(1, pathSplit.length)
-  // console.log(pathSplit)
 
-  const pathLinkToCamelCase = (pathLink: string) =>
+  type PathLinkToCamelCase = (pathLink: string) => string
+  const pathLinkToCamelCase: PathLinkToCamelCase = (pathLink: string) =>
     `${pathLink.charAt(0).toUpperCase()}${pathLink.slice(1, pathLink.length)}`
+
+  const slug = pathSplit[pathSplit.length - 1]
+  if (slug.includes("-")) {
+    const slugSplit = slug.split("-")
+    pathSplit[pathSplit.length - 1] = slugSplit.join(" ")
+  }
+  // console.log(pathSplit[pathSplit.length - 1])
 
   return (
     <ul
