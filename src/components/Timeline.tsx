@@ -9,6 +9,21 @@ type Timeline = {
 }
 
 const Timeline = ({ events }: Timeline) => {
+  type IsSameInstituion = (event: TimelineEventData, index: number) => boolean
+  const isSameInstitution: IsSameInstituion = (event, index) => {
+    if (
+      index > 0 &&
+      events[index - 1].attributes.institutionName !==
+        event.attributes.institutionName
+    ) {
+      return false
+    } else if (index === 0) {
+      return false
+    }
+
+    return true
+  }
+
   return (
     <Box className="timeline">
       {events?.map((event, index) => (
@@ -59,7 +74,9 @@ const Timeline = ({ events }: Timeline) => {
                 mt: 0
               }}
             >
-              {event.attributes.institutionName}
+              {/* {event.attributes.institutionName} */}
+              {!isSameInstitution(event, index) &&
+                event.attributes.institutionName}
             </Heading>
             <Heading
               as="h4"
