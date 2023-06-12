@@ -1,10 +1,10 @@
 /** @jsxImportSource theme-ui */
-import FeaturedArticleCard from "components/FeaturedArticleCard"
 import Layout from "components/Layout"
 import SEO from "components/SEO"
-import { Flex, Container, Heading, Grid } from "theme-ui"
+import { Flex, Container, Heading } from "theme-ui"
 import ArticleCard from "components/ArticleCard"
 import { InferGetStaticPropsType, GetStaticProps } from "next"
+import { BlogPost } from "helpers/myTypes"
 
 // Data fetching
 const blogPostsUrl = `${process.env.STRAPI_API_URL}/api/blog-posts`
@@ -46,13 +46,17 @@ const BlogIndexPage = ({
             </Heading>
             <ul
               sx={{
-                display: "grid",
-                columnGap: 3,
-                rowGap: 3,
-                gridTemplateColumns: ["1", "repeat(3, 1fr)"],
+                display: "flex",
+                justifyContent: "flex-start",
+                flexWrap: "wrap",
                 listStyleType: "none",
+                rowGap: 3,
+                columnGap: 3,
                 p: 0,
-                m: 0
+                m: 0,
+                li: {
+                  flex: "0 1 33%"
+                }
               }}
             >
               {data.map((blogPost, index) => (

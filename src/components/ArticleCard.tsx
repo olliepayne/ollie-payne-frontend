@@ -24,7 +24,6 @@ const ArticleCard = ({ className, blogPost }: IArticleCard) => {
       className={className}
       sx={{
         p: 3,
-        justifyContent: "space-between",
         position: "relative",
         bg: "myLightGray",
         ":hover": {

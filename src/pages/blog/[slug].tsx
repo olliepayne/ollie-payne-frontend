@@ -11,6 +11,7 @@ import { blogPosts } from "../../../public/blogPosts.json"
 const { pageTitle, metaDescription, h1, datePublished } = blogPosts[0]
 import markdown from "../../../public/markdown.md"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
+import ContactSection from "components/ContactSection"
 
 // interface IBlogPostPage {
 //   pageTitle: string
@@ -140,13 +141,16 @@ const BlogPostPage = (props) => {
           </Container>
         </section>
 
-        {/* markdown / blog post content */}
+        {/* Markdown / blog post content */}
         <section>
           <Container variant="narrow">
             <ReactMarkdown components={components}>{blogPost.content}</ReactMarkdown>
           </Container>
         </section>
       </article>
+
+      {/* Contact */}
+      <ContactSection />
     </Layout>
   )
 }
