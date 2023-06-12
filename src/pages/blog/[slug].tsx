@@ -9,6 +9,7 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ContactSection from "components/ContactSection"
 import { getStrapiUrl } from "helpers/api"
 import { BlogPost } from "helpers/myTypes"
+import { parseKebabDate } from "helpers/parseDate"
 
 // interface IBlogPostPage {
 //   pageTitle: string
@@ -71,7 +72,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const res = await fetch(`${blogPostsUrl}?filters[slug][$eq]=${params?.slug}`)
-  // const res = await fetch(`${blogPostsUrl}/${params?.id}`)
   const data = await res.json()
 
   return {
@@ -91,8 +91,11 @@ interface IBlogPostPage {
 
 const BlogPostPage = ({ data: { data } }: IBlogPostPage) => {
   // console.log(props?.data?.data[0].attributes)
+
+  // Destructure data
   const { pageTitle, metaDescription, h1, datePublished, dateEdited, content } =
     data[0].attributes
+  const parsedDatePublished = parseKebabDate(datePublished, "SHORT")
 
   return (
     <Layout>
@@ -117,12 +120,11 @@ const BlogPostPage = ({ data: { data } }: IBlogPostPage) => {
             <Heading as="h1" variant="styles.h1">
               {h1}
             </Heading>
-            <Text
-              sx={{
-                fontStyle: "italic"
-              }}
-            >
-              <time dateTime={datePublished}>{datePublished}</time>
+            <Text>
+              <time dateTime={datePublished}>
+                {parsedDatePublished.month.toUpperCase()}{" "}
+                {parsedDatePublished.day}, {parsedDatePublished.year}
+              </time>
             </Text>
           </Container>
           <Container>
