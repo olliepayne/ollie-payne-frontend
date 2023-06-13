@@ -1,20 +1,20 @@
 /** @jsxImportSource theme-ui */
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import { Container, Box, Flex, ThemeUICSSObject } from "theme-ui"
 import MenuButton from "./MenuButton"
-import debounce from "helpers/debounce"
 
 const headerStyles: ThemeUICSSObject = {
   position: "sticky",
   top: 0,
   transition: "all 0.2s ease-out",
   transitionDelay: "0.05s",
-  borderWidth: "0 0 4px 0",
+  borderWidth: "0 0 2px 0",
   borderStyle: "solid",
   borderColor: "subtlePink",
   backgroundColor: "rgb(255 255 255 / 80%)",
   backdropFilter: "blur(5px)",
+  // boxShadow: "0px -4px 8px rgb(0 0 0 / 0.25)",
   a: {
     textDecoration: "none"
   },
@@ -30,21 +30,10 @@ const Header = () => {
     transition: "all 0.1s ease-out"
   }
 
-  const [hasScrolled, setHasScrolled] = useState(false)
-  const checkScroll = () => {
-    if (window.scrollY !== 0) return setHasScrolled(true)
-    setHasScrolled(false)
-  }
-
   // - dead for now
   // const closeNavOnResize = () => {
   //   if (screen.width > 768) setNavIsOpen(false)
   // }
-
-  useEffect(() => {
-    document.addEventListener("scroll", debounce(checkScroll, 10))
-    // document.addEventListener("resize", debounce(closeNavOnResize, 10)) - dead for now
-  }, [])
 
   const [navIsOpen, setNavIsOpen] = useState(false)
   const openNav = () => {
@@ -58,7 +47,6 @@ const Header = () => {
         <nav
           sx={{
             ...navStyles,
-            // py: hasScrolled ? 1 : 0 // - mute for now
             py: 2
           }}
         >

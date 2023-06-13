@@ -6,6 +6,10 @@ import Image from "next/image"
 import Layout from "components/Layout"
 import ContactSection from "components/ContactSection"
 
+// Add: data fetching for headshot and hero image
+
+// Add: Props
+
 export default function Home() {
   return (
     <Layout>
@@ -103,15 +107,15 @@ export default function Home() {
               </Paragraph>
             </Container>
             <Image
-              src="/placeholder.jpeg"
-              alt=""
-              width={200}
-              height={200}
+              src="/headshot-temp.jpeg"
+              alt="Personal headshot of me, Oliver Payne"
+              width={250}
+              height={250}
               sx={{
                 mt: [4, 0],
                 objectFit: "cover",
-                borderRadius: "50%",
-                borderStyle: "solid",
+                borderRadius: "10px",
+                // borderStyle: "solid",
                 borderWidth: "2px",
                 borderColor: "#1C1C1C"
               }}

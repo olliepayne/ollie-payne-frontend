@@ -88,8 +88,16 @@ const Timeline = ({ events }: Timeline) => {
             </Heading>
             <Text
               sx={{
+                fontWeight: 500
+              }}
+            >
+              {event.attributes.commitment}
+            </Text>
+            <Text
+              sx={{
                 display: "block",
-                fontFamily: "body"
+                fontFamily: "body",
+                color: "#5c5c5c"
               }}
             >
               <time>

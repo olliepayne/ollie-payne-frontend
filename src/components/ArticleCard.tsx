@@ -21,9 +21,9 @@ const ArticleCard = ({ className, blogPost }: IArticleCard) => {
     <article
       className={className}
       sx={{
-        p: 3,
         position: "relative",
         bg: "myLightGray",
+        boxShadow: "0 0px 10px rgb(0 0 0 / 0.25)",
         ":hover": {
           cursor: "pointer",
           ".article-title": {
@@ -50,6 +50,7 @@ const ArticleCard = ({ className, blogPost }: IArticleCard) => {
       </Box>
       <Box
         sx={{
+          p: 3,
           display: "inline-block",
           verticalAlign: "top"
         }}
