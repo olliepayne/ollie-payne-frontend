@@ -131,6 +131,8 @@ const Header = () => {
                 sx={{
                   py: 2,
                   px: 3,
+                  mt: [1, 0],
+                  display: "inline-block",
                   // variant: "links.underlineLeftToRight",
                   fontSize: 1,
                   fontFamily: "body",

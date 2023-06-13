@@ -22,8 +22,7 @@ const ProjectCard = ({ flipped }: ProjectCard) => {
         sx={{
           display: "inline-block",
           height: ["350px"],
-          width: "100%",
-          maxWidth: "50%",
+          flex: "1 1 50%",
           position: "relative",
           mr: [0, flipped ? 0 : 5],
           ml: [0, flipped ? 5 : 0]
@@ -39,11 +38,9 @@ const ProjectCard = ({ flipped }: ProjectCard) => {
         />
       </Box>
       <Box
-        sx={
-          {
-            // display: "inline-block"
-          }
-        }
+        sx={{
+          flex: "1 1 50%"
+        }}
       >
         <Heading as="h3" variant="styles.h3">
           Test

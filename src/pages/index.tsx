@@ -18,37 +18,73 @@ export default function Home() {
         title="Ollie Payne - Frontend Developer & Digital Marketer"
         metaDescription="Description"
       />
+      {/* Review: This entire section */}
       {/* Hero image */}
-      <section>
-        <Box
-          sx={{
-            height: "300px",
-            position: "relative",
-            overflow: "hidden"
-          }}
-        >
-          {/* Gray overylay */}
-          <span
+      <section
+        sx={{
+          py: 5,
+          overflow: "hidden"
+        }}
+      >
+        <Container>
+          <Flex
             sx={{
-              width: "100%",
-              height: "100%",
-              position: "absolute",
-              inset: 0,
-              zIndex: 1,
-              backgroundColor: "rgb(0 0 0 / 0.25)",
-              backdropFilter: "blur(6px)"
+              alignItems: "center"
             }}
-          />
-          <Image
-            src="/placeholder.jpeg"
-            alt=""
-            fill
-            sx={{
-              objectFit: "cover"
-              // filter: "blur(6px)"
-            }}
-          />
-        </Box>
+          >
+            <Box
+              sx={{
+                mr: 5,
+                height: "300px",
+                flex: "1 1 50%",
+                position: "relative"
+              }}
+            >
+              {/* Gray overylay */}
+              {/* <span
+              sx={{
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                inset: 0,
+                zIndex: 1,
+                backgroundColor: "rgb(0 0 0 / 0.25)",
+                backdropFilter: "blur(8px)"
+              }}
+            /> */}
+              <Image
+                src="/placeholder.jpeg"
+                alt=""
+                fill
+                sx={{
+                  position: "absolute",
+                  inset: 0,
+                  objectFit: "cover"
+                }}
+              />
+            </Box>
+            <Box
+              sx={{
+                flex: "1 1 50%",
+                height: "100%",
+                alignItems: "center",
+                position: "relative",
+                zIndex: 1
+              }}
+            >
+              <Heading as="h1" variant="styles.h1">
+                Hi, I'm Ollie.
+              </Heading>
+              {/* Add: social links here */}
+              <ul
+                sx={{
+                  p: 0,
+                  listStyle: "none"
+                }}
+              ></ul>
+            </Box>
+          </Flex>
+        </Container>
       </section>
 
       {/* Services / About me */}
@@ -92,19 +128,14 @@ export default function Home() {
                   </Heading>
                 </li>
               </ul>
+
+              {/* Review: does this still need to be here? */}
               <Paragraph
                 sx={{
                   mt: 3
                 }}
               >
-                Hi, I'm Ollie. I have been coding since I was a young teen
-                working on indie games. I got into Front-End development after
-                teaching myself post-high school, while also training at the
-                climbing gym that I then worked at. Since then, I have improved
-                my craft through professional experience and have been fortunate
-                enough to improve finer details of my Front-End ability by
-                spending some time working as an SEO Analyst. I currently work
-                and train out of Prescott, Arizona.
+                I currently work and train out of Prescott, Arizona.
               </Paragraph>
             </Container>
             <Image
