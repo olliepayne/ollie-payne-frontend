@@ -1,12 +1,13 @@
 /** @jsxImportSource theme-ui */
 import SEO from "components/SEO"
-import { Container, Heading, Flex, Paragraph, Box, Text } from "theme-ui"
+import { Container, Heading, Flex, Paragraph, Box, Grid } from "theme-ui"
 import Image from "next/image"
 // import FakeRegion from "components/FakeRegion"
 import Layout from "components/Layout"
 import ContactSection from "components/ContactSection"
+import ProjectCard from "components/ProjectCard"
 
-// Add: data fetching for headshot and hero image
+// Add: data fetching for headshot, hero image, and projects
 
 // Add: Props
 
@@ -21,7 +22,7 @@ export default function Home() {
       <section>
         <Box
           sx={{
-            height: "400px",
+            height: "300px",
             position: "relative",
             overflow: "hidden"
           }}
@@ -96,7 +97,7 @@ export default function Home() {
                   mt: 3
                 }}
               >
-                Hi, I’m Ollie. I have been coding since I was a young teen
+                Hi, I'm Ollie. I have been coding since I was a young teen
                 working on indie games. I got into Front-End development after
                 teaching myself post-high school, while also training at the
                 climbing gym that I then worked at. Since then, I have improved
@@ -128,13 +129,37 @@ export default function Home() {
       <section
         sx={{
           bg: "myLightGray",
-          py: [4, 5]
+          py: [4, 5],
+          "li:not(:first-child)": {
+            my: 5
+          }
         }}
       >
         <Container>
-          <Heading as="h2" variant="styles.h2">
-            My Favorite Projects
+          <Heading
+            as="h2"
+            variant="styles.h2"
+            sx={{
+              textAlign: "center"
+            }}
+          >
+            Recent Projects
           </Heading>
+          <ul
+            sx={{
+              mt: 4,
+              p: 0,
+              listStyle: "none"
+            }}
+          >
+            {/* Map projects here */}
+            <li>
+              <ProjectCard />
+            </li>
+            <li>
+              <ProjectCard flipped />
+            </li>
+          </ul>
         </Container>
       </section>
 

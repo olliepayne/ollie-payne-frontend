@@ -42,3 +42,14 @@ export type TimelineEvent = {
   data: TimelineEventData[]
   meta: Meta
 }
+
+// Project
+export type ProjectAttributes = {
+  slug: string
+  pageTitle: string
+  metaDescription: string
+  name: string
+  description: string
+  content: string
+  deployedUrl: string
+}
