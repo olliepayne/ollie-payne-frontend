@@ -94,7 +94,7 @@ const Header = () => {
           >
             <li>
               <Link
-                href="/#"
+                href="/portfolio"
                 sx={{
                   variant: "links.underlineLeftToRight",
                   fontSize: 1

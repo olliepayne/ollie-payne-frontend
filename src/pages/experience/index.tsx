@@ -4,7 +4,8 @@ import SEO from "components/SEO"
 import Timeline from "components/Timeline"
 import { getStrapiUrl } from "helpers/api"
 import { TimelineEventData } from "helpers/myTypes"
-import { Container, Heading } from "theme-ui"
+import { Container, Heading, Box } from "theme-ui"
+import HeroSection from "components/HeroSection"
 
 // Data fetching
 const timelineEventsUrl = `${getStrapiUrl()}/api/timeline-events?sort[0]=startDate:desc&sort[1]=endDate:desc`
@@ -33,6 +34,7 @@ const ExperienceIndexPage = (props: ExperienceIndexPage) => {
   return (
     <Layout>
       <SEO title="My Experience" metaDescription="" />
+      <HeroSection />
       <main
         sx={{
           minHeight: "100vh"

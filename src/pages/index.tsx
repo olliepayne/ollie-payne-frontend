@@ -18,75 +18,6 @@ export default function Home() {
         title="Ollie Payne - Frontend Developer & Digital Marketer"
         metaDescription="Description"
       />
-      {/* Review: This entire section */}
-      {/* Hero image */}
-      <section
-        sx={{
-          py: 5,
-          overflow: "hidden"
-        }}
-      >
-        <Container>
-          <Flex
-            sx={{
-              alignItems: "center"
-            }}
-          >
-            <Box
-              sx={{
-                mr: 5,
-                height: "300px",
-                flex: "1 1 50%",
-                position: "relative"
-              }}
-            >
-              {/* Gray overylay */}
-              {/* <span
-              sx={{
-                width: "100%",
-                height: "100%",
-                position: "absolute",
-                inset: 0,
-                zIndex: 1,
-                backgroundColor: "rgb(0 0 0 / 0.25)",
-                backdropFilter: "blur(8px)"
-              }}
-            /> */}
-              <Image
-                src="/placeholder.jpeg"
-                alt=""
-                fill
-                sx={{
-                  position: "absolute",
-                  inset: 0,
-                  objectFit: "cover"
-                }}
-              />
-            </Box>
-            <Box
-              sx={{
-                flex: "1 1 50%",
-                height: "100%",
-                alignItems: "center",
-                position: "relative",
-                zIndex: 1
-              }}
-            >
-              <Heading as="h1" variant="styles.h1">
-                Hi, I'm Ollie.
-              </Heading>
-              {/* Add: social links here */}
-              <ul
-                sx={{
-                  p: 0,
-                  listStyle: "none"
-                }}
-              ></ul>
-            </Box>
-          </Flex>
-        </Container>
-      </section>
-
       {/* Services / About me */}
       <section
         sx={{
@@ -94,8 +25,8 @@ export default function Home() {
         }}
       >
         <Container>
-          <Heading as="h2" variant="styles.h2">
-            What I am
+          <Heading as="h1" variant="styles.h1">
+            Hi, I'm Ollie.
           </Heading>
           <Flex
             sx={{
@@ -111,6 +42,9 @@ export default function Home() {
                 pl: 0
               }}
             >
+              <Heading as="h2" variant="styles.h2">
+                What I am
+              </Heading>
               <ul
                 sx={{
                   pl: 3
@@ -137,6 +71,8 @@ export default function Home() {
               >
                 I currently work and train out of Prescott, Arizona.
               </Paragraph>
+
+              {/* Add: social links */}
             </Container>
             <Image
               src="/headshot-temp.jpeg"
@@ -146,10 +82,10 @@ export default function Home() {
               sx={{
                 mt: [4, 0],
                 objectFit: "cover",
-                borderRadius: "10px",
-                // borderStyle: "solid",
-                borderWidth: "2px",
-                borderColor: "#1C1C1C"
+                borderRadius: "50%",
+                borderColor: "myGray",
+                borderWidth: "4px",
+                borderStyle: "solid"
               }}
             />
           </Flex>
@@ -159,7 +95,8 @@ export default function Home() {
       {/* Projects */}
       <section
         sx={{
-          bg: "myLightGray",
+          bg: "subtlePink",
+          // bg: "myLightGray",
           py: [4, 5],
           "li:not(:first-child)": {
             my: 5
