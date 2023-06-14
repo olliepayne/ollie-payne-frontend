@@ -15,17 +15,20 @@ const ProjectCard = ({ flipped }: ProjectCard) => {
         display: "flex",
         flexDirection: ["column", flipped ? "row-reverse" : "row"],
         justifyContent: "space-between",
-        position: "relative"
+        position: "relative",
+        bg: "subtlePink",
+        boxShadow: "0px 4px 12px rgb(0 0 0 / 0.1)"
       }}
     >
+      {/* Thumbnail */}
       <Box
         sx={{
           display: "inline-block",
           height: ["350px"],
-          flex: "1 1 50%",
+          flex: "1 0 50%",
           position: "relative",
-          mr: [0, flipped ? 0 : 5],
-          ml: [0, flipped ? 5 : 0]
+          // mr: [0, flipped ? 0 : 5],
+          // ml: [0, flipped ? 5 : 0]
         }}
       >
         <Image
@@ -37,12 +40,21 @@ const ProjectCard = ({ flipped }: ProjectCard) => {
           }}
         />
       </Box>
+
+      {/* Copy / CTA links */}
       <Box
         sx={{
-          flex: "1 1 50%"
+          flex: "1 1 50%",
+          p: 4
         }}
       >
-        <Heading as="h3" variant="styles.h3">
+        <Heading
+          as="h3"
+          variant="styles.h3"
+          sx={{
+            my: 0
+          }}
+        >
           Test
         </Heading>
         <Paragraph

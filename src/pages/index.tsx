@@ -101,12 +101,8 @@ export default function Home() {
       {/* Projects */}
       <section
         sx={{
-          bg: "subtlePink",
-          // bg: "myLightGray",
-          py: [4, 5],
-          "li:not(:first-child)": {
-            my: 5
-          }
+          // bg: "subtlePink",
+          py: [4, 5]
         }}
       >
         <Container>
@@ -123,7 +119,10 @@ export default function Home() {
             sx={{
               mt: 4,
               p: 0,
-              listStyle: "none"
+              listStyle: "none",
+              "li:not(:first-child)": {
+                my: 4
+              }
             }}
           >
             {/* Map projects here */}
