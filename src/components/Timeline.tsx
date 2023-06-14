@@ -31,32 +31,6 @@ const Timeline = ({ events }: Timeline) => {
       {events?.map((event, index) => (
         // - display the institution name and logo
         <>
-          {!isSameInstitution(event, index) && (
-            <Flex
-              sx={{
-                alignItems: "center"
-              }}
-            >
-              <Heading
-                as="h3"
-                variant="styles.h3"
-                sx={{
-                  mt: 0,
-                  mr: 3
-                }}
-              >
-                {event.attributes.institutionName}
-              </Heading>
-              <Image
-                src={`${getStrapiUrl()}${
-                  event.attributes.cover.data.attributes.url
-                }`}
-                alt=""
-                width={50}
-                height={50}
-              />
-            </Flex>
-          )}
           <Flex
             key={index}
             className="event"
@@ -68,10 +42,24 @@ const Timeline = ({ events }: Timeline) => {
           >
             <Flex
               sx={{
+                width: "50px",
                 flexDirection: "column",
                 alignItems: "center"
               }}
             >
+              {!isSameInstitution(event, index) && (
+                <Image
+                  src={`${getStrapiUrl()}${
+                    event.attributes.cover.data.attributes.url
+                  }`}
+                  alt=""
+                  width={50}
+                  height={50}
+                  sx={{
+                    mb: 3
+                  }}
+                />
+              )}
               <span
                 sx={{
                   width: "8px",
@@ -98,29 +86,30 @@ const Timeline = ({ events }: Timeline) => {
                 display: "inline-block"
               }}
             >
-              {/* {!isSameInstitution(event, index) && (
-              <Flex
-                sx={{
-                  alignItems: "center"
-                }}
-              >
-                <Heading
-                  as="h3"
-                  variant="styles.h3"
+              {!isSameInstitution(event, index) && (
+                <Box
                   sx={{
-                    mt: 0,
-                    mr: 3
+                    height: "50px",
+                    mb: 3
                   }}
                 >
-                  {event.attributes.institutionName}
-                </Heading>
-                <Image src="" alt="" width={50} height={50} />
-              </Flex>
-            )} */}
+                  <Heading
+                    as="h3"
+                    variant="styles.h3"
+                    sx={{
+                      mt: 0,
+                      mr: 3
+                    }}
+                  >
+                    {event.attributes.institutionName}
+                  </Heading>
+                </Box>
+              )}
               <Heading
                 as="h4"
                 variant="styles.h4"
                 sx={{
+                  // mt: !isSameInstitution(event, index) ? 4 : 0
                   mt: 0
                 }}
               >

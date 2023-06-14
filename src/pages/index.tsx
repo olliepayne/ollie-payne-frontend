@@ -39,7 +39,13 @@ export default function Home() {
                 pl: 0
               }}
             >
-              <Heading as="h1" variant="styles.h1">
+              <Heading
+                as="h1"
+                variant="styles.h1"
+                sx={{
+                  mt: 0
+                }}
+              >
                 Hi, I'm Ollie.
               </Heading>
               <Heading as="h2" variant="styles.h2">
