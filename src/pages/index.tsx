@@ -25,9 +25,6 @@ export default function Home() {
         }}
       >
         <Container>
-          <Heading as="h1" variant="styles.h1">
-            Hi, I'm Ollie.
-          </Heading>
           <Flex
             sx={{
               justifyContent: "space-between",
@@ -42,6 +39,9 @@ export default function Home() {
                 pl: 0
               }}
             >
+              <Heading as="h1" variant="styles.h1">
+                Hi, I'm Ollie.
+              </Heading>
               <Heading as="h2" variant="styles.h2">
                 What I am
               </Heading>

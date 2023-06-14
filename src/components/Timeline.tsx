@@ -1,7 +1,8 @@
 /** @jsxImportSource theme-ui */
-import { TimelineEvent, TimelineEventData } from "helpers/myTypes"
+import { TimelineEventData } from "helpers/myTypes"
 import { parsedKebabDate } from "helpers/dateParser"
 import { Box, Flex, Heading, Paragraph, Text } from "theme-ui"
+import Image from "next/image"
 
 // Props
 type Timeline = {
@@ -9,6 +10,8 @@ type Timeline = {
 }
 
 const Timeline = ({ events }: Timeline) => {
+  console.log(events[0].attributes)
+
   type IsSameInstituion = (event: TimelineEventData, index: number) => boolean
   const isSameInstitution: IsSameInstituion = (event, index) => {
     if (
@@ -27,104 +30,136 @@ const Timeline = ({ events }: Timeline) => {
   return (
     <Box className="timeline">
       {events?.map((event, index) => (
-        <Flex
-          key={index}
-          className="event"
-          sx={{
-            pt: 2,
-            justifyContent: "start"
-          }}
-        >
+        <>
+          {!isSameInstitution(event, index) && (
+            <Flex
+              sx={{
+                alignItems: "center"
+              }}
+            >
+              <Heading
+                as="h3"
+                variant="styles.h3"
+                sx={{
+                  mt: 0,
+                  mr: 3
+                }}
+              >
+                {event.attributes.institutionName}
+              </Heading>
+              <Image src="" alt="" width={50} height={50} />
+            </Flex>
+          )}
           <Flex
+            key={index}
+            className="event"
             sx={{
-              flexDirection: "column",
-              alignItems: "center"
+              pt: 2,
+              pl: 2,
+              justifyContent: "start"
             }}
           >
-            <span
+            <Flex
               sx={{
-                width: "8px",
-                height: "8px",
-                backgroundColor: "myGray",
-                display: "block",
-                borderRadius: "50%"
-              }}
-            />
-            <span
-              sx={{
-                width: "2px",
-                flex: "1 auto",
-                display: "block",
-                backgroundColor: "myGray",
-                mt: 2
-              }}
-            />
-          </Flex>
-          <Box
-            sx={{
-              ml: 4,
-              mb: 3,
-              display: "inline-block"
-            }}
-          >
-            <Heading
-              as="h3"
-              variant="styles.h3"
-              sx={{
-                mt: 0
+                flexDirection: "column",
+                alignItems: "center"
               }}
             >
-              {!isSameInstitution(event, index) &&
-                event.attributes.institutionName}
-            </Heading>
-            <Heading
-              as="h4"
-              variant="styles.h4"
+              <span
+                sx={{
+                  width: "8px",
+                  height: "8px",
+                  backgroundColor: "myGray",
+                  display: "block",
+                  borderRadius: "50%"
+                }}
+              />
+              <span
+                sx={{
+                  width: "2px",
+                  flex: "1 auto",
+                  display: "block",
+                  backgroundColor: "myGray",
+                  mt: 2
+                }}
+              />
+            </Flex>
+            <Box
               sx={{
-                mt: 0
+                ml: 4,
+                mb: 3,
+                display: "inline-block"
               }}
             >
-              {event.attributes.occupationTitle}
-            </Heading>
-            <Text
-              sx={{
-                fontWeight: 500
-              }}
-            >
-              {event.attributes.commitment}
-            </Text>
-            <Text
-              sx={{
-                display: "block",
-                fontFamily: "body",
-                color: "#5c5c5c"
-              }}
-            >
-              <time>
-                {parsedKebabDate(event.attributes.startDate, "SHORT").month}{" "}
-                {parsedKebabDate(event.attributes.startDate, "SHORT").year} -
-              </time>
-              {event.attributes.endDate ? (
+              {/* {!isSameInstitution(event, index) && (
+              <Flex
+                sx={{
+                  alignItems: "center"
+                }}
+              >
+                <Heading
+                  as="h3"
+                  variant="styles.h3"
+                  sx={{
+                    mt: 0,
+                    mr: 3
+                  }}
+                >
+                  {event.attributes.institutionName}
+                </Heading>
+                <Image src="" alt="" width={50} height={50} />
+              </Flex>
+            )} */}
+              <Heading
+                as="h4"
+                variant="styles.h4"
+                sx={{
+                  mt: 0
+                }}
+              >
+                {event.attributes.occupationTitle}
+              </Heading>
+              <Text
+                sx={{
+                  fontWeight: 500
+                }}
+              >
+                {event.attributes.commitment}
+              </Text>
+              <Text
+                sx={{
+                  mt: 2,
+                  display: "block",
+                  fontFamily: "body",
+                  color: "#5c5c5c"
+                }}
+              >
                 <time>
-                  {" "}
-                  {
-                    parsedKebabDate(event.attributes.endDate, "SHORT").month
-                  }{" "}
-                  {parsedKebabDate(event.attributes.endDate, "SHORT").year}
+                  {parsedKebabDate(event.attributes.startDate, "SHORT").month}{" "}
+                  {parsedKebabDate(event.attributes.startDate, "SHORT").year} -
                 </time>
-              ) : (
-                " Present"
-              )}
-            </Text>
-            <Paragraph
-              sx={{
-                mt: 2
-              }}
-            >
-              {event.attributes.description}
-            </Paragraph>
-          </Box>
-        </Flex>
+                {event.attributes.endDate ? (
+                  <time>
+                    {" "}
+                    {
+                      parsedKebabDate(event.attributes.endDate, "SHORT").month
+                    }{" "}
+                    {parsedKebabDate(event.attributes.endDate, "SHORT").year}
+                  </time>
+                ) : (
+                  " Present"
+                )}
+              </Text>
+              <Paragraph
+                sx={{
+                  mt: 2
+                }}
+              >
+                {event.attributes.description}
+              </Paragraph>
+            </Box>
+          </Flex>
+        </>
       ))}
     </Box>
   )

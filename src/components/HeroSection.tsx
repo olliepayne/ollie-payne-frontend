@@ -9,10 +9,16 @@ type HeroSection = {}
 
 const HeroSection = () => {
   const [imageScale, setImageScale] = useState(1)
+  const maxImageScale = 1.5
   let canUpdateImageScale = true
   const handleNewImageScale = () => {
+    if (imageScale >= maxImageScale) {
+      canUpdateImageScale = false
+      return
+    }
+
     if (canUpdateImageScale) {
-      const newImageScale = 1 + window.scrollY / 1500
+      const newImageScale = 1 + window.scrollY / 1000
       console.log(newImageScale)
       setImageScale(newImageScale)
 
@@ -54,8 +60,7 @@ const HeroSection = () => {
           fill
           sx={{
             transform: `scale(${imageScale}, ${imageScale})`,
-            objectFit: "cover",
-            objectPosition: "center -450px"
+            objectFit: "cover"
           }}
         />
       </Box>

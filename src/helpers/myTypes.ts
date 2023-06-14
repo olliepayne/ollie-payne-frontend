@@ -25,6 +25,7 @@ export type BlogPostData = {
 
 // Timeline event
 export type TimelineEventAttributes = {
+  cover: any
   institutionName: string
   occupationTitle: string
   commitment: string
