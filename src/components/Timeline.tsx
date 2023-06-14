@@ -3,6 +3,7 @@ import { TimelineEventData } from "helpers/myTypes"
 import { parsedKebabDate } from "helpers/dateParser"
 import { Box, Flex, Heading, Paragraph, Text } from "theme-ui"
 import Image from "next/image"
+import { getStrapiUrl } from "helpers/api"
 
 // Props
 type Timeline = {
@@ -10,8 +11,6 @@ type Timeline = {
 }
 
 const Timeline = ({ events }: Timeline) => {
-  console.log(events[0].attributes)
-
   type IsSameInstituion = (event: TimelineEventData, index: number) => boolean
   const isSameInstitution: IsSameInstituion = (event, index) => {
     if (
@@ -30,6 +29,7 @@ const Timeline = ({ events }: Timeline) => {
   return (
     <Box className="timeline">
       {events?.map((event, index) => (
+        // - display the institution name and logo
         <>
           {!isSameInstitution(event, index) && (
             <Flex
@@ -47,7 +47,14 @@ const Timeline = ({ events }: Timeline) => {
               >
                 {event.attributes.institutionName}
               </Heading>
-              <Image src="" alt="" width={50} height={50} />
+              <Image
+                src={`${getStrapiUrl()}${
+                  event.attributes.cover.data.attributes.url
+                }`}
+                alt=""
+                width={50}
+                height={50}
+              />
             </Flex>
           )}
           <Flex

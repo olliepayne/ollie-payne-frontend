@@ -7,6 +7,9 @@ const nextConfig = {
       use: "raw-loader"
     })
     return config
+  },
+  images: {
+    domains: ["192.168.0.2"]
   }
 }
 

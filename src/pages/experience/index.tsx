@@ -8,7 +8,7 @@ import { Container, Heading, Box } from "theme-ui"
 import HeroSection from "components/HeroSection"
 
 // Data fetching
-const timelineEventsUrl = `${getStrapiUrl()}/api/timeline-events?sort[0]=startDate:desc&sort[1]=endDate:desc`
+const timelineEventsUrl = `${getStrapiUrl()}/api/timeline-events?sort[0]=startDate:desc&sort[1]=endDate:desc&populate=*`
 
 export const getStaticProps = async () => {
   const res = await fetch(timelineEventsUrl)
