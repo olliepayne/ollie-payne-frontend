@@ -12,6 +12,10 @@ const HeroSection = () => {
   const maxImageScale = 1.5
   let canUpdateImageScale = true
   const handleNewImageScale = () => {
+    // - if we are back at the top of the window, allow scale updates otherwise there is a delay
+    if (window.scrollY === 0) canUpdateImageScale = true
+
+    // - if we have reached the max scale, don't allow any more updates and return out of the function
     if (imageScale >= maxImageScale) {
       canUpdateImageScale = false
       return
@@ -25,7 +29,7 @@ const HeroSection = () => {
       canUpdateImageScale = false
       setTimeout(() => {
         canUpdateImageScale = true
-      }, 25)
+      }, 10)
     }
   }
 

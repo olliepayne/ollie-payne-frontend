@@ -42,7 +42,7 @@ const Timeline = ({ events }: Timeline) => {
           >
             <Flex
               sx={{
-                width: "50px",
+                flex: "1 0 50px",
                 flexDirection: "column",
                 alignItems: "center"
               }}
@@ -79,9 +79,11 @@ const Timeline = ({ events }: Timeline) => {
                 }}
               />
             </Flex>
+
+            {/* Content */}
             <Box
               sx={{
-                ml: 4,
+                ml: 3,
                 mb: 3,
                 display: "inline-block"
               }}
