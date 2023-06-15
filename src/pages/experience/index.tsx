@@ -4,15 +4,19 @@ import SEO from "components/SEO"
 import Timeline from "components/Timeline"
 import { getStrapiUrl } from "helpers/api"
 import { TimelineEventData } from "helpers/myTypes"
-import { Container, Heading, Box } from "theme-ui"
+import { Container, Heading } from "theme-ui"
 import HeroSection from "components/HeroSection"
 import { GetStaticProps } from "next"
 
 // Data fetching
-const timelineEventsUrl = `${getStrapiUrl()}/api/timeline-events?sort[0]=startDate:desc&sort[1]=endDate:desc&populate=*`
+const timelineEventsUrl = `${getStrapiUrl()}/api/timeline-events`
+const timelineEventsUrlSort = "sort[0]=startDate:desc&sort[1]=endDate:desc"
+const timelineEventsUrlPopulate = "&populate=*"
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(timelineEventsUrl)
+  const res = await fetch(
+    `${timelineEventsUrl}?${timelineEventsUrlSort}&${timelineEventsUrlPopulate}`
+  )
   const data = await res.json()
 
   return {

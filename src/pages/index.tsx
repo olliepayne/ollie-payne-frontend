@@ -11,11 +11,14 @@ import { Projects } from "helpers/myTypes"
 
 // Add: data fetching for headshot, hero image, and projects
 const projectsUrl = `${getStrapiUrl()}/api/projects`
-const projectsUrlFilters =
+const projectsUrlPagination =
   "?sort[0]=datePublished:desc&pagination[page]=1&pagination[pageSize]=3"
+const projectsUrlPopulate = "&populate=*"
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(projectsUrl + projectsUrlFilters)
+  const res = await fetch(
+    projectsUrl + projectsUrlPagination + projectsUrlPopulate
+  )
   const projects = await res.json()
 
   return {
@@ -31,7 +34,7 @@ type Home = {
 }
 
 export default function Home({ projects }: Home) {
-  // console.log(projects)
+  console.log(projects)
 
   return (
     <Layout>

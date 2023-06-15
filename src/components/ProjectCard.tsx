@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ProjectData } from "helpers/myTypes"
 import { parsedKebabDate } from "helpers/dateParser"
+import { getStrapiUrl } from "helpers/api"
 
 // Props
 type ProjectCard = {
@@ -12,6 +13,7 @@ type ProjectCard = {
 }
 
 const ProjectCard = ({ projectData, flipped }: ProjectCard) => {
+  // - parse and store datePublished
   const parsedDatePublished = parsedKebabDate(
     projectData.attributes.datePublished,
     "SHORT"
@@ -21,6 +23,7 @@ const ProjectCard = ({ projectData, flipped }: ProjectCard) => {
   return (
     <Box
       sx={{
+        height: ["650px", "300px"],
         display: "flex",
         flexDirection: ["column", flipped ? "row-reverse" : "row"],
         justifyContent: "space-between",
@@ -29,19 +32,22 @@ const ProjectCard = ({ projectData, flipped }: ProjectCard) => {
         // boxShadow: "0px 4px 12px rgb(0 0 0 / 0.1)"
       }}
     >
-      {/* Thumbnail */}
+      {/* Image */}
       <Box
         sx={{
           display: "inline-block",
-          height: ["350px"],
+          height: "100%",
           flex: "1 0 50%",
-          position: "relative"
-          // mr: [0, flipped ? 0 : 5],
-          // ml: [0, flipped ? 5 : 0]
+          position: "relative",
+          // borderStyle: "solid",
+          // borderWidth: "2px",
+          // borderColor: "black"
         }}
       >
         <Image
-          src="/placeholder.jpeg"
+          src={`${getStrapiUrl()}${
+            projectData.attributes.hero?.data.attributes.url
+          }`}
           alt=""
           fill
           sx={{
@@ -53,7 +59,7 @@ const ProjectCard = ({ projectData, flipped }: ProjectCard) => {
       {/* Copy / CTA links */}
       <Box
         sx={{
-          flex: "1 1 50%",
+          flex: "1 0 50%",
           p: 4
         }}
       >
@@ -72,7 +78,8 @@ const ProjectCard = ({ projectData, flipped }: ProjectCard) => {
         <Text
           sx={{
             my: 3,
-            display: "block"
+            display: "block",
+            color: "dateGray"
           }}
         >
           {formattedDatePublished}

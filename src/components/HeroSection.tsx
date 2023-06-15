@@ -29,7 +29,7 @@ const HeroSection = () => {
       canUpdateImageScale = false
       setTimeout(() => {
         canUpdateImageScale = true
-      }, 10)
+      }, 5)
     }
   }
 
