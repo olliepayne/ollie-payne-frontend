@@ -1,14 +1,23 @@
 /** @jsxImportSource theme-ui */
-import { Box, Heading, Paragraph } from "theme-ui"
+import { Box, Heading, Paragraph, Text } from "theme-ui"
 import Image from "next/image"
 import Link from "next/link"
+import { ProjectData } from "helpers/myTypes"
+import { parsedKebabDate } from "helpers/dateParser"
 
 // Props
 type ProjectCard = {
+  projectData: ProjectData
   flipped?: boolean
 }
 
-const ProjectCard = ({ flipped }: ProjectCard) => {
+const ProjectCard = ({ projectData, flipped }: ProjectCard) => {
+  const parsedDatePublished = parsedKebabDate(
+    projectData.attributes.datePublished,
+    "SHORT"
+  )
+  const formattedDatePublished = `${parsedDatePublished.month} ${parsedDatePublished.day}, ${parsedDatePublished.year}`
+
   return (
     <Box
       sx={{
@@ -16,8 +25,8 @@ const ProjectCard = ({ flipped }: ProjectCard) => {
         flexDirection: ["column", flipped ? "row-reverse" : "row"],
         justifyContent: "space-between",
         position: "relative",
-        bg: "subtlePink",
-        boxShadow: "0px 4px 12px rgb(0 0 0 / 0.1)"
+        bg: "subtlePink"
+        // boxShadow: "0px 4px 12px rgb(0 0 0 / 0.1)"
       }}
     >
       {/* Thumbnail */}
@@ -26,7 +35,7 @@ const ProjectCard = ({ flipped }: ProjectCard) => {
           display: "inline-block",
           height: ["350px"],
           flex: "1 0 50%",
-          position: "relative",
+          position: "relative"
           // mr: [0, flipped ? 0 : 5],
           // ml: [0, flipped ? 5 : 0]
         }}
@@ -48,6 +57,7 @@ const ProjectCard = ({ flipped }: ProjectCard) => {
           p: 4
         }}
       >
+        {/* Name */}
         <Heading
           as="h3"
           variant="styles.h3"
@@ -55,15 +65,29 @@ const ProjectCard = ({ flipped }: ProjectCard) => {
             my: 0
           }}
         >
-          Test
+          {projectData.attributes.name}
         </Heading>
+
+        {/* Date published */}
+        <Text
+          sx={{
+            my: 3,
+            display: "block"
+          }}
+        >
+          {formattedDatePublished}
+        </Text>
+
+        {/* Snippet */}
         <Paragraph
           sx={{
             my: 3
           }}
         >
-          Lorem Ipsum.
+          {projectData.attributes.snippet}
         </Paragraph>
+
+        {/* Links */}
         <Box>
           <Link
             href="/#"
@@ -87,22 +111,23 @@ const ProjectCard = ({ flipped }: ProjectCard) => {
           >
             View Case Study
           </Link>
-
-          {/* - this will be optional */}
-          <a
-            sx={{
-              textDecoration: "underline",
-              fontFamily: "body",
-              color: "black",
-              transition: "all 0.2s ease-out",
-              cursor: "pointer",
-              ":hover": {
-                color: "gray"
-              }
-            }}
-          >
-            Visit Live Project
-          </a>
+          {projectData.attributes.liveUrl && (
+            <a
+              href={projectData.attributes.liveUrl}
+              sx={{
+                textDecoration: "underline",
+                fontFamily: "body",
+                color: "black",
+                transition: "all 0.2s ease-out",
+                cursor: "pointer",
+                ":hover": {
+                  color: "gray"
+                }
+              }}
+            >
+              Visit Live Project
+            </a>
+          )}
         </Box>
       </Box>
     </Box>

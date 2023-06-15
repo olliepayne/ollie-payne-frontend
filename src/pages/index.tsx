@@ -2,16 +2,37 @@
 import SEO from "components/SEO"
 import { Container, Heading, Flex, Paragraph, Box, Grid } from "theme-ui"
 import Image from "next/image"
-// import FakeRegion from "components/FakeRegion"
 import Layout from "components/Layout"
 import ContactSection from "components/ContactSection"
 import ProjectCard from "components/ProjectCard"
+import { getStrapiUrl } from "helpers/api"
+import { GetStaticProps } from "next"
+import { Projects } from "helpers/myTypes"
 
 // Add: data fetching for headshot, hero image, and projects
+const projectsUrl = `${getStrapiUrl()}/api/projects`
+const projectsUrlFilters =
+  "?sort[0]=datePublished:desc&pagination[page]=1&pagination[pageSize]=3"
+
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await fetch(projectsUrl + projectsUrlFilters)
+  const projects = await res.json()
+
+  return {
+    props: {
+      projects
+    }
+  }
+}
 
 // Add: Props
+type Home = {
+  projects: Projects
+}
 
-export default function Home() {
+export default function Home({ projects }: Home) {
+  // console.log(projects)
+
   return (
     <Layout>
       <SEO
@@ -126,12 +147,14 @@ export default function Home() {
             }}
           >
             {/* Map projects here */}
-            <li>
-              <ProjectCard />
-            </li>
-            <li>
-              <ProjectCard flipped />
-            </li>
+            {projects.data.map((projectData, index) => (
+              <li key={projectData.attributes.slug}>
+                <ProjectCard
+                  projectData={projectData}
+                  flipped={index > 0 && index % 2 === 1}
+                />
+              </li>
+            ))}
           </ul>
         </Container>
       </section>

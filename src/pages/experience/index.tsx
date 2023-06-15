@@ -6,11 +6,12 @@ import { getStrapiUrl } from "helpers/api"
 import { TimelineEventData } from "helpers/myTypes"
 import { Container, Heading, Box } from "theme-ui"
 import HeroSection from "components/HeroSection"
+import { GetStaticProps } from "next"
 
 // Data fetching
 const timelineEventsUrl = `${getStrapiUrl()}/api/timeline-events?sort[0]=startDate:desc&sort[1]=endDate:desc&populate=*`
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(timelineEventsUrl)
   const data = await res.json()
 

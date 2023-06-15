@@ -1,9 +1,20 @@
-export type Meta = {
+// Global
+export type StrapiMeta = {
   pagination: {
     page: number
     pageSize: number
     pageCount: number
     total: number
+  }
+}
+
+export type StrapiImage = {
+  data: {
+    id: number
+    attributes: {
+      url: string
+      alternativeText: string
+    }
   }
 }
 
@@ -26,15 +37,7 @@ export type BlogPostData = {
 // Timeline event
 export type TimelineEventAttributes = {
   institutionName: string
-  cover: {
-    data: {
-      id: number
-      attributes: {
-        url: string
-        alternativeText: string
-      }
-    }
-  }
+  cover: StrapiImage
   occupationTitle: string
   commitment: string
   startDate: string
@@ -49,7 +52,7 @@ export type TimelineEventData = {
 
 export type TimelineEvent = {
   data: TimelineEventData[]
-  meta: Meta
+  meta: StrapiMeta
 }
 
 // Project
@@ -57,8 +60,21 @@ export type ProjectAttributes = {
   slug: string
   pageTitle: string
   metaDescription: string
+  hero?: StrapiImage
   name: string
-  description: string
+  snippet: string
+  datePublished: string
+  dateEdited?: string
   content: string
-  deployedUrl: string
+  liveUrl?: string
+}
+
+export type ProjectData = {
+  attributes: ProjectAttributes
+  id: number
+}
+
+export type Projects = {
+  data: ProjectData[]
+  meta: StrapiMeta
 }
