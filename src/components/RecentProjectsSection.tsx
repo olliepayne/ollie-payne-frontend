@@ -21,14 +21,14 @@ const RecentProjectsSection = ({ projects }: RecentProjectsSection) => {
           as="h2"
           variant="styles.h2"
           sx={{
-            textAlign: "center"
+            textAlign: "center",
+            mb: 4
           }}
         >
           Recent Projects
         </Heading>
         <ul
           sx={{
-            mt: 4,
             p: 0,
             listStyle: "none"
           }}
