@@ -52,8 +52,9 @@ type PortfolioSlugPage = {
 }
 
 const PortfolioSlugPage = ({ projects }: PortfolioSlugPage) => {
-  const { pageTitle, metaDescription, hero, name, datePublished } =
+  const { pageTitle, metaDescription, hero, name, datePublished, projectTags } =
     projects.data[0].attributes
+  // console.log(projectTags?.data[0].attributes)
 
   const heroImageSrc = `${getStrapiUrl()}${hero.data.attributes.url}`
   const parsedDatePublished = parsedKebabDate(datePublished, "FULL")
@@ -77,8 +78,8 @@ const PortfolioSlugPage = ({ projects }: PortfolioSlugPage) => {
             </Heading>
             <Text>
               <time dateTime={datePublished}>
-                {parsedDatePublished.month}{" "}
-                {parsedDatePublished.day}, {parsedDatePublished.year}
+                {parsedDatePublished.month} {parsedDatePublished.day},{" "}
+                {parsedDatePublished.year}
               </time>
             </Text>
           </Container>

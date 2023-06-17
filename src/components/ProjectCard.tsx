@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import { Box, Heading, Paragraph, Text } from "theme-ui"
+import { Box, Heading, Paragraph, Text, Flex } from "theme-ui"
 import Image from "next/image"
 import Link from "next/link"
 import { Project } from "helpers/myTypes"
@@ -29,7 +29,6 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
         justifyContent: "space-between",
         position: "relative",
         bg: "subtlePink"
-        // boxShadow: "0px 4px 12px rgb(0 0 0 / 0.1)"
       }}
     >
       {/* Image */}
@@ -74,16 +73,58 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
           {project.attributes.name}
         </Heading>
 
-        {/* Date published */}
-        <Text
+        {/* Date published & tags */}
+        <Box
           sx={{
-            my: 3,
-            display: "block",
-            color: "dateGray"
+            my: 3
           }}
         >
-          {formattedDatePublished}
-        </Text>
+          <Text
+            sx={{
+              color: "dateGray"
+            }}
+          >
+            <time dateTime={project.attributes.datePublished}>
+              {formattedDatePublished}
+            </time>
+          </Text>
+
+          {/* Bullet divider (between tags) */}
+          {project.attributes.projectTags && (
+            <Text
+              sx={{
+                mx: 2,
+                userSelect: "none"
+              }}
+            >
+              &bull;
+            </Text>
+          )}
+
+          {/* Tags */}
+          <ul
+            sx={{
+              display: "inline-block",
+              p: 0,
+              listStyle: "none",
+              li: {
+                display: "inline-block"
+              }
+            }}
+          >
+            {project.attributes.projectTags?.data.map((projectTag, index) => (
+              <li key={projectTag.attributes.name}>
+                <Text
+                  sx={{
+                    fontStyle: "italic"
+                  }}
+                >
+                  {index > 0 && ", "} {projectTag.attributes.name}
+                </Text>
+              </li>
+            ))}
+          </ul>
+        </Box>
 
         {/* Snippet */}
         <Paragraph

@@ -60,6 +60,21 @@ export type TimelineEvent = {
   meta: StrapiMeta
 }
 
+// Project Tags
+export type ProjectTagAttributes = {
+  name: string
+}
+
+export type ProjectTag = {
+  attributes: ProjectTagAttributes
+  id: number
+}
+
+export type ProjectTags = {
+  data: ProjectTag[]
+  meta: StrapiMeta
+}
+
 // Project
 export type ProjectAttributes = {
   slug: string
@@ -72,6 +87,7 @@ export type ProjectAttributes = {
   dateEdited?: string
   content: string
   liveUrl?: string
+  projectTags?: ProjectTags
 }
 
 export type Project = {
