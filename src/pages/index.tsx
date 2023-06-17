@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import SEO from "components/SEO"
-import { Container, Heading, Flex, Paragraph, Box, Grid } from "theme-ui"
+import { Container, Heading, Flex, Paragraph } from "theme-ui"
 import Image from "next/image"
 import Layout from "components/Layout"
 import ContactSection from "components/ContactSection"
@@ -92,8 +92,6 @@ export default function Home({ projects }: Home) {
                   </Heading>
                 </li>
               </ul>
-
-              {/* Review: does this still need to be here? */}
               <Paragraph
                 sx={{
                   mt: 3
@@ -150,10 +148,10 @@ export default function Home({ projects }: Home) {
             }}
           >
             {/* Map projects here */}
-            {projects.data.map((projectData, index) => (
-              <li key={projectData.attributes.slug}>
+            {projects.data.map((project, index) => (
+              <li key={project.attributes.slug}>
                 <ProjectCard
-                  projectData={projectData}
+                  project={project}
                   flipped={index > 0 && index % 2 === 1}
                 />
               </li>

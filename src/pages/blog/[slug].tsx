@@ -8,7 +8,7 @@ import BreadcrumbNav from "components/BreadcrumbNav"
 import { GetStaticPaths, GetStaticProps } from "next"
 import ContactSection from "components/ContactSection"
 import { getStrapiUrl } from "helpers/api"
-import { BlogPostData, Meta } from "helpers/myTypes"
+import { BlogPostData, StrapiMeta } from "helpers/myTypes"
 import { parsedKebabDate } from "helpers/dateParser"
 
 // Markdown custom component props & custom components
@@ -80,7 +80,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 type IBlogPostPage = {
   blogPost: {
     data: BlogPostData[]
-    meta: Meta
+    meta: StrapiMeta
   }
 }
 

@@ -4,7 +4,7 @@ import SEO from "components/SEO"
 import { Flex, Container, Heading } from "theme-ui"
 import ArticleCard from "components/ArticleCard"
 import { GetStaticProps } from "next"
-import { BlogPostData, Meta } from "helpers/myTypes"
+import { BlogPost } from "helpers/myTypes"
 import { getStrapiUrl } from "helpers/api"
 
 // Data fetching
@@ -21,14 +21,11 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 // Props
-type IBlogIndexPage = {
-  blogPosts: {
-    data: BlogPostData[]
-    meta: Meta
-  }
+type BlogIndexPage = {
+  blogPosts: BlogPost
 }
 
-const BlogIndexPage = ({ blogPosts: { data, meta } }: IBlogIndexPage) => {
+const BlogIndexPage = ({ blogPosts: { data, meta } }: BlogIndexPage) => {
   return (
     <Layout>
       <SEO title="Blog | Ollie Payne" metaDescription="" />

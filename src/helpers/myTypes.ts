@@ -34,6 +34,11 @@ export type BlogPostData = {
   id: number
 }
 
+export type BlogPost = {
+  data: BlogPostData[]
+  meta: StrapiMeta
+}
+
 // Timeline event
 export type TimelineEventAttributes = {
   institutionName: string
@@ -69,12 +74,12 @@ export type ProjectAttributes = {
   liveUrl?: string
 }
 
-export type ProjectData = {
+export type Project = {
   attributes: ProjectAttributes
   id: number
 }
 
 export type Projects = {
-  data: ProjectData[]
+  data: Project[]
   meta: StrapiMeta
 }

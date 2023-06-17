@@ -2,20 +2,20 @@
 import { Box, Heading, Paragraph, Text } from "theme-ui"
 import Image from "next/image"
 import Link from "next/link"
-import { ProjectData } from "helpers/myTypes"
+import { Project } from "helpers/myTypes"
 import { parsedKebabDate } from "helpers/dateParser"
 import { getStrapiUrl } from "helpers/api"
 
 // Props
 type ProjectCard = {
-  projectData: ProjectData
+  project: Project
   flipped?: boolean
 }
 
-const ProjectCard = ({ projectData, flipped }: ProjectCard) => {
+const ProjectCard = ({ project, flipped }: ProjectCard) => {
   // - parse and store datePublished
   const parsedDatePublished = parsedKebabDate(
-    projectData.attributes.datePublished,
+    project.attributes.datePublished,
     "SHORT"
   )
   const formattedDatePublished = `${parsedDatePublished.month} ${parsedDatePublished.day}, ${parsedDatePublished.year}`
@@ -38,7 +38,7 @@ const ProjectCard = ({ projectData, flipped }: ProjectCard) => {
           display: "inline-block",
           height: "100%",
           flex: "1 0 50%",
-          position: "relative",
+          position: "relative"
           // borderStyle: "solid",
           // borderWidth: "2px",
           // borderColor: "black"
@@ -46,7 +46,7 @@ const ProjectCard = ({ projectData, flipped }: ProjectCard) => {
       >
         <Image
           src={`${getStrapiUrl()}${
-            projectData.attributes.hero?.data.attributes.url
+            project.attributes.hero?.data.attributes.url
           }`}
           alt=""
           fill
@@ -71,7 +71,7 @@ const ProjectCard = ({ projectData, flipped }: ProjectCard) => {
             my: 0
           }}
         >
-          {projectData.attributes.name}
+          {project.attributes.name}
         </Heading>
 
         {/* Date published */}
@@ -91,13 +91,13 @@ const ProjectCard = ({ projectData, flipped }: ProjectCard) => {
             my: 3
           }}
         >
-          {projectData.attributes.snippet}
+          {project.attributes.snippet}
         </Paragraph>
 
         {/* Links */}
         <Box>
           <Link
-            href="/#"
+            href={`/portfolio/${project.attributes.slug}`}
             sx={{
               display: "inline-block",
               px: 3,
@@ -118,9 +118,9 @@ const ProjectCard = ({ projectData, flipped }: ProjectCard) => {
           >
             View Case Study
           </Link>
-          {projectData.attributes.liveUrl && (
+          {project.attributes.liveUrl && (
             <a
-              href={projectData.attributes.liveUrl}
+              href={project.attributes.liveUrl}
               sx={{
                 textDecoration: "underline",
                 fontFamily: "body",
