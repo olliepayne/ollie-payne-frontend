@@ -30,15 +30,17 @@ const RecentProjectsSection = ({ projects }: RecentProjectsSection) => {
           sx={{
             mt: 4,
             p: 0,
-            listStyle: "none",
-            "li:not(:first-child)": {
-              my: 4
-            }
+            listStyle: "none"
           }}
         >
           {/* Map projects here */}
           {projects.data.map((project, index) => (
-            <li key={project.attributes.slug}>
+            <li
+              key={project.attributes.slug}
+              sx={{
+                my: index > 0 ? 4 : 0
+              }}
+            >
               <ProjectCard
                 project={project}
                 flipped={index > 0 && index % 2 === 1}

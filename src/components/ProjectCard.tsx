@@ -104,12 +104,9 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
           {/* Tags */}
           <ul
             sx={{
-              display: "inline-block",
+              display: "inline-flex",
               p: 0,
-              listStyle: "none",
-              li: {
-                display: "inline-block"
-              }
+              listStyle: "none"
             }}
           >
             {project.attributes.projectTags?.data.map((projectTag, index) => (
