@@ -4,6 +4,7 @@ import { parsedKebabDate } from "helpers/dateParser"
 import { Box, Flex, Heading, Paragraph, Text } from "theme-ui"
 import Image from "next/image"
 import { getStrapiUrl } from "helpers/api"
+import Link from "next/link"
 
 // Props
 type Timeline = {
@@ -30,7 +31,7 @@ const Timeline = ({ events }: Timeline) => {
     <Box className="timeline">
       {events.data.map((event, index) => (
         <Flex
-          key={index}
+          key={event.attributes.occupationTitle + index}
           className="event"
           sx={{
             pt: 2,
@@ -50,7 +51,7 @@ const Timeline = ({ events }: Timeline) => {
                 src={`${getStrapiUrl()}${
                   event.attributes.cover.data.attributes.url
                 }`}
-                alt=""
+                alt={event.attributes.cover.data.attributes.alternativeText}
                 width={50}
                 height={50}
                 sx={{
@@ -83,8 +84,8 @@ const Timeline = ({ events }: Timeline) => {
           {/* Content */}
           <Box
             sx={{
-              ml: 3,
-              mb: 3,
+              pl: 3,
+              pb: 3,
               display: "inline-block"
             }}
           >
@@ -149,11 +150,44 @@ const Timeline = ({ events }: Timeline) => {
             </Text>
             <Paragraph
               sx={{
-                mt: 2
+                my: 2
               }}
             >
               {event.attributes.description}
             </Paragraph>
+
+            {/* Project tags / tag links */}
+            <ul
+              sx={{
+                display: "inline-flex",
+                p: 0,
+                listStyle: "none"
+              }}
+            >
+              {event.attributes.projectTags?.data.map((projectTag, index) => (
+                <li>
+                  <Link
+                    href="#"
+                    sx={{
+                      borderRadius: "32px",
+                      borderStyle: "solid",
+                      borderWidth: "2px",
+                      textDecoration: "none",
+                      color: "black",
+                      fontFamily: "body",
+                      fontWeight: 500,
+                      py: 1,
+                      px: 2,
+                      ":hover": {
+                        borderColor: "myPink"
+                      }
+                    }}
+                  >
+                    {projectTag.attributes.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </Box>
         </Flex>
       ))}
