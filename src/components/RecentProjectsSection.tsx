@@ -1,0 +1,54 @@
+/** @jsxImportSource theme-ui */
+import { Container, Heading } from "theme-ui"
+import { Projects } from "helpers/myTypes"
+import ProjectCard from "components/ProjectCard"
+
+// Props
+type RecentProjectsSection = {
+  projects: Projects
+}
+
+const RecentProjectsSection = ({ projects }: RecentProjectsSection) => {
+  return (
+    <section
+      sx={{
+        // bg: "subtlePink",
+        py: [4, 5]
+      }}
+    >
+      <Container>
+        <Heading
+          as="h2"
+          variant="styles.h2"
+          sx={{
+            textAlign: "center"
+          }}
+        >
+          Recent Projects
+        </Heading>
+        <ul
+          sx={{
+            mt: 4,
+            p: 0,
+            listStyle: "none",
+            "li:not(:first-child)": {
+              my: 4
+            }
+          }}
+        >
+          {/* Map projects here */}
+          {projects.data.map((project, index) => (
+            <li key={project.attributes.slug}>
+              <ProjectCard
+                project={project}
+                flipped={index > 0 && index % 2 === 1}
+              />
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </section>
+  )
+}
+
+export default RecentProjectsSection

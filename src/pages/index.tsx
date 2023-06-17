@@ -4,10 +4,10 @@ import { Container, Heading, Flex, Paragraph } from "theme-ui"
 import Image from "next/image"
 import Layout from "components/Layout"
 import ContactSection from "components/ContactSection"
-import ProjectCard from "components/ProjectCard"
 import { getStrapiUrl } from "helpers/api"
 import { GetStaticProps } from "next"
 import { Projects } from "helpers/myTypes"
+import RecentProjectsSection from "components/RecentProjectsSection"
 
 // Add: data fetching for headshot, hero image, and projects
 const projectsUrl = `${getStrapiUrl()}/api/projects`
@@ -121,7 +121,8 @@ export default function Home({ projects }: Home) {
       </section>
 
       {/* Projects */}
-      <section
+      <RecentProjectsSection projects={projects} />
+      {/* <section
         sx={{
           // bg: "subtlePink",
           py: [4, 5]
@@ -147,7 +148,6 @@ export default function Home({ projects }: Home) {
               }
             }}
           >
-            {/* Map projects here */}
             {projects.data.map((project, index) => (
               <li key={project.attributes.slug}>
                 <ProjectCard
@@ -158,7 +158,7 @@ export default function Home({ projects }: Home) {
             ))}
           </ul>
         </Container>
-      </section>
+      </section> */}
 
       {/* Contact */}
       <ContactSection />
