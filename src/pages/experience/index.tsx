@@ -3,7 +3,7 @@ import Layout from "components/Layout"
 import SEO from "components/SEO"
 import Timeline from "components/Timeline"
 import { getStrapiUrl } from "helpers/api"
-import { TimelineEventData } from "helpers/myTypes"
+import { TimelineEvents } from "helpers/myTypes"
 import { Container, Heading } from "theme-ui"
 import HeroSection from "components/HeroSection"
 import { GetStaticProps } from "next"
@@ -17,25 +17,21 @@ export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(
     `${timelineEventsUrl}?${timelineEventsUrlSort}&${timelineEventsUrlPopulate}`
   )
-  const data = await res.json()
+  const timelineEvents = await res.json()
 
   return {
     props: {
-      data
+      timelineEvents
     }
   }
 }
 
 // Props
 type ExperienceIndexPage = {
-  data: {
-    data: TimelineEventData[]
-  }
+  timelineEvents: TimelineEvents
 }
 
-const ExperienceIndexPage = (props: ExperienceIndexPage) => {
-  const timelineEvents = props.data.data
-
+const ExperienceIndexPage = ({ timelineEvents }: ExperienceIndexPage) => {
   return (
     <Layout>
       <SEO title="My Experience" metaDescription="" />

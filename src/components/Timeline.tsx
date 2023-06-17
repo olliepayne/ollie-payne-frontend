@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import { TimelineEventData } from "helpers/myTypes"
+import { TimelineEvent, TimelineEvents } from "helpers/myTypes"
 import { parsedKebabDate } from "helpers/dateParser"
 import { Box, Flex, Heading, Paragraph, Text } from "theme-ui"
 import Image from "next/image"
@@ -7,15 +7,15 @@ import { getStrapiUrl } from "helpers/api"
 
 // Props
 type Timeline = {
-  events: TimelineEventData[]
+  events: TimelineEvents
 }
 
 const Timeline = ({ events }: Timeline) => {
-  type IsSameInstituion = (event: TimelineEventData, index: number) => boolean
+  type IsSameInstituion = (event: TimelineEvent, index: number) => boolean
   const isSameInstitution: IsSameInstituion = (event, index) => {
     if (
       index > 0 &&
-      events[index - 1].attributes.institutionName !==
+      events.data[index - 1].attributes.institutionName !==
         event.attributes.institutionName
     ) {
       return false
@@ -28,7 +28,7 @@ const Timeline = ({ events }: Timeline) => {
 
   return (
     <Box className="timeline">
-      {events?.map((event, index) => (
+      {events.data.map((event, index) => (
         <Flex
           key={index}
           className="event"

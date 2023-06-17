@@ -18,6 +18,21 @@ export type StrapiImage = {
   }
 }
 
+// Project Tags
+export type ProjectTagAttributes = {
+  name: string
+}
+
+export type ProjectTag = {
+  attributes: ProjectTagAttributes
+  id: number
+}
+
+export type ProjectTags = {
+  data: ProjectTag[]
+  meta: StrapiMeta
+}
+
 // Blog post
 export type BlogPostAttributes = {
   slug: string
@@ -48,30 +63,16 @@ export type TimelineEventAttributes = {
   startDate: string
   endDate?: string
   description: string
+  projectTags?: ProjectTags
 }
 
-export type TimelineEventData = {
+export type TimelineEvent = {
   attributes: TimelineEventAttributes
   id: number
 }
 
-export type TimelineEvent = {
-  data: TimelineEventData[]
-  meta: StrapiMeta
-}
-
-// Project Tags
-export type ProjectTagAttributes = {
-  name: string
-}
-
-export type ProjectTag = {
-  attributes: ProjectTagAttributes
-  id: number
-}
-
-export type ProjectTags = {
-  data: ProjectTag[]
+export type TimelineEvents = {
+  data: TimelineEvent[]
   meta: StrapiMeta
 }
 
