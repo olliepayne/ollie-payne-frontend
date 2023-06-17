@@ -42,6 +42,7 @@ const PortfolioIndexPage = ({ projects }: PortfolioIndexPage) => {
           minHeight: "100vh"
         }}
       >
+        {/* Project filtering */}
         <section>
           <Container></Container>
         </section>

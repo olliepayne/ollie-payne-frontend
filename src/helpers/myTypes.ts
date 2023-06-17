@@ -29,13 +29,13 @@ export type BlogPostAttributes = {
   content: string
 }
 
-export type BlogPostData = {
+export type BlogPost = {
   attributes: BlogPostAttributes
   id: number
 }
 
-export type BlogPost = {
-  data: BlogPostData[]
+export type BlogPosts = {
+  data: BlogPost[]
   meta: StrapiMeta
 }
 
@@ -65,7 +65,7 @@ export type ProjectAttributes = {
   slug: string
   pageTitle: string
   metaDescription: string
-  hero?: StrapiImage
+  hero: StrapiImage
   name: string
   snippet: string
   datePublished: string

@@ -16,14 +16,14 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
   // - parse and store datePublished
   const parsedDatePublished = parsedKebabDate(
     project.attributes.datePublished,
-    "SHORT"
+    "FULL"
   )
   const formattedDatePublished = `${parsedDatePublished.month} ${parsedDatePublished.day}, ${parsedDatePublished.year}`
 
   return (
     <Box
       sx={{
-        height: ["650px", "300px"],
+        height: ["600px", "300px"],
         display: "flex",
         flexDirection: ["column", flipped ? "row-reverse" : "row"],
         justifyContent: "space-between",
