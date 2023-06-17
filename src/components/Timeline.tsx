@@ -31,7 +31,7 @@ const Timeline = ({ events }: Timeline) => {
     <Box className="timeline">
       {events.data.map((event, index) => (
         <Flex
-          key={event.attributes.occupationTitle + index}
+          key={event.id + event.attributes.occupationTitle}
           className="event"
           sx={{
             pt: 2,
@@ -157,15 +157,25 @@ const Timeline = ({ events }: Timeline) => {
             </Paragraph>
 
             {/* Project tags / tag links */}
+            <Text
+              sx={{
+                mr: 2,
+                // display: "block",
+                fontWeight: 500
+              }}
+            >
+              Skills:
+            </Text>
             <ul
               sx={{
                 display: "inline-flex",
                 p: 0,
-                listStyle: "none"
+                listStyle: "none",
+                flexWrap: "wrap"
               }}
             >
-              {event.attributes.projectTags?.data.map((projectTag, index) => (
-                <li>
+              {event.attributes.skillTags?.data.map((skillTag) => (
+                <li key={event.id + skillTag.attributes.name}>
                   <Link
                     href="#"
                     sx={{
@@ -183,7 +193,7 @@ const Timeline = ({ events }: Timeline) => {
                       }
                     }}
                   >
-                    {projectTag.attributes.name}
+                    {skillTag.attributes.name}
                   </Link>
                 </li>
               ))}

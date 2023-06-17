@@ -28,7 +28,8 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
         flexDirection: ["column", flipped ? "row-reverse" : "row"],
         justifyContent: "space-between",
         position: "relative",
-        bg: "subtlePink"
+        bg: "subtlePink",
+        boxShadow: "0 0 8px rgb(0 0 0 / 0.1)"
       }}
     >
       {/* Image */}
@@ -38,9 +39,6 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
           height: "100%",
           flex: "1 0 50%",
           position: "relative"
-          // borderStyle: "solid",
-          // borderWidth: "2px",
-          // borderColor: "black"
         }}
       >
         <Image
@@ -90,7 +88,7 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
           </Text>
 
           {/* Bullet divider (between tags) */}
-          {project.attributes.projectTags && (
+          {project.attributes.skillTags && (
             <Text
               sx={{
                 mx: 2,
@@ -109,14 +107,14 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
               listStyle: "none"
             }}
           >
-            {project.attributes.projectTags?.data.map((projectTag, index) => (
-              <li key={projectTag.attributes.name}>
+            {project.attributes.skillTags?.data.map((skillTag, index) => (
+              <li key={skillTag.id + skillTag.attributes.name}>
                 <Text
                   sx={{
                     fontStyle: "italic"
                   }}
                 >
-                  {index > 0 && ", "} {projectTag.attributes.name}
+                  {index > 0 && ", "} {skillTag.attributes.name}
                 </Text>
               </li>
             ))}

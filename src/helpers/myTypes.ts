@@ -19,17 +19,17 @@ export type StrapiImage = {
 }
 
 // Project Tags
-export type ProjectTagAttributes = {
+export type SkilltagAttributes = {
   name: string
 }
 
-export type ProjectTag = {
-  attributes: ProjectTagAttributes
+export type SkillTag = {
+  attributes: SkilltagAttributes
   id: number
 }
 
-export type ProjectTags = {
-  data: ProjectTag[]
+export type SkillTags = {
+  data: SkillTag[]
   meta: StrapiMeta
 }
 
@@ -63,7 +63,7 @@ export type TimelineEventAttributes = {
   startDate: string
   endDate?: string
   description: string
-  projectTags?: ProjectTags
+  skillTags?: SkillTags
 }
 
 export type TimelineEvent = {
@@ -88,7 +88,7 @@ export type ProjectAttributes = {
   dateEdited?: string
   content: string
   liveUrl?: string
-  projectTags?: ProjectTags
+  skillTags?: SkillTags
 }
 
 export type Project = {
