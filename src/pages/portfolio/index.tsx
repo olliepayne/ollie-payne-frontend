@@ -6,6 +6,9 @@ import { GetServerSideProps, GetStaticProps } from "next"
 import { getStrapiUrl } from "helpers/api"
 import RecentProjectsSection from "components/RecentProjectsSection"
 import { Projects } from "helpers/myTypes"
+import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
+import ProjectCard from "components/ProjectCard"
 
 // Add: data fetching
 const projectsUrl = `${getStrapiUrl()}/api/projects`
@@ -24,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   }
   const recentProjects = await getRecentProjects()
 
-  // - 
+  // -
 
   return {
     props: {
@@ -59,6 +62,29 @@ type PortfolioIndexPage = {
 }
 
 const PortfolioIndexPage = ({ recentProjects }: PortfolioIndexPage) => {
+  // Path splitting
+  const { asPath } = useRouter()
+  const splitPath = asPath.split("=")
+  const skillTagsIds = splitPath[splitPath.length - 1].split("&")
+  // console.log(skillTagsIds)
+
+  // Project filtering
+  const [filteredProjects, setFilteredProjects] = useState<Projects | null>()
+
+  // -
+  const handleGetFilteredProjects = async () => {
+    const projectsUrlFilters = `?filters[skillTags][id][$eq]=1`
+    const res = await fetch(
+      projectsUrl + projectsUrlFilters + projectsUrlPopulate
+    )
+    const filteredProjects = await res.json()
+    setFilteredProjects(filteredProjects)
+  }
+
+  useEffect(() => {
+    handleGetFilteredProjects()
+  }, [])
+
   console.log(recentProjects)
 
   return (
@@ -71,7 +97,9 @@ const PortfolioIndexPage = ({ recentProjects }: PortfolioIndexPage) => {
       >
         {/* Project filtering */}
         <section>
-          <Container></Container>
+          <Container>
+            {filteredProjects && <ProjectCard project={filteredProjects.data[0]} />}
+          </Container>
         </section>
         {/* <RecentProjectsSection projects={recentProjects} /> */}
       </main>
