@@ -64,8 +64,18 @@ const PortfolioIndexPage = ({
   const { asPath } = useRouter()
 
   const [filteredProjects, setFilteredProjects] = useState<Projects | null>()
+
+  const [appliedSkillTags, setAppliedSkillTags] = useState<SkillTag[] | null>()
   const handleAddSkillTag = (skillTag: SkillTag) => {
-    
+    if (appliedSkillTags) {
+      if (!appliedSkillTags.includes(skillTag)) {
+        const newAppliedSkillTags = [...appliedSkillTags, skillTag]
+        setAppliedSkillTags(newAppliedSkillTags)
+      }
+    } else {
+      const newAppliedSkillTags = [skillTag]
+      setAppliedSkillTags(newAppliedSkillTags)
+    }
   }
 
   // Check to see if the current path has a filter query in when the component mounts
@@ -111,7 +121,11 @@ const PortfolioIndexPage = ({
                   <li key={`skillTags:${index}`}>
                     <Button
                       variant="tag"
-                      sx={{}}
+                      sx={{
+                        borderColor: appliedSkillTags?.includes(skillTag)
+                          ? "myPink"
+                          : "black"
+                      }}
                       onClick={() => handleAddSkillTag(skillTag)}
                     >
                       {skillTag.attributes.name}
