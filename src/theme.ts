@@ -83,6 +83,20 @@ export const theme: Theme = {
           transition: "all 0.15s ease-in"
         }
       }
+    },
+    tag: {
+      borderRadius: "32px",
+      borderStyle: "solid",
+      borderWidth: "2px",
+      textDecoration: "none",
+      color: "black",
+      fontFamily: "body",
+      fontWeight: 500,
+      py: 1,
+      px: 2,
+      ":hover": {
+        borderColor: "myPink"
+      }
     }
   },
   styles: {

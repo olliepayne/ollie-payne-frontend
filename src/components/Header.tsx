@@ -30,7 +30,7 @@ const Header = () => {
     transition: "all 0.1s ease-out"
   }
 
-  // - dead for now
+  // Review: does this need to come back?
   // const closeNavOnResize = () => {
   //   if (screen.width > 768) setNavIsOpen(false)
   // }

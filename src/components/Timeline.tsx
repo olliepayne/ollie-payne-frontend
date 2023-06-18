@@ -160,7 +160,6 @@ const Timeline = ({ events }: Timeline) => {
             <Text
               sx={{
                 mr: 2,
-                // display: "block",
                 fontWeight: 500
               }}
             >
@@ -179,18 +178,7 @@ const Timeline = ({ events }: Timeline) => {
                   <Link
                     href={`/portfolio/?skills=${skillTag.id}`}
                     sx={{
-                      borderRadius: "32px",
-                      borderStyle: "solid",
-                      borderWidth: "2px",
-                      textDecoration: "none",
-                      color: "black",
-                      fontFamily: "body",
-                      fontWeight: 500,
-                      py: 1,
-                      px: 2,
-                      ":hover": {
-                        borderColor: "myPink"
-                      }
+                      variant: "links.tag"
                     }}
                   >
                     {skillTag.attributes.name}
