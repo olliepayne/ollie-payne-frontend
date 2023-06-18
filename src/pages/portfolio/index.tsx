@@ -1,12 +1,12 @@
 /** @jsxImportSource theme-ui */
-import { Heading } from "theme-ui"
+import { Heading, Button, AspectImage } from "theme-ui"
 import Layout from "components/Layout"
 import SEO from "components/SEO"
 import { Container } from "theme-ui"
 import { GetStaticProps } from "next"
 import { getStrapiUrl } from "helpers/api"
 import RecentProjectsSection from "components/RecentProjectsSection"
-import { Projects, SkillTags } from "helpers/myTypes"
+import { Projects, SkillTag, SkillTags } from "helpers/myTypes"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import ProjectCard from "components/ProjectCard"
@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-// # Props
+// Props
 type PortfolioIndexPage = {
   recentProjects: Projects
   skillTags: SkillTags
@@ -61,78 +61,43 @@ const PortfolioIndexPage = ({
   recentProjects,
   skillTags
 }: PortfolioIndexPage) => {
-  // Path splitting
+  const router = useRouter()
   const { asPath } = useRouter()
-  const getSkillTagsIds = () => {
-    const splitPath = asPath.split("=")
-    return splitPath[splitPath.length - 1].split("&")
-  }
 
-  const skillTagsIds = getSkillTagsIds()
-
-  // Project filtering
+  const [query, setQuery] = useState<string>()
   const [filteredProjects, setFilteredProjects] = useState<Projects | null>()
+  const handleFilteredProjects = async () => {
+    const skillTagId = asPath.split("=")[1]
 
-  const handleGetFilteredProjects = async () => {
-    // Sort through the skillTagIds and map results, concat with "?filters" query
-    const getProjectsUrlFilters = () => {
-      return (
-        "?filters" +
-        skillTagsIds.map((skillTagId) => `[skillTags][id][$eq]=${skillTagId}&`)
-      )
-    }
-    const projectsUrlFilters = getProjectsUrlFilters()
-
-    // Fetch the data
+    const projectFiltersUrl = `?filters[skillTags][id][$eq]=${skillTagId}`
     const res = await fetch(
-      projectsUrl + projectsUrlFilters + projectsUrlPopulate
+      projectsUrl + projectFiltersUrl + projectsUrlPopulate
     )
-    const filteredProjects = await res.json()
-    setFilteredProjects(filteredProjects)
+    const newFilteredProjects = await res.json()
+    setFilteredProjects(newFilteredProjects)
   }
 
-  // # Skill Tags
-  // const [appliedSkillTags, setAppliedSkillTags] = useState<SkillTags | null>()
-
-  const getSkillTagQuery = (skillTagId: number) => {
-    let skillTagQuery: string
-
-    // Remove the tag if it was previously selected, otherwise apply it and append it to the path
-    if (asPath.includes(skillTagId.toString())) {
-      if (asPath.includes("&")) {
-        const splitPath = asPath.split("=")
-        const skillTagIds = splitPath[1].split("&")
-        const index = skillTagIds.indexOf(skillTagId.toString())
-        skillTagIds.splice(index, 1)
-
-        skillTagQuery =
-          `?skills=` +
-          skillTagIds.map((skillTagId, index) => {
-            if (skillTagIds.length > 1 && index < skillTagIds.length - 1) {
-              return `${skillTagId}&`
-            } else {
-              return skillTagId
-            }
-          })
-      } else {
-        skillTagQuery = "/portfolio"
+  const handleUpdateQuery = (skillTagId: number) => {
+    // const newQuery = `skill=${skillTagId}`
+    router.replace({
+      query: {
+        skill: skillTagId
       }
-    } else {
-      if (asPath.includes("?skills")) {
-        skillTagQuery = `${asPath}&${skillTagId}`
-      } else {
-        skillTagQuery = `?skills=${skillTagId}`
-      }
-    }
-
-    // handleGetFilteredProjects()
-    return skillTagQuery
+    })
   }
 
-  // Check to see if the current path has a filter query in when the component mounts
   useEffect(() => {
-    if (asPath.includes("?skills")) handleGetFilteredProjects()
-  }, [])
+    handleFilteredProjects()
+  }, [asPath])
+
+  const skillTagIsActive = (skillTagId: number) => {
+    const queryTargetSkillTagId = `?skill=${skillTagId}`
+    if (asPath.includes(queryTargetSkillTagId)) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   return (
     <Layout>
@@ -140,22 +105,24 @@ const PortfolioIndexPage = ({
       <HeroSection h1="Portfolio" />
       <main
         sx={{
-          minHeight: "100vh",
-          py: 5
+          minHeight: "100vh"
         }}
       >
         {/* Project filtering */}
-        <section>
+        <section
+          sx={{
+            py: 5
+          }}
+        >
           <Container>
             <Heading
               as="h2"
               variant="styles.h2"
               sx={{
-                // textAlign: "center",
                 mb: 4
               }}
             >
-              Explore by Tags
+              Explore by Skills
             </Heading>
 
             {/* Tags */}
@@ -173,13 +140,17 @@ const PortfolioIndexPage = ({
                 {skillTags.data.map((skillTag, index) => (
                   <li key={`skillTags:${index}`}>
                     <Link
-                      href={getSkillTagQuery(skillTag.id)}
+                      href={`?skill=${skillTag.id}`}
                       sx={{
                         variant: "links.tag",
-                        borderColor: asPath.includes(skillTag.id.toString())
+                        borderColor: skillTagIsActive(skillTag.id)
                           ? "myPink"
-                          : "black"
+                          : "black",
+                        backgroundColor: skillTagIsActive(skillTag.id)
+                          ? "myPink"
+                          : "transparent"
                       }}
+                      onClick={() => handleUpdateQuery(skillTag.id)}
                     >
                       {skillTag.attributes.name}
                     </Link>

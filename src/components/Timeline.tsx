@@ -176,7 +176,7 @@ const Timeline = ({ events }: Timeline) => {
               {event.attributes.skillTags?.data.map((skillTag) => (
                 <li key={event.id + skillTag.attributes.name}>
                   <Link
-                    href={`/portfolio/?skills=${skillTag.id}`}
+                    href={`/portfolio/?skill=${skillTag.id}`}
                     sx={{
                       variant: "links.tag"
                     }}
