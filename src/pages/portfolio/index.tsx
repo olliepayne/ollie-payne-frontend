@@ -64,7 +64,6 @@ const PortfolioIndexPage = ({
   const router = useRouter()
   const { asPath } = useRouter()
 
-  const [query, setQuery] = useState<string>()
   const [filteredProjects, setFilteredProjects] = useState<Projects | null>()
   const handleFilteredProjects = async () => {
     const skillTagId = asPath.split("=")[1]
@@ -78,7 +77,6 @@ const PortfolioIndexPage = ({
   }
 
   const handleUpdateQuery = (skillTagId: number) => {
-    // const newQuery = `skill=${skillTagId}`
     router.replace({
       query: {
         skill: skillTagId
@@ -150,7 +148,7 @@ const PortfolioIndexPage = ({
                           ? "myPink"
                           : "transparent"
                       }}
-                      onClick={() => handleUpdateQuery(skillTag.id)}
+                      // onClick={() => handleUpdateQuery(skillTag.id)}
                     >
                       {skillTag.attributes.name}
                     </Link>
