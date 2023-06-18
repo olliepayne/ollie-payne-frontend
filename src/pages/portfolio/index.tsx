@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-// # Props
+// Props
 type PortfolioIndexPage = {
   recentProjects: Projects
   skillTags: SkillTags
@@ -64,68 +64,47 @@ const PortfolioIndexPage = ({
   const router = useRouter()
   const { asPath } = useRouter()
 
+  const [query, setQuery] = useState<string>()
   const [filteredProjects, setFilteredProjects] = useState<Projects | null>()
-
-  // Handle initial project filtering via url *from query link to page
-  const handleInitialFilteredProjects = async () => {}
-
   const handleFilteredProjects = async () => {
-    let projectFiltersUrl = "?filters"
-    if (queryFilters.skill1 !== undefined) {
-      projectFiltersUrl += `[skillTags][id][$eq]=${queryFilters.skill1}`
+    let skillTagId = ""
+    if (query) {
+      skillTagId = query.split("=")[1]
+    } else {
+      skillTagId = asPath.split("=")[1]
     }
 
-    if (queryFilters.skill2 !== undefined) {
-      projectFiltersUrl += `&[skillTags][id][$eq]=${queryFilters.skill2}`
-    }
-
+    const projectFiltersUrl = `?filters[skillTags][id][$eq]=${skillTagId}`
     const res = await fetch(
       projectsUrl + projectFiltersUrl + projectsUrlPopulate
     )
     const newFilteredProjects = await res.json()
-    console.log(newFilteredProjects)
     setFilteredProjects(newFilteredProjects)
   }
 
-  // Handle the application of skill tags
-  // - allow up to 3 tags
-  type QueryFilters = {
-    skill1: undefined | string
-    skill2: undefined | string
-    skill3: undefined | string
+  const handleUpdateQuery = async (skillTagId: number) => {
+    const newQuery = `skill=${skillTagId}`
+    router.replace({
+      query: newQuery
+    })
+    setQuery(newQuery)
   }
-  const [queryFilters, setQueryFilters] = useState<QueryFilters>({
-    skill1: undefined,
-    skill2: undefined,
-    skill3: undefined
-  })
-  const handleUpdateQuery = (skillTag: SkillTag) => {
-    if (queryFilters.skill1 === undefined) {
-      setQueryFilters({ ...queryFilters, skill1: skillTag.id.toString() })
-      router.push({
-        query: {
-          skill1: skillTag.id.toString()
-        }
-      })
-      return
-    } else if (queryFilters.skill2 === undefined) {
-      setQueryFilters({ ...queryFilters, skill2: skillTag.id.toString() })
-      router.push({
-        query: {
-          skill1: queryFilters.skill1,
-          skill2: skillTag.id.toString()
-        }
-      })
-    }
-
-    handleFilteredProjects()
-  }
-
-  const getSkillTagBorderColor = () => {}
 
   useEffect(() => {
-    if (asPath.includes("?")) handleFilteredProjects()
-  }, [queryFilters])
+    handleFilteredProjects()
+  }, [query])
+
+  const skillTagIsActive = (skillTagId: number) => {
+    const queryTargetSkillTagId = `?skill=${skillTagId}`
+    if (
+      query?.includes(queryTargetSkillTagId) ||
+      asPath.includes(queryTargetSkillTagId)
+    ) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   return (
     <Layout>
@@ -150,7 +129,7 @@ const PortfolioIndexPage = ({
                 mb: 4
               }}
             >
-              Explore by Tags
+              Explore by Skills
             </Heading>
 
             {/* Tags */}
@@ -167,23 +146,21 @@ const PortfolioIndexPage = ({
               >
                 {skillTags.data.map((skillTag, index) => (
                   <li key={`skillTags:${index}`}>
-                    <Button
-                      variant="tag"
+                    <Link
+                      href={`?skill=${skillTag.id}`}
                       sx={{
-                        // borderColor: appliedSkillTags?.includes(skillTag)
-                        //   ? "myPink"
-                        //   : "black",
-                        transition: "background-color 0.2s"
-                        // ":hover": {
-                        //   backgroundColor: appliedSkillTags.includes(skillTag)
-                        //     ? "#F5F5F5"
-                        //     : "transparent"
-                        // }
+                        variant: "links.tag",
+                        borderColor: skillTagIsActive(skillTag.id)
+                          ? "myPink"
+                          : "black",
+                        backgroundColor: skillTagIsActive(skillTag.id)
+                          ? "myPink"
+                          : "transparent"
                       }}
-                      onClick={() => handleUpdateQuery(skillTag)}
+                      onClick={() => handleUpdateQuery(skillTag.id)}
                     >
                       {skillTag.attributes.name}
-                    </Button>
+                    </Link>
                   </li>
                 ))}
               </ul>
