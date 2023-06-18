@@ -95,6 +95,8 @@ const PortfolioIndexPage = ({
   // const [appliedSkillTags, setAppliedSkillTags] = useState<SkillTags | null>()
 
   const getSkillTagQuery = (skillTagId: number) => {
+    let skillTagQuery: string
+
     // Remove the tag if it was previously selected, otherwise apply it and append it to the path
     if (asPath.includes(skillTagId.toString())) {
       if (asPath.includes("&")) {
@@ -103,7 +105,7 @@ const PortfolioIndexPage = ({
         const index = skillTagIds.indexOf(skillTagId.toString())
         skillTagIds.splice(index, 1)
 
-        return (
+        skillTagQuery =
           `?skills=` +
           skillTagIds.map((skillTagId, index) => {
             if (skillTagIds.length > 1 && index < skillTagIds.length - 1) {
@@ -112,23 +114,25 @@ const PortfolioIndexPage = ({
               return skillTagId
             }
           })
-        )
       } else {
-        return "/portfolio"
+        skillTagQuery = "/portfolio"
       }
     } else {
       if (asPath.includes("?skills")) {
-        return `${asPath}&${skillTagId}`
+        skillTagQuery = `${asPath}&${skillTagId}`
       } else {
-        return `?skills=${skillTagId}`
+        skillTagQuery = `?skills=${skillTagId}`
       }
     }
+
+    // handleGetFilteredProjects()
+    return skillTagQuery
   }
 
   // Check to see if the current path has a filter query in when the component mounts
   useEffect(() => {
     if (asPath.includes("?skills")) handleGetFilteredProjects()
-  }, [asPath])
+  }, [])
 
   return (
     <Layout>

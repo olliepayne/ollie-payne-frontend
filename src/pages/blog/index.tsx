@@ -4,8 +4,9 @@ import SEO from "components/SEO"
 import { Flex, Container, Heading } from "theme-ui"
 import ArticleCard from "components/ArticleCard"
 import { GetStaticProps } from "next"
-import { BlogPost } from "helpers/myTypes"
+import { BlogPosts } from "helpers/myTypes"
 import { getStrapiUrl } from "helpers/api"
+import HeroSection from "components/HeroSection"
 
 // Data fetching
 const blogPostsUrl = `${getStrapiUrl()}/api/blog-posts`
@@ -22,13 +23,14 @@ export const getStaticProps: GetStaticProps = async () => {
 
 // Props
 type BlogIndexPage = {
-  blogPosts: BlogPost
+  blogPosts: BlogPosts
 }
 
-const BlogIndexPage = ({ blogPosts: { data, meta } }: BlogIndexPage) => {
+const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
   return (
     <Layout>
       <SEO title="Blog | Ollie Payne" metaDescription="" />
+      <HeroSection h1="Blog" />
       <main>
         <section
           sx={{
@@ -36,9 +38,6 @@ const BlogIndexPage = ({ blogPosts: { data, meta } }: BlogIndexPage) => {
           }}
         >
           <Container>
-            <Heading as="h1" variant="styles.h1">
-              Blog
-            </Heading>
             <Heading
               as="h3"
               variant="styles.h3"
@@ -63,7 +62,7 @@ const BlogIndexPage = ({ blogPosts: { data, meta } }: BlogIndexPage) => {
                 }
               }}
             >
-              {data.map((blogPost, index) => (
+              {blogPosts.data.map((blogPost, index) => (
                 <li key={index}>
                   <ArticleCard blogPost={blogPost.attributes} />
                 </li>
