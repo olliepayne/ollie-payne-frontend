@@ -99,6 +99,24 @@ export const theme: Theme = {
       }
     }
   },
+  buttons: {
+    tag: {
+      borderRadius: "32px",
+      borderStyle: "solid",
+      borderWidth: "2px",
+      textDecoration: "none",
+      color: "black",
+      fontFamily: "body",
+      fontWeight: 500,
+      py: 1,
+      px: 2,
+      cursor: "pointer",
+      background: "transparent",
+      ":hover": {
+        borderColor: "myPink"
+      }
+    }
+  },
   styles: {
     h1: {
       variant: "text.heading",
