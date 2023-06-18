@@ -67,68 +67,65 @@ const PortfolioIndexPage = ({
   const [filteredProjects, setFilteredProjects] = useState<Projects | null>()
 
   // Handle initial project filtering via url *from query link to page
-  const handleInitialFilteredProjects = async () => {
-    const splitPath = asPath.split("=")
-    const pathSkillTagId = splitPath[1]
-    console.log(pathSkillTagId)
+  const handleInitialFilteredProjects = async () => {}
 
-    const projectsUrlFilters = `?filters[skillTags][id][$eq]=${pathSkillTagId}`
-    const res = await fetch(
-      projectsUrl + projectsUrlFilters + projectsUrlPopulate
-    )
-    const newFilteredProjects = await res.json()
-    setFilteredProjects(newFilteredProjects)
-  }
-
-  // Handle project filtering via skill tags
   const handleFilteredProjects = async () => {
-    const projectsUrlFilters =
-      `?filters[skillTags][id][$eq]=` +
-      appliedSkillTags
-        .map((appliedSkillTag, index) =>
-          index > 0
-            ? `&filters[skillTags][id][$eq]=${appliedSkillTag.id}`
-            : appliedSkillTag.id
-        )
-        .join("")
+    let projectFiltersUrl = "?filters"
+    if (queryFilters.skill1 !== undefined) {
+      projectFiltersUrl += `[skillTags][id][$eq]=${queryFilters.skill1}`
+    }
+
+    if (queryFilters.skill2 !== undefined) {
+      projectFiltersUrl += `&[skillTags][id][$eq]=${queryFilters.skill2}`
+    }
+
     const res = await fetch(
-      projectsUrl + projectsUrlFilters + projectsUrlPopulate
+      projectsUrl + projectFiltersUrl + projectsUrlPopulate
     )
     const newFilteredProjects = await res.json()
+    console.log(newFilteredProjects)
     setFilteredProjects(newFilteredProjects)
   }
 
   // Handle the application of skill tags
-  const [appliedSkillTags, setAppliedSkillTags] = useState<SkillTag[]>([])
-  const handleAddSkillTag = (skillTag: SkillTag) => {
-    let newAppliedSkillTags: SkillTag[]
-
-    if (appliedSkillTags.includes(skillTag)) {
-      newAppliedSkillTags = [...appliedSkillTags]
-      newAppliedSkillTags.splice(newAppliedSkillTags.indexOf(skillTag), 1)
-      setAppliedSkillTags(newAppliedSkillTags)
-    } else {
-      newAppliedSkillTags = [...appliedSkillTags, skillTag]
-      setAppliedSkillTags(newAppliedSkillTags)
-
-      if (asPath.includes("?skills")) {
-        router.push(`${asPath}&=${skillTag.id}`)
-      } else {
-        router.push(`?skills=${skillTag.id}`)
-      }
+  // - allow up to 3 tags
+  type QueryFilters = {
+    skill1: undefined | string
+    skill2: undefined | string
+    skill3: undefined | string
+  }
+  const [queryFilters, setQueryFilters] = useState<QueryFilters>({
+    skill1: undefined,
+    skill2: undefined,
+    skill3: undefined
+  })
+  const handleUpdateQuery = (skillTag: SkillTag) => {
+    if (queryFilters.skill1 === undefined) {
+      setQueryFilters({ ...queryFilters, skill1: skillTag.id.toString() })
+      router.push({
+        query: {
+          skill1: skillTag.id.toString()
+        }
+      })
+      return
+    } else if (queryFilters.skill2 === undefined) {
+      setQueryFilters({ ...queryFilters, skill2: skillTag.id.toString() })
+      router.push({
+        query: {
+          skill1: queryFilters.skill1,
+          skill2: skillTag.id.toString()
+        }
+      })
     }
+
+    handleFilteredProjects()
   }
 
-  useEffect(() => {
-    handleFilteredProjects()
-  }, [appliedSkillTags])
-
-  // Check to see if the current path has a filter query in when the component mounts *ONLY EXECUTED "TRUE" FROM A SKILL TAG LINK
-  useEffect(() => {
-    if (asPath.includes("?skills")) handleInitialFilteredProjects()
-  }, [])
-
   const getSkillTagBorderColor = () => {}
+
+  useEffect(() => {
+    if (asPath.includes("?")) handleFilteredProjects()
+  }, [queryFilters])
 
   return (
     <Layout>
@@ -173,29 +170,18 @@ const PortfolioIndexPage = ({
                     <Button
                       variant="tag"
                       sx={{
-                        borderColor: appliedSkillTags?.includes(skillTag)
-                          ? "myPink"
-                          : "black",
-                        transition: "background-color 0.2s",
-                        ":hover": {
-                          backgroundColor: appliedSkillTags.includes(skillTag)
-                            ? "#F5F5F5"
-                            : "transparent"
-                        }
+                        // borderColor: appliedSkillTags?.includes(skillTag)
+                        //   ? "myPink"
+                        //   : "black",
+                        transition: "background-color 0.2s"
+                        // ":hover": {
+                        //   backgroundColor: appliedSkillTags.includes(skillTag)
+                        //     ? "#F5F5F5"
+                        //     : "transparent"
+                        // }
                       }}
-                      onClick={() => handleAddSkillTag(skillTag)}
+                      onClick={() => handleUpdateQuery(skillTag)}
                     >
-                      {/* <span
-                        sx={{
-                          display: appliedSkillTags.includes(skillTag)
-                            ? "inline-block"
-                            : "none",
-                          userSelect: "none",
-                          mr: 2
-                        }}
-                      >
-                        x
-                      </span> */}
                       {skillTag.attributes.name}
                     </Button>
                   </li>
