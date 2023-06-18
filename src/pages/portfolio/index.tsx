@@ -67,12 +67,7 @@ const PortfolioIndexPage = ({
   const [query, setQuery] = useState<string>()
   const [filteredProjects, setFilteredProjects] = useState<Projects | null>()
   const handleFilteredProjects = async () => {
-    let skillTagId = ""
-    if (query) {
-      skillTagId = query.split("=")[1]
-    } else {
-      skillTagId = asPath.split("=")[1]
-    }
+    const skillTagId = asPath.split("=")[1]
 
     const projectFiltersUrl = `?filters[skillTags][id][$eq]=${skillTagId}`
     const res = await fetch(
@@ -82,24 +77,22 @@ const PortfolioIndexPage = ({
     setFilteredProjects(newFilteredProjects)
   }
 
-  const handleUpdateQuery = async (skillTagId: number) => {
-    const newQuery = `skill=${skillTagId}`
+  const handleUpdateQuery = (skillTagId: number) => {
+    // const newQuery = `skill=${skillTagId}`
     router.replace({
-      query: newQuery
+      query: {
+        skill: skillTagId
+      }
     })
-    setQuery(newQuery)
   }
 
   useEffect(() => {
     handleFilteredProjects()
-  }, [query])
+  }, [asPath])
 
   const skillTagIsActive = (skillTagId: number) => {
     const queryTargetSkillTagId = `?skill=${skillTagId}`
-    if (
-      query?.includes(queryTargetSkillTagId) ||
-      asPath.includes(queryTargetSkillTagId)
-    ) {
+    if (asPath.includes(queryTargetSkillTagId)) {
       return true
     } else {
       return false
