@@ -12,7 +12,6 @@ const RecentProjectsSection = ({ projects }: RecentProjectsSection) => {
   return (
     <section
       sx={{
-        // bg: "subtlePink",
         py: [4, 5]
       }}
     >

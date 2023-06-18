@@ -178,7 +178,6 @@ const Timeline = ({ events }: Timeline) => {
                 <li key={event.id + skillTag.attributes.name}>
                   <Link
                     href={`/portfolio/?skills=${skillTag.id}`}
-                    // href={"/portfolio/?"}
                     sx={{
                       borderRadius: "32px",
                       borderStyle: "solid",

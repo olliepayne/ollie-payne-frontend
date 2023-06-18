@@ -35,20 +35,24 @@ const ExperienceIndexPage = ({ timelineEvents }: ExperienceIndexPage) => {
   return (
     <Layout>
       <SEO title="My Experience" metaDescription="" />
-      <HeroSection />
+      <HeroSection h1="Experience" />
       <main
         sx={{
           minHeight: "100vh"
         }}
       >
-        <section>
+        {/* <section>
           <Container>
             <Heading as="h1" variant="styles.h1">
               Experience
             </Heading>
           </Container>
-        </section>
-        <section>
+        </section> */}
+        <section
+          sx={{
+            py: 5
+          }}
+        >
           <Container variant="narrow">
             <Timeline events={timelineEvents} />
           </Container>

@@ -42,16 +42,15 @@ const PortfolioIndexPage = ({ recentProjects }: PortfolioIndexPage) => {
     const splitPath = asPath.split("=")
     return splitPath[splitPath.length - 1].split("&")
   }
+
   const skillTagsIds = getSkillTagsIds()
 
   // Project filtering
   const [filteredProjects, setFilteredProjects] = useState<Projects | null>()
 
-  //
   const handleGetFilteredProjects = async () => {
-    // sort through the skillTagIds and ma
+    // Sort through the skillTagIds and map results, concat with "?filters" query
     const getProjectsUrlFilters = () => {
-      // let returnStr = "?filters"
       return (
         "?filters" +
         skillTagsIds.map((skillTagId) => `[skillTags][id][$eq]=${skillTagId}&`)
@@ -59,9 +58,8 @@ const PortfolioIndexPage = ({ recentProjects }: PortfolioIndexPage) => {
     }
     const projectsUrlFilters = getProjectsUrlFilters()
     console.log(projectsUrlFilters)
-    // const projectsUrlFilters = `?filters[skillTags][id][$eq]=1`
 
-    // fetch the data
+    // Fetch the data
     const res = await fetch(
       projectsUrl + projectsUrlFilters + projectsUrlPopulate
     )
@@ -69,8 +67,13 @@ const PortfolioIndexPage = ({ recentProjects }: PortfolioIndexPage) => {
     setFilteredProjects(filteredProjects)
   }
 
-  useEffect(() => {
+  // Check to see if the current path has a filter query in
+  const checkPathForFilters = () => {
     if (asPath.includes("?skills")) handleGetFilteredProjects()
+  }
+
+  useEffect(() => {
+    checkPathForFilters()
   }, [])
 
   return (
@@ -94,6 +97,12 @@ const PortfolioIndexPage = ({ recentProjects }: PortfolioIndexPage) => {
             >
               Explore Projects
             </Heading>
+
+            {/* Tags */}
+            <ul>
+              
+            </ul>
+
             {filteredProjects && (
               <ul
                 sx={{
