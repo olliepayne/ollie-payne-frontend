@@ -4,7 +4,7 @@ import SEO from "components/SEO"
 import { getStrapiUrl } from "helpers/api"
 import { GetStaticPaths, GetStaticProps } from "next"
 import { Projects } from "helpers/myTypes"
-import { Container, Heading, Text } from "theme-ui"
+import { Container, Heading, Text, Box } from "theme-ui"
 import BreadcrumbNav from "components/BreadcrumbNav"
 import ContactSection from "components/ContactSection"
 import TemplatePageHeroImage from "components/TemplatePageHeroImage"
@@ -52,7 +52,7 @@ type PortfolioSlugPage = {
 }
 
 const PortfolioSlugPage = ({ projects }: PortfolioSlugPage) => {
-  const { pageTitle, metaDescription, hero, name, datePublished, projectTags } =
+  const { pageTitle, metaDescription, hero, name, datePublished, skillTags } =
     projects.data[0].attributes
   // console.log(projectTags?.data[0].attributes)
 
@@ -76,12 +76,47 @@ const PortfolioSlugPage = ({ projects }: PortfolioSlugPage) => {
             <Heading as="h1" variant="styles.h1">
               {name}
             </Heading>
-            <Text>
-              <time dateTime={datePublished}>
-                {parsedDatePublished.month} {parsedDatePublished.day},{" "}
-                {parsedDatePublished.year}
-              </time>
-            </Text>
+            <Box>
+              <Text
+                sx={{
+                  color: "dateGray"
+                }}
+              >
+                <time dateTime={datePublished}>
+                  {parsedDatePublished.month} {parsedDatePublished.day},{" "}
+                  {parsedDatePublished.year}
+                </time>
+              </Text>
+              <Text
+                sx={{
+                  mx: 2
+                }}
+              >
+                &bull;
+              </Text>
+              {skillTags && (
+                <ul
+                  sx={{
+                    m: 0,
+                    display: "inline-flex",
+                    p: 0,
+                    listStyle: "none"
+                  }}
+                >
+                  {skillTags.data.map((skillTag, index) => (
+                    <li key={`skillTag:${index}`}>
+                      <Text
+                        sx={{
+                          fontStyle: "italic"
+                        }}
+                      >
+                        {skillTag.attributes.name}
+                      </Text>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </Box>
           </Container>
           <Container>
             <TemplatePageHeroImage

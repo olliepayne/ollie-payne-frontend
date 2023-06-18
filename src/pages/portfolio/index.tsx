@@ -64,22 +64,45 @@ const PortfolioIndexPage = ({
   const { asPath } = useRouter()
 
   const [filteredProjects, setFilteredProjects] = useState<Projects | null>()
+  const handleFilteredProjects = async () => {
+    const projectsUrlFilters =
+      `?filters[skillTags][id][$eq]=` +
+      appliedSkillTags
+        .map((appliedSkillTag, index) =>
+          index > 0
+            ? `&filters[skillTags][id][$eq]=${appliedSkillTag.id}`
+            : appliedSkillTag.id
+        )
+        .join("")
+    const res = await fetch(
+      projectsUrl + projectsUrlFilters + projectsUrlPopulate
+    )
+    const newFilteredProjects = await res.json()
+    // console.log(newFilteredProjects)
+    setFilteredProjects(newFilteredProjects)
+  }
 
-  const [appliedSkillTags, setAppliedSkillTags] = useState<SkillTag[] | null>()
+  const [appliedSkillTags, setAppliedSkillTags] = useState<SkillTag[]>([])
   const handleAddSkillTag = (skillTag: SkillTag) => {
-    if (appliedSkillTags) {
-      if (!appliedSkillTags.includes(skillTag)) {
-        const newAppliedSkillTags = [...appliedSkillTags, skillTag]
-        setAppliedSkillTags(newAppliedSkillTags)
-      }
+    let newAppliedSkillTags: SkillTag[]
+
+    if (appliedSkillTags.includes(skillTag)) {
+      newAppliedSkillTags = [...appliedSkillTags]
+      newAppliedSkillTags.splice(newAppliedSkillTags.indexOf(skillTag), 1)
+      setAppliedSkillTags(newAppliedSkillTags)
     } else {
-      const newAppliedSkillTags = [skillTag]
+      newAppliedSkillTags = [...appliedSkillTags, skillTag]
       setAppliedSkillTags(newAppliedSkillTags)
     }
   }
 
-  // Check to see if the current path has a filter query in when the component mounts
-  useEffect(() => {}, [])
+  // useEffect(handleFilteredProjects, [appliedSkillTags])
+
+  // Check to see if the current path has a filter query in when the component mounts *ONLY EXECUTED "TRUE" FROM A SKILL TAG LINK
+  useEffect(() => {
+    handleFilteredProjects()
+    // console.log(appliedSkillTags)
+  }, [appliedSkillTags])
 
   return (
     <Layout>
@@ -136,7 +159,7 @@ const PortfolioIndexPage = ({
             )}
 
             {/* Filtered project results */}
-            {/* {filteredProjects && (
+            {filteredProjects && (
               <ul
                 sx={{
                   p: 0,
@@ -149,7 +172,7 @@ const PortfolioIndexPage = ({
                   </li>
                 ))}
               </ul>
-            )} */}
+            )}
           </Container>
         </section>
         <RecentProjectsSection projects={recentProjects} />
