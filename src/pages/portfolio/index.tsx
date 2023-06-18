@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import { Heading, Button } from "theme-ui"
+import { Heading, Button, AspectImage } from "theme-ui"
 import Layout from "components/Layout"
 import SEO from "components/SEO"
 import { Container } from "theme-ui"
@@ -61,9 +61,26 @@ const PortfolioIndexPage = ({
   recentProjects,
   skillTags
 }: PortfolioIndexPage) => {
+  const router = useRouter()
   const { asPath } = useRouter()
 
   const [filteredProjects, setFilteredProjects] = useState<Projects | null>()
+
+  // Handle initial project filtering via url *from query link to page
+  const handleInitialFilteredProjects = async () => {
+    const splitPath = asPath.split("=")
+    const pathSkillTagId = splitPath[1]
+    console.log(pathSkillTagId)
+
+    const projectsUrlFilters = `?filters[skillTags][id][$eq]=${pathSkillTagId}`
+    const res = await fetch(
+      projectsUrl + projectsUrlFilters + projectsUrlPopulate
+    )
+    const newFilteredProjects = await res.json()
+    setFilteredProjects(newFilteredProjects)
+  }
+
+  // Handle project filtering via skill tags
   const handleFilteredProjects = async () => {
     const projectsUrlFilters =
       `?filters[skillTags][id][$eq]=` +
@@ -78,10 +95,10 @@ const PortfolioIndexPage = ({
       projectsUrl + projectsUrlFilters + projectsUrlPopulate
     )
     const newFilteredProjects = await res.json()
-    // console.log(newFilteredProjects)
     setFilteredProjects(newFilteredProjects)
   }
 
+  // Handle the application of skill tags
   const [appliedSkillTags, setAppliedSkillTags] = useState<SkillTag[]>([])
   const handleAddSkillTag = (skillTag: SkillTag) => {
     let newAppliedSkillTags: SkillTag[]
@@ -93,16 +110,25 @@ const PortfolioIndexPage = ({
     } else {
       newAppliedSkillTags = [...appliedSkillTags, skillTag]
       setAppliedSkillTags(newAppliedSkillTags)
+
+      if (asPath.includes("?skills")) {
+        router.push(`${asPath}&=${skillTag.id}`)
+      } else {
+        router.push(`?skills=${skillTag.id}`)
+      }
     }
   }
 
-  // useEffect(handleFilteredProjects, [appliedSkillTags])
+  useEffect(() => {
+    handleFilteredProjects()
+  }, [appliedSkillTags])
 
   // Check to see if the current path has a filter query in when the component mounts *ONLY EXECUTED "TRUE" FROM A SKILL TAG LINK
   useEffect(() => {
-    handleFilteredProjects()
-    // console.log(appliedSkillTags)
-  }, [appliedSkillTags])
+    if (asPath.includes("?skills")) handleInitialFilteredProjects()
+  }, [])
+
+  const getSkillTagBorderColor = () => {}
 
   return (
     <Layout>
@@ -110,18 +136,20 @@ const PortfolioIndexPage = ({
       <HeroSection h1="Portfolio" />
       <main
         sx={{
-          minHeight: "100vh",
-          py: 5
+          minHeight: "100vh"
         }}
       >
         {/* Project filtering */}
-        <section>
+        <section
+          sx={{
+            py: 5
+          }}
+        >
           <Container>
             <Heading
               as="h2"
               variant="styles.h2"
               sx={{
-                // textAlign: "center",
                 mb: 4
               }}
             >
@@ -147,10 +175,27 @@ const PortfolioIndexPage = ({
                       sx={{
                         borderColor: appliedSkillTags?.includes(skillTag)
                           ? "myPink"
-                          : "black"
+                          : "black",
+                        transition: "background-color 0.2s",
+                        ":hover": {
+                          backgroundColor: appliedSkillTags.includes(skillTag)
+                            ? "#F5F5F5"
+                            : "transparent"
+                        }
                       }}
                       onClick={() => handleAddSkillTag(skillTag)}
                     >
+                      {/* <span
+                        sx={{
+                          display: appliedSkillTags.includes(skillTag)
+                            ? "inline-block"
+                            : "none",
+                          userSelect: "none",
+                          mr: 2
+                        }}
+                      >
+                        x
+                      </span> */}
                       {skillTag.attributes.name}
                     </Button>
                   </li>
