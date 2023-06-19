@@ -195,29 +195,28 @@ const PortfolioIndexPage = ({
             </Box>
 
             {/* Filtered projects results */}
-            {filteredProjects && (
-              <ul
-                sx={{
-                  my: 4,
-                  p: 0,
-                  listStyle: "none",
-                  "> li:not(:last-child)": {
-                    mb: 4
-                  }
-                }}
-              >
-                {filteredProjects.data
-                  .slice(0, resultsPageState * pageSize)
-                  .map((project, index) => (
-                    <li key={`filteredProjects:${project.id}`}>
-                      <ProjectCard
-                        project={project}
-                        flipped={index > 0 && index % 2 === 1 ? true : false}
-                      />
-                    </li>
-                  ))}
-              </ul>
-            )}
+            <ul
+              sx={{
+                my: 4,
+                p: 0,
+                listStyle: "none",
+                "> li:not(:last-child)": {
+                  mb: 4
+                }
+              }}
+            >
+              {filteredProjects.data
+                .slice(0, resultsPageState * pageSize)
+                .map((project, index) => (
+                  <li key={`filteredProjects:${project.id}`}>
+                    <ProjectCard
+                      project={project}
+                      flipped={index > 0 && index % 2 === 1 ? true : false}
+                    />
+                  </li>
+                ))}
+            </ul>
+
             {resultsPageState * pageSize < filteredProjects.data.length && (
               <Button
                 variant="secondary"

@@ -1,10 +1,10 @@
 /** @jsxImportSource theme-ui */
+import { Container, Heading, Text, Box } from "theme-ui"
 import Layout from "components/Layout"
 import SEO from "components/SEO"
 import { getStrapiUrl } from "helpers/api"
 import { GetStaticPaths, GetStaticProps } from "next"
 import { Projects } from "helpers/myTypes"
-import { Container, Heading, Text, Box } from "theme-ui"
 import BreadcrumbNav from "components/BreadcrumbNav"
 import ContactSection from "components/ContactSection"
 import TemplatePageHeroImage from "components/TemplatePageHeroImage"
@@ -33,11 +33,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const projectsUrlFilters = `?filters[slug][$eq]=${params?.slug}`
-  const projectsUrlPopulate = "&populate=*"
-  const res = await fetch(
-    projectsUrl + projectsUrlFilters + projectsUrlPopulate
-  )
+  // URL
+  const urlFilters = `filters[slug][$eq]=${params?.slug}`
+  const urlPopulate = "&populate=*"
+  const url = `${projectsUrl}?${urlFilters}&${urlPopulate}`
+
+  const res = await fetch(url)
   const projects = await res.json()
 
   return {
@@ -62,9 +63,11 @@ const PortfolioSlugPage = ({ projects }: PortfolioSlugPage) => {
   return (
     <Layout>
       <SEO title={pageTitle} metaDescription={metaDescription} />
+
       <Container>
         <BreadcrumbNav />
       </Container>
+
       <article
         sx={{
           pb: 5

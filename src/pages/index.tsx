@@ -8,17 +8,18 @@ import { getStrapiUrl } from "helpers/api"
 import { GetStaticProps } from "next"
 import { Projects } from "helpers/myTypes"
 import RecentProjectsSection from "components/RecentProjectsSection"
+import LinkedInSVG from "components/svgs/LinkedInSVG"
+import GithubSVG from "components/svgs/GithubSVG"
 
-// Add: data fetching for headshot, hero image, and projects
+// Add: data fetching for headshot, hero image
 const projectsUrl = `${getStrapiUrl()}/api/projects`
-const projectsUrlPagination =
-  "?sort[0]=datePublished:desc&pagination[page]=1&pagination[pageSize]=3"
-const projectsUrlPopulate = "&populate=*"
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(
-    projectsUrl + projectsUrlPagination + projectsUrlPopulate
-  )
+  const urlPagination =
+    "sort[0]=datePublished:desc&pagination[page]=1&pagination[pageSize]=3"
+  const urlPopulate = "populate=*"
+  const url = `${projectsUrl}?${urlPagination}&${urlPopulate}`
+  const res = await fetch(url)
   const projects = await res.json()
 
   return {
@@ -28,14 +29,11 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-// Add: Props
 type Home = {
   projects: Projects
 }
 
 export default function Home({ projects }: Home) {
-  console.log(projects)
-
   return (
     <Layout>
       <SEO
@@ -99,8 +97,61 @@ export default function Home({ projects }: Home) {
               >
                 I currently work and train out of Prescott, Arizona.
               </Paragraph>
-
-              {/* Add: social links */}
+              <ul
+                sx={{
+                  display: "inline-flex",
+                  p: 0,
+                  listStyle: "none",
+                  "> li:not(:last-child)": {
+                    mr: 3
+                  }
+                }}
+              >
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/oliverpayne01"
+                    target="blank"
+                    rel="nofollow"
+                    sx={{
+                      display: "inline-block",
+                      color: "unset"
+                    }}
+                  >
+                    <LinkedInSVG
+                      sx={{
+                        width: "60px",
+                        height: "60px",
+                        cursor: "pointer",
+                        ":hover": {
+                          fill: "myPink"
+                        }
+                      }}
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/olliepayne"
+                    target="blank"
+                    rel="nofollow"
+                    sx={{
+                      display: "inline-block",
+                      color: "unset"
+                    }}
+                  >
+                    <GithubSVG
+                      sx={{
+                        width: "60px",
+                        height: "60px",
+                        cursor: "pointer",
+                        ":hover": {
+                          fill: "myPink"
+                        }
+                      }}
+                    />
+                  </a>
+                </li>
+              </ul>
             </Container>
             <Image
               src="/headshot-temp.jpeg"
@@ -120,47 +171,8 @@ export default function Home({ projects }: Home) {
         </Container>
       </section>
 
-      {/* Projects */}
       <RecentProjectsSection projects={projects} />
-      {/* <section
-        sx={{
-          // bg: "subtlePink",
-          py: [4, 5]
-        }}
-      >
-        <Container>
-          <Heading
-            as="h2"
-            variant="styles.h2"
-            sx={{
-              textAlign: "center"
-            }}
-          >
-            Recent Projects
-          </Heading>
-          <ul
-            sx={{
-              mt: 4,
-              p: 0,
-              listStyle: "none",
-              "li:not(:first-child)": {
-                my: 4
-              }
-            }}
-          >
-            {projects.data.map((project, index) => (
-              <li key={project.attributes.slug}>
-                <ProjectCard
-                  project={project}
-                  flipped={index > 0 && index % 2 === 1}
-                />
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </section> */}
 
-      {/* Contact */}
       <ContactSection />
     </Layout>
   )
