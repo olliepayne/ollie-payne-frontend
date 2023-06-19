@@ -20,6 +20,16 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
   )
   const formattedDatePublished = `${parsedDatePublished.month} ${parsedDatePublished.day}, ${parsedDatePublished.year}`
 
+  const sortedSkillTags = project.attributes.skillTags?.data.sort((a, b) => {
+    if (a.attributes.name < b.attributes.name) {
+      return -1
+    }
+    if (a.attributes.name > b.attributes.name) {
+      return 1
+    }
+    return 0
+  })
+
   return (
     <Box
       sx={{
@@ -103,28 +113,26 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
             >
               Skills:
             </Text>
-            {project.attributes.skillTags && (
-              <ul
-                sx={{
-                  display: "inline-flex",
-                  p: 0,
-                  listStyle: "none"
-                }}
-              >
-                {project.attributes.skillTags?.data.map((skillTag, index) => (
-                  <li key={`project${project.id}:skillTag:${skillTag.id}`}>
-                    <Text
-                      sx={{
-                        fontWeight: 500
-                      }}
-                    >
-                      {index > 0 && ", "}
-                      {skillTag.attributes.name}
-                    </Text>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <ul
+              sx={{
+                display: "inline-flex",
+                p: 0,
+                listStyle: "none"
+              }}
+            >
+              {sortedSkillTags?.map((skillTag, index) => (
+                <li key={`project${project.id}:skillTag:${skillTag.id}`}>
+                  <Text
+                    sx={{
+                      fontWeight: 500
+                    }}
+                  >
+                    {index > 0 && ", "}
+                    {skillTag.attributes.name}
+                  </Text>
+                </li>
+              ))}
+            </ul>
           </Box>
         </Box>
 

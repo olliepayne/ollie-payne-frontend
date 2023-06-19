@@ -35,7 +35,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   // URL
   const urlFilters = `filters[slug][$eq]=${params?.slug}`
-  const urlPopulate = "&populate=*"
+  const urlPopulate = "populate=*"
   const url = `${projectsUrl}?${urlFilters}&${urlPopulate}`
 
   const res = await fetch(url)
@@ -56,6 +56,15 @@ type PortfolioSlugPage = {
 const PortfolioSlugPage = ({ projects }: PortfolioSlugPage) => {
   const { pageTitle, metaDescription, hero, name, datePublished, skillTags } =
     projects.data[0].attributes
+  const sortedSkillTags = skillTags?.data.sort((a, b) => {
+    if (a.attributes.name < b.attributes.name) {
+      return -1
+    }
+    if (a.attributes.name > b.attributes.name) {
+      return 1
+    }
+    return 0
+  })
 
   const heroImageSrc = `${getStrapiUrl()}${hero.data.attributes.url}`
   const parsedDatePublished = parsedKebabDate(datePublished, "FULL")
@@ -103,33 +112,30 @@ const PortfolioSlugPage = ({ projects }: PortfolioSlugPage) => {
                 >
                   Skills:
                 </Text>
-                {skillTags && (
-                  <ul
-                    sx={{
-                      my: 0,
-                      // ml: 3,
-                      display: "inline-flex",
-                      p: 0,
-                      listStyle: "none",
-                      "li:not(:last-child)": {
-                        mr: 2
-                      }
-                    }}
-                  >
-                    {skillTags.data.map((skillTag, index) => (
-                      <li key={`skillTag:${index}`}>
-                        <Link
-                          href={`/portfolio?skill=${skillTag.id}`}
-                          sx={{
-                            variant: "links.tag"
-                          }}
-                        >
-                          {skillTag.attributes.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                <ul
+                  sx={{
+                    my: 0,
+                    display: "inline-flex",
+                    p: 0,
+                    listStyle: "none",
+                    "li:not(:last-child)": {
+                      mr: 2
+                    }
+                  }}
+                >
+                  {sortedSkillTags?.map((skillTag, index) => (
+                    <li key={`skillTags:${index}`}>
+                      <Link
+                        href={`/portfolio?skill=${skillTag.id}`}
+                        sx={{
+                          variant: "links.tag"
+                        }}
+                      >
+                        {skillTag.attributes.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </Box>
             </Box>
           </Container>
