@@ -59,6 +59,15 @@ export const theme: Theme = {
     }
   },
   links: {
+    primary: {
+      fontFamily: "body",
+      color: "black",
+      transition: "all 0.2s ease-out",
+      fontWeight: 500,
+      ":hover": {
+        color: "gray"
+      }
+    },
     underlineLeftToRight: {
       py: 1,
       fontFamily: "body",
@@ -94,24 +103,7 @@ export const theme: Theme = {
       fontWeight: 500,
       py: 1,
       px: 2,
-      ":hover": {
-        borderColor: "myPink"
-      }
-    }
-  },
-  buttons: {
-    tag: {
-      borderRadius: "32px",
-      borderStyle: "solid",
-      borderWidth: "2px",
-      textDecoration: "none",
-      color: "black",
-      fontFamily: "body",
-      fontWeight: 500,
-      py: 1,
-      px: 2,
-      cursor: "pointer",
-      background: "transparent",
+      transition: "all 0.2s ease-out",
       ":hover": {
         borderColor: "myPink"
       }

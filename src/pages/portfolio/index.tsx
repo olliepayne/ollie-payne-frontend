@@ -1,12 +1,12 @@
 /** @jsxImportSource theme-ui */
-import { Heading, Button, AspectImage } from "theme-ui"
+import { Heading, Box } from "theme-ui"
 import Layout from "components/Layout"
 import SEO from "components/SEO"
 import { Container } from "theme-ui"
 import { GetStaticProps } from "next"
 import { getStrapiUrl } from "helpers/api"
 import RecentProjectsSection from "components/RecentProjectsSection"
-import { Projects, SkillTag, SkillTags } from "helpers/myTypes"
+import { Projects, SkillTags } from "helpers/myTypes"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import ProjectCard from "components/ProjectCard"
@@ -76,18 +76,21 @@ const PortfolioIndexPage = ({
     setFilteredProjects(newFilteredProjects)
   }
 
-  const handleUpdateQuery = (skillTagId: number) => {
-    router.replace({
-      query: {
-        skill: skillTagId
-      }
-    })
+  type GetQuery = (skillTagId: number) => string
+  const getQuery: GetQuery = (skillTagId) => {
+    const query = `?skill=${skillTagId}`
+    if (asPath.includes(query)) {
+      return "/portfolio"
+    } else {
+      return query
+    }
   }
 
   useEffect(() => {
     handleFilteredProjects()
   }, [asPath])
 
+  // For styling
   const skillTagIsActive = (skillTagId: number) => {
     const queryTargetSkillTagId = `?skill=${skillTagId}`
     if (asPath.includes(queryTargetSkillTagId)) {
@@ -124,40 +127,43 @@ const PortfolioIndexPage = ({
             </Heading>
 
             {/* Tags */}
-            {skillTags && (
-              <ul
-                sx={{
-                  listStyle: "none",
-                  p: 0,
-                  display: "inline-flex",
-                  "li:not(:last-child)": {
-                    mr: 2
-                  }
-                }}
-              >
-                {skillTags.data.map((skillTag, index) => (
-                  <li key={`skillTags:${index}`}>
-                    <Link
-                      href={`?skill=${skillTag.id}`}
-                      sx={{
-                        variant: "links.tag",
-                        borderColor: skillTagIsActive(skillTag.id)
-                          ? "myPink"
-                          : "black",
-                        backgroundColor: skillTagIsActive(skillTag.id)
-                          ? "myPink"
-                          : "transparent"
-                      }}
-                      // onClick={() => handleUpdateQuery(skillTag.id)}
-                    >
-                      {skillTag.attributes.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <Box>
+              {skillTags && (
+                <ul
+                  sx={{
+                    listStyle: "none",
+                    p: 0,
+                    display: "inline-flex",
+                    "li:not(:last-child)": {
+                      mr: 2
+                    }
+                  }}
+                >
+                  {skillTags.data.map((skillTag, index) => (
+                    <li key={`skillTags:${index}`}>
+                      <Link
+                        scroll={false}
+                        href={`${getQuery(skillTag.id)}`}
+                        sx={{
+                          variant: "links.tag",
+                          borderColor: skillTagIsActive(skillTag.id)
+                            ? "myPink"
+                            : "black",
+                          backgroundColor: skillTagIsActive(skillTag.id)
+                            ? "myPink"
+                            : "transparent"
+                        }}
+                        // onClick={() => handleUpdateQuery(skillTag.id)}
+                      >
+                        {skillTag.attributes.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </Box>
 
-            {/* Filtered project results */}
+            {/* Filtered projects results */}
             {filteredProjects && (
               <ul
                 sx={{
