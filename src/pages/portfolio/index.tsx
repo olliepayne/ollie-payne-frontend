@@ -1,8 +1,7 @@
 /** @jsxImportSource theme-ui */
-import { Heading, Box } from "theme-ui"
+import { Heading, Box, Container, Button } from "theme-ui"
 import Layout from "components/Layout"
 import SEO from "components/SEO"
-import { Container } from "theme-ui"
 import { GetStaticProps } from "next"
 import { getStrapiUrl } from "helpers/api"
 import { Projects, SkillTags } from "helpers/myTypes"
@@ -12,28 +11,30 @@ import ProjectCard from "components/ProjectCard"
 import HeroSection from "components/HeroSection"
 import Link from "next/link"
 
-// Project content type urls
+// URLs
 const projectsUrl = `${getStrapiUrl()}/api/projects`
-const projectsUrlSort = "sort[0]=datePublished:desc"
-const projectsUrlPagination = "pagination[page]=1&pagination[pageSize]=5"
-const projectsUrlPopulate = "populate=*"
-
-// Skill Tag content type urls
 const skillTagsUrl = `${getStrapiUrl()}/api/skill-tags`
 
 export const getStaticProps: GetStaticProps = async () => {
-  // Get recent projects
   const getRecentProjects = async () => {
-    const url = `${projectsUrl}?${projectsUrlSort}&${projectsUrlPagination}&${projectsUrlPopulate}`
+    // URL handling
+    const urlSort = "sort[0]=datePublished:desc"
+    const urlPagination = "pagination[page]=1&pagination[pageSize]=5"
+    const urlPopulate = "populate=*"
+    const url = `${projectsUrl}?${urlSort}&${urlPagination}&${urlPopulate}`
+
+    // Fetch the data and convert into JSON
     const res = await fetch(url)
     const recentProjects = await res.json()
     return recentProjects
   }
   const recentProjects = await getRecentProjects()
 
-  // Get skill tags
   const getSkillTags = async () => {
-    const res = await fetch(skillTagsUrl)
+    const urlSort = "sort[0]=name:asc"
+    const url = `${skillTagsUrl}?${urlSort}`
+
+    const res = await fetch(url)
     const skillTags = await res.json()
     return skillTags
   }
@@ -61,26 +62,33 @@ const PortfolioIndexPage = ({
 
   const [filteredProjects, setFilteredProjects] =
     useState<Projects>(recentProjects)
-  // console.log(filteredProjects)
+  const resultsPerPage = 5
+  const [resultsPage, setResultsPage] = useState<number>(1)
+  let canLoadMoreResults = true
   const handleFilteredProjects = async () => {
     const skillTagId = asPath.split("=")[1]
 
     // URL handling
     const urlFilters = `filters[skillTags][id][$eq]=${skillTagId}`
     const urlSort = `sort[0]=datePublished:desc`
+    const urlPagination = `pagination[page]=${resultsPage}&pagination[pageSize]=${resultsPerPage}`
     const urlPopualte = `populate=*`
     let url = `${getStrapiUrl()}/api/projects`
     if (asPath.includes("?")) {
-      url = `${url}?${urlFilters}&${urlSort}`
+      url = `${url}?${urlFilters}&${urlSort}&${urlPagination}`
     } else {
-      url = `${url}?${urlSort}`
+      url = `${url}?${urlSort}&${urlPagination}`
     }
     url = `${url}&${urlPopualte}`
 
     // Fetch data and convert into JSON
     const res = await fetch(url)
     const newFilteredProjects = await res.json()
-    setFilteredProjects(newFilteredProjects)
+    if (newFilteredProjects.data.length > 0) {
+      setFilteredProjects(newFilteredProjects)
+    } else {
+      canLoadMoreResults = false
+    }
   }
 
   type GetQuery = (skillTagId: number) => string
@@ -93,9 +101,13 @@ const PortfolioIndexPage = ({
     }
   }
 
+  const handleLoadMore = () => {
+    if (canLoadMoreResults) setResultsPage(resultsPage + 1)
+  }
+
   useEffect(() => {
     handleFilteredProjects()
-  }, [asPath])
+  }, [asPath, resultsPage])
 
   // For styling, get the show which skill tag is currently selected with alternate styling
   const skillTagIsActive = (skillTagId: number) => {
@@ -138,6 +150,7 @@ const PortfolioIndexPage = ({
               {skillTags && (
                 <ul
                   sx={{
+                    my: 0,
                     listStyle: "none",
                     p: 0,
                     display: "inline-flex",
@@ -169,10 +182,12 @@ const PortfolioIndexPage = ({
               )}
             </Box>
 
+            {/* Add: map for pagination */}
             {/* Filtered projects results */}
             {filteredProjects && (
               <ul
                 sx={{
+                  my: 4,
                   p: 0,
                   listStyle: "none"
                 }}
@@ -184,6 +199,17 @@ const PortfolioIndexPage = ({
                 ))}
               </ul>
             )}
+            <Button
+              variant="secondary"
+              onClick={handleLoadMore}
+              sx={{
+                cursor: "pointer",
+                display: "block",
+                m: "0 auto"
+              }}
+            >
+              Load More
+            </Button>
           </Container>
         </section>
       </main>

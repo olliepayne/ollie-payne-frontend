@@ -110,6 +110,21 @@ export const theme: Theme = {
       }
     }
   },
+  buttons: {
+    secondary: {
+      borderStyle: "solid",
+      borderWidth: "2px",
+      backgroundColor: "transparent",
+      borderColor: "black",
+      borderRadius: "0",
+      color: "black",
+      transition: "all 0.2s ease-out",
+      ":hover": {
+        color: "white",
+        backgroundColor: "black"
+      }
+    }
+  },
   styles: {
     h1: {
       variant: "text.heading",
