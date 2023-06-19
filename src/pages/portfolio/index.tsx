@@ -62,10 +62,11 @@ const PortfolioIndexPage = ({
 
   // For pagination
   let lastSkillTagId: string
-  const resultsPerPage = 1
+  const pageSize = 1
   let resultsPage = 1
   const [resultsPageState, setResultsPageState] = useState(resultsPage)
-  const [showingMaxResults, setShowingMaxResults] = useState(false)
+  let canLoadMore = true
+  // const [showingMaxResults, setShowingMaxResults] = useState(false)
 
   const [filteredProjects, setFilteredProjects] =
     useState<Projects>(recentProjects)
@@ -87,6 +88,8 @@ const PortfolioIndexPage = ({
     const res = await fetch(url)
     const newFilteredProjects = await res.json()
     setFilteredProjects(newFilteredProjects)
+
+    checkCanLoadMore(newFilteredProjects.data.length)
   }
 
   type GetQuery = (skillTagId: number) => string
@@ -99,39 +102,28 @@ const PortfolioIndexPage = ({
     }
   }
 
-  const handleLoadMore = () => {
-    // Check for reset
-    const skillTagId = asPath.split("skill=")[1]
-    if (skillTagId && lastSkillTagId) {
-      if (skillTagId !== lastSkillTagId) {
-        resultsPage = 1
-        setResultsPageState(resultsPage)
+  useEffect(() => {
+    handleGetFilteredProjects()
 
-        lastSkillTagId = skillTagId
-      }
-    } else if (skillTagId && !lastSkillTagId) {
-      resultsPage = 1
-      setResultsPageState(resultsPage)
+    // Reset
+    resultsPage = 1
+    setResultsPageState(resultsPage)
+  }, [asPath])
 
-      lastSkillTagId = skillTagId
-    } else if (!skillTagId && lastSkillTagId) {
-      resultsPage = 1
-      setResultsPageState(resultsPage)
-    }
-
-    if (resultsPerPage * resultsPage < filteredProjects.data.length) {
-      resultsPage++
-      setResultsPageState(resultsPage)
-
-      setShowingMaxResults(false)
+  const checkCanLoadMore = (newFilteredProjectsLength: number) => {
+    if (resultsPage * pageSize >= newFilteredProjectsLength) {
+      canLoadMore = false
     } else {
-      setShowingMaxResults(true)
+      canLoadMore = true
     }
   }
 
-  useEffect(() => {
-    handleGetFilteredProjects()
-  }, [asPath])
+  const loadMoreResults = () => {
+    if (canLoadMore) {
+      resultsPage++
+      setResultsPageState(resultsPage)
+    }
+  }
 
   // For styling, get the show which skill tag is currently selected with alternate styling
   const skillTagIsActive = (skillTagId: number) => {
@@ -216,20 +208,22 @@ const PortfolioIndexPage = ({
                   }
                 }}
               >
-                {filteredProjects.data.map((project, index) => (
-                  <li key={`filteredProjects:${project.id}`}>
-                    <ProjectCard
-                      project={project}
-                      flipped={index > 0 && index % 2 === 1 ? true : false}
-                    />
-                  </li>
-                ))}
+                {filteredProjects.data
+                  .slice(0, resultsPageState * pageSize)
+                  .map((project, index) => (
+                    <li key={`filteredProjects:${project.id}`}>
+                      <ProjectCard
+                        project={project}
+                        flipped={index > 0 && index % 2 === 1 ? true : false}
+                      />
+                    </li>
+                  ))}
               </ul>
             )}
-            {/* {!showingMaxResults && (
+            {resultsPageState * pageSize < filteredProjects.data.length && (
               <Button
                 variant="secondary"
-                onClick={handleLoadMore}
+                onClick={loadMoreResults}
                 sx={{
                   cursor: "pointer",
                   display: "block",
@@ -238,7 +232,7 @@ const PortfolioIndexPage = ({
               >
                 Load More
               </Button>
-            )} */}
+            )}
           </Container>
         </section>
       </main>
