@@ -61,12 +61,10 @@ const PortfolioIndexPage = ({
   const { asPath } = useRouter()
 
   // For pagination
-  let lastSkillTagId: string
   const pageSize = 1
   let resultsPage = 1
   const [resultsPageState, setResultsPageState] = useState(resultsPage)
   let canLoadMore = true
-  // const [showingMaxResults, setShowingMaxResults] = useState(false)
 
   const [filteredProjects, setFilteredProjects] =
     useState<Projects>(recentProjects)
@@ -203,7 +201,7 @@ const PortfolioIndexPage = ({
                   my: 4,
                   p: 0,
                   listStyle: "none",
-                  "li:not(:last-child)": {
+                  "> li:not(:last-child)": {
                     mb: 4
                   }
                 }}
