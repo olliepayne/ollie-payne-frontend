@@ -72,14 +72,16 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
         </Heading>
 
         {/* Date published & tags */}
-        <Box
+        <Flex
           sx={{
-            my: 3
+            my: 3,
+            alignItems: "center"
           }}
         >
           <Text
             sx={{
-              color: "dateGray"
+              color: "dateGray",
+              mr: 3
             }}
           >
             <time dateTime={project.attributes.datePublished}>
@@ -87,39 +89,41 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
             </time>
           </Text>
 
-          {/* Bullet divider (between tags) */}
-          {project.attributes.skillTags && (
-            <Text
-              sx={{
-                mx: 2,
-                userSelect: "none"
-              }}
-            >
-              &bull;
-            </Text>
-          )}
-
           {/* Tags */}
-          <ul
+          <Text
             sx={{
-              display: "inline-flex",
-              p: 0,
-              listStyle: "none"
+              mr: 1,
+              fontWeight: 500
             }}
           >
-            {project.attributes.skillTags?.data.map((skillTag, index) => (
-              <li key={skillTag.id + skillTag.attributes.name}>
-                <Text
-                  sx={{
-                    fontStyle: "italic"
-                  }}
-                >
-                  {index > 0 && ", "} {skillTag.attributes.name}
-                </Text>
-              </li>
-            ))}
-          </ul>
-        </Box>
+            Skills:
+          </Text>
+          {project.attributes.skillTags && (
+            <ul
+              sx={{
+                display: "inline-flex",
+                p: 0,
+                listStyle: "none",
+                "li:not(:last-child)": {
+                  // mr: 2
+                }
+              }}
+            >
+              {project.attributes.skillTags?.data.map((skillTag, index) => (
+                <li key={`project${project.id}:skillTag:${skillTag.id}`}>
+                  <Text
+                    sx={{
+                      fontWeight: 500
+                    }}
+                  >
+                    {index > 0 && ", "}
+                    {skillTag.attributes.name}
+                  </Text>
+                </li>
+              ))}
+            </ul>
+          )}
+        </Flex>
 
         {/* Snippet */}
         <Paragraph

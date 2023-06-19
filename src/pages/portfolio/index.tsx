@@ -153,7 +153,6 @@ const PortfolioIndexPage = ({
                             ? "myPink"
                             : "transparent"
                         }}
-                        // onClick={() => handleUpdateQuery(skillTag.id)}
                       >
                         {skillTag.attributes.name}
                       </Link>
@@ -180,7 +179,6 @@ const PortfolioIndexPage = ({
             )}
           </Container>
         </section>
-        <RecentProjectsSection projects={recentProjects} />
       </main>
     </Layout>
   )

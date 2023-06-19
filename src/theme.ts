@@ -94,6 +94,7 @@ export const theme: Theme = {
       }
     },
     tag: {
+      display: "inline-block",
       borderRadius: "32px",
       borderStyle: "solid",
       borderWidth: "2px",

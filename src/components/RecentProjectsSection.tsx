@@ -20,7 +20,6 @@ const RecentProjectsSection = ({ projects }: RecentProjectsSection) => {
           as="h2"
           variant="styles.h2"
           sx={{
-            textAlign: "center",
             mb: 4
           }}
         >

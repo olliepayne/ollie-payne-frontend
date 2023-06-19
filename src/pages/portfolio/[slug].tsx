@@ -9,6 +9,7 @@ import BreadcrumbNav from "components/BreadcrumbNav"
 import ContactSection from "components/ContactSection"
 import TemplatePageHeroImage from "components/TemplatePageHeroImage"
 import { parsedKebabDate } from "helpers/dateParser"
+import Link from "next/link"
 
 // Data fetching
 const projectsUrl = `${getStrapiUrl()}/api/projects`
@@ -54,7 +55,6 @@ type PortfolioSlugPage = {
 const PortfolioSlugPage = ({ projects }: PortfolioSlugPage) => {
   const { pageTitle, metaDescription, hero, name, datePublished, skillTags } =
     projects.data[0].attributes
-  // console.log(projectTags?.data[0].attributes)
 
   const heroImageSrc = `${getStrapiUrl()}${hero.data.attributes.url}`
   const parsedDatePublished = parsedKebabDate(datePublished, "FULL")
@@ -87,35 +87,47 @@ const PortfolioSlugPage = ({ projects }: PortfolioSlugPage) => {
                   {parsedDatePublished.year}
                 </time>
               </Text>
-              <Text
+              <Box
                 sx={{
-                  mx: 2
+                  mt: 2
                 }}
               >
-                &bull;
-              </Text>
-              {skillTags && (
-                <ul
+                <Text
                   sx={{
-                    m: 0,
-                    display: "inline-flex",
-                    p: 0,
-                    listStyle: "none"
+                    mr: 2,
+                    fontWeight: 500
                   }}
                 >
-                  {skillTags.data.map((skillTag, index) => (
-                    <li key={`skillTag:${index}`}>
-                      <Text
-                        sx={{
-                          fontStyle: "italic"
-                        }}
-                      >
-                        {skillTag.attributes.name}
-                      </Text>
-                    </li>
-                  ))}
-                </ul>
-              )}
+                  Skills:
+                </Text>
+                {skillTags && (
+                  <ul
+                    sx={{
+                      my: 0,
+                      // ml: 3,
+                      display: "inline-flex",
+                      p: 0,
+                      listStyle: "none",
+                      "li:not(:last-child)": {
+                        mr: 2
+                      }
+                    }}
+                  >
+                    {skillTags.data.map((skillTag, index) => (
+                      <li key={`skillTag:${index}`}>
+                        <Link
+                          href={`/portfolio?skill=${skillTag.id}`}
+                          sx={{
+                            variant: "links.tag"
+                          }}
+                        >
+                          {skillTag.attributes.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </Box>
             </Box>
           </Container>
           <Container>
