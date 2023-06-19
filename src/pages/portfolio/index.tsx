@@ -14,9 +14,9 @@ import Link from "next/link"
 
 // Project content type urls
 const projectsUrl = `${getStrapiUrl()}/api/projects`
-const projectsUrlInitialPagination =
-  "?sort[0]=datePublished:desc&pagination[page]=1&pagination[pageSize]=5"
-const projectsUrlPopulate = "&populate=*"
+const projectsUrlSort = "sort[0]=datePublished:desc"
+const projectsUrlPagination = "pagination[page]=1&pagination[pageSize]=5"
+const projectsUrlPopulate = "populate=*"
 
 // Skill Tag content type urls
 const skillTagsUrl = `${getStrapiUrl()}/api/skill-tags`
@@ -24,9 +24,8 @@ const skillTagsUrl = `${getStrapiUrl()}/api/skill-tags`
 export const getStaticProps: GetStaticProps = async () => {
   // Get recent projects
   const getRecentProjects = async () => {
-    const res = await fetch(
-      projectsUrl + projectsUrlInitialPagination + projectsUrlPopulate
-    )
+    const url = `${projectsUrl}?${projectsUrlSort}&${projectsUrlPagination}&${projectsUrlPopulate}`
+    const res = await fetch(url)
     const recentProjects = await res.json()
     return recentProjects
   }
@@ -62,16 +61,24 @@ const PortfolioIndexPage = ({
 
   const [filteredProjects, setFilteredProjects] =
     useState<Projects>(recentProjects)
-  console.log(filteredProjects)
+  // console.log(filteredProjects)
   const handleFilteredProjects = async () => {
     const skillTagId = asPath.split("=")[1]
 
-    const projectsFiltersUrl = `?filters[skillTags][id][$eq]=${skillTagId}`
-    const res = await fetch(
-      `${projectsUrl}${
-        asPath.includes("?") ? projectsFiltersUrl : projectsUrlInitialPagination
-      }${projectsUrlPopulate}`
-    )
+    // URL handling
+    const urlFilters = `filters[skillTags][id][$eq]=${skillTagId}`
+    const urlSort = `sort[0]=datePublished:desc`
+    const urlPopualte = `populate=*`
+    let url = `${getStrapiUrl()}/api/projects`
+    if (asPath.includes("?")) {
+      url = `${url}?${urlFilters}&${urlSort}`
+    } else {
+      url = `${url}?${urlSort}`
+    }
+    url = `${url}&${urlPopualte}`
+
+    // Fetch data and convert into JSON
+    const res = await fetch(url)
     const newFilteredProjects = await res.json()
     setFilteredProjects(newFilteredProjects)
   }
