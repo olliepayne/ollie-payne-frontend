@@ -72,7 +72,7 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
         </Heading>
 
         {/* Date published & tags */}
-        <Flex
+        <Box
           sx={{
             my: 3,
             alignItems: "center"
@@ -90,40 +90,43 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
           </Text>
 
           {/* Tags */}
-          <Text
+          <Box
             sx={{
-              mr: 1,
-              fontWeight: 500
+              mt: 1
             }}
           >
-            Skills:
-          </Text>
-          {project.attributes.skillTags && (
-            <ul
+            <Text
               sx={{
-                display: "inline-flex",
-                p: 0,
-                listStyle: "none",
-                "li:not(:last-child)": {
-                  // mr: 2
-                }
+                mr: 1,
+                fontWeight: 500
               }}
             >
-              {project.attributes.skillTags?.data.map((skillTag, index) => (
-                <li key={`project${project.id}:skillTag:${skillTag.id}`}>
-                  <Text
-                    sx={{
-                      fontWeight: 500
-                    }}
-                  >
-                    {index > 0 && ", "}
-                    {skillTag.attributes.name}
-                  </Text>
-                </li>
-              ))}
-            </ul>
-          )}
-        </Flex>
+              Skills:
+            </Text>
+            {project.attributes.skillTags && (
+              <ul
+                sx={{
+                  display: "inline-flex",
+                  p: 0,
+                  listStyle: "none"
+                }}
+              >
+                {project.attributes.skillTags?.data.map((skillTag, index) => (
+                  <li key={`project${project.id}:skillTag:${skillTag.id}`}>
+                    <Text
+                      sx={{
+                        fontWeight: 500
+                      }}
+                    >
+                      {index > 0 && ", "}
+                      {skillTag.attributes.name}
+                    </Text>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Box>
+        </Box>
 
         {/* Snippet */}
         <Paragraph

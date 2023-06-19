@@ -90,7 +90,7 @@ const PortfolioIndexPage = ({
     handleFilteredProjects()
   }, [asPath])
 
-  // For styling
+  // For styling, get the show which skill tag is currently selected with alternate styling
   const skillTagIsActive = (skillTagId: number) => {
     const queryTargetSkillTagId = `?skill=${skillTagId}`
     if (asPath.includes(queryTargetSkillTagId)) {
