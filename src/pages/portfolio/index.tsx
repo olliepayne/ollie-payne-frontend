@@ -5,7 +5,6 @@ import SEO from "components/SEO"
 import { Container } from "theme-ui"
 import { GetStaticProps } from "next"
 import { getStrapiUrl } from "helpers/api"
-import RecentProjectsSection from "components/RecentProjectsSection"
 import { Projects, SkillTags } from "helpers/myTypes"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
@@ -13,12 +12,10 @@ import ProjectCard from "components/ProjectCard"
 import HeroSection from "components/HeroSection"
 import Link from "next/link"
 
-// # Data fetching
-
 // Project content type urls
 const projectsUrl = `${getStrapiUrl()}/api/projects`
-const projectsUrlPagination =
-  "?sort[0]=datePublished:desc&pagination[page]=1&pagination[pageSize]=3"
+const projectsUrlInitialPagination =
+  "?sort[0]=datePublished:desc&pagination[page]=1&pagination[pageSize]=5"
 const projectsUrlPopulate = "&populate=*"
 
 // Skill Tag content type urls
@@ -28,7 +25,7 @@ export const getStaticProps: GetStaticProps = async () => {
   // Get recent projects
   const getRecentProjects = async () => {
     const res = await fetch(
-      projectsUrl + projectsUrlPagination + projectsUrlPopulate
+      projectsUrl + projectsUrlInitialPagination + projectsUrlPopulate
     )
     const recentProjects = await res.json()
     return recentProjects
@@ -61,16 +58,19 @@ const PortfolioIndexPage = ({
   recentProjects,
   skillTags
 }: PortfolioIndexPage) => {
-  const router = useRouter()
   const { asPath } = useRouter()
 
-  const [filteredProjects, setFilteredProjects] = useState<Projects | null>()
+  const [filteredProjects, setFilteredProjects] =
+    useState<Projects>(recentProjects)
+  console.log(filteredProjects)
   const handleFilteredProjects = async () => {
     const skillTagId = asPath.split("=")[1]
 
-    const projectFiltersUrl = `?filters[skillTags][id][$eq]=${skillTagId}`
+    const projectsFiltersUrl = `?filters[skillTags][id][$eq]=${skillTagId}`
     const res = await fetch(
-      projectsUrl + projectFiltersUrl + projectsUrlPopulate
+      `${projectsUrl}${
+        asPath.includes("?") ? projectsFiltersUrl : projectsUrlInitialPagination
+      }${projectsUrlPopulate}`
     )
     const newFilteredProjects = await res.json()
     setFilteredProjects(newFilteredProjects)
@@ -170,7 +170,7 @@ const PortfolioIndexPage = ({
                   listStyle: "none"
                 }}
               >
-                {filteredProjects.data.map((project, index) => (
+                {filteredProjects.data.map((project) => (
                   <li key={`filteredProjects:${project.id}`}>
                     <ProjectCard project={project} />
                   </li>
