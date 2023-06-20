@@ -1,47 +1,16 @@
 /** @jsxImportSource theme-ui */
+import { Box, Container, Heading, Text, Paragraph } from "theme-ui"
+import { GetStaticPaths, GetStaticProps } from "next"
+import ReactMarkdown from "react-markdown"
 import Layout from "components/Layout"
 import SEO from "components/SEO"
 import Image from "next/image"
-import { Box, Container, Heading, Text, Paragraph } from "theme-ui"
-import ReactMarkdown from "react-markdown"
-import BreadcrumbNav from "components/BreadcrumbNav"
-import { GetStaticPaths, GetStaticProps } from "next"
 import ContactSection from "components/ContactSection"
+import BreadcrumbNav from "components/BreadcrumbNav"
+import { components } from "components/ReactMarkdownComponents"
 import { getStrapiUrl } from "helpers/api"
 import { BlogPost, BlogPosts } from "helpers/myTypes"
 import { parsedKebabDate } from "helpers/dateParser"
-
-// Markdown custom component props & custom components
-type ICustomComponentProps = {
-  children: React.ReactNode | React.ReactNode[]
-}
-
-const components: any = {
-  // using type any to save time -- not critical
-  p: Paragraph,
-  h2: ({ children }: ICustomComponentProps) => (
-    <Heading
-      as="h2"
-      variant="styles.h2"
-      sx={{
-        mt: 4
-      }}
-    >
-      {children}
-    </Heading>
-  ),
-  h3: ({ children }: ICustomComponentProps) => (
-    <Heading
-      as="h3"
-      variant="styles.h3"
-      sx={{
-        mt: 4
-      }}
-    >
-      {children}
-    </Heading>
-  )
-}
 
 // Data fetching
 const blogPostsUrl = `${getStrapiUrl()}/api/blog-posts`
@@ -86,7 +55,7 @@ const BlogPostPage = ({ blogPosts }: BlogPostPage) => {
   // - Destructure data
   const { pageTitle, metaDescription, h1, datePublished, dateEdited, content } =
     blogPosts.data[0].attributes
-  
+
   const parsedDatePublished = parsedKebabDate(datePublished, "SHORT")
 
   return (

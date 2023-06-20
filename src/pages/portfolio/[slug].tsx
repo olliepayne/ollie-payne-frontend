@@ -1,15 +1,23 @@
 /** @jsxImportSource theme-ui */
+
+// Third-party
+import { GetStaticPaths, GetStaticProps } from "next"
+import Link from "next/link"
 import { Container, Heading, Text, Box } from "theme-ui"
+import { ReactMarkdown } from "react-markdown/lib/react-markdown"
+
+// My components
 import Layout from "components/Layout"
 import SEO from "components/SEO"
-import { getStrapiUrl } from "helpers/api"
-import { GetStaticPaths, GetStaticProps } from "next"
-import { Projects } from "helpers/myTypes"
 import BreadcrumbNav from "components/BreadcrumbNav"
 import ContactSection from "components/ContactSection"
 import TemplatePageHeroImage from "components/TemplatePageHeroImage"
+import { components } from "components/ReactMarkdownComponents"
+
+// Helpers
+import { Projects } from "helpers/myTypes"
+import { getStrapiUrl } from "helpers/api"
 import { parsedKebabDate } from "helpers/dateParser"
-import Link from "next/link"
 
 // Data fetching
 const projectsUrl = `${getStrapiUrl()}/api/projects`
@@ -54,8 +62,17 @@ type PortfolioSlugPage = {
 }
 
 const PortfolioSlugPage = ({ projects }: PortfolioSlugPage) => {
-  const { pageTitle, metaDescription, hero, name, datePublished, skillTags } =
-    projects.data[0].attributes
+  const {
+    pageTitle,
+    metaDescription,
+    hero,
+    name,
+    datePublished,
+    skillTags,
+    content
+  } = projects.data[0].attributes
+
+  // Alphabetically sort skill tags
   const sortedSkillTags = skillTags?.data.sort((a, b) => {
     if (a.attributes.name < b.attributes.name) {
       return -1
@@ -148,11 +165,11 @@ const PortfolioSlugPage = ({ projects }: PortfolioSlugPage) => {
         </section>
 
         {/* Markdown */}
-        {/* <section>
+        <section>
           <Container variant="narrow">
             <ReactMarkdown components={components}>{content}</ReactMarkdown>
           </Container>
-        </section> */}
+        </section>
       </article>
       <ContactSection />
     </Layout>

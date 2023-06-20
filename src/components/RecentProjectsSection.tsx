@@ -5,7 +5,7 @@ import ProjectCard from "components/ProjectCard"
 
 // Props
 type RecentProjectsSection = {
-  projects: Projects
+  projects?: Projects
 }
 
 const RecentProjectsSection = ({ projects }: RecentProjectsSection) => {
@@ -32,7 +32,7 @@ const RecentProjectsSection = ({ projects }: RecentProjectsSection) => {
           }}
         >
           {/* Map projects here */}
-          {projects.data.map((project, index) => (
+          {projects?.data.map((project, index) => (
             <li
               key={project.attributes.slug}
               sx={{

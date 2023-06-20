@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 type Home = {
-  projects: Projects
+  projects?: Projects
 }
 
 export default function Home({ projects }: Home) {
@@ -119,8 +119,8 @@ export default function Home({ projects }: Home) {
                   >
                     <LinkedInSVG
                       sx={{
-                        width: "60px",
-                        height: "60px",
+                        width: "50px",
+                        height: "50px",
                         cursor: "pointer",
                         ":hover": {
                           fill: "myPink"
@@ -141,8 +141,8 @@ export default function Home({ projects }: Home) {
                   >
                     <GithubSVG
                       sx={{
-                        width: "60px",
-                        height: "60px",
+                        width: "50px",
+                        height: "50px",
                         cursor: "pointer",
                         ":hover": {
                           fill: "myPink"
