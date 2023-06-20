@@ -1,13 +1,19 @@
 /** @jsxImportSource theme-ui */
-import { Box, Container, Heading, Text, Paragraph } from "theme-ui"
+
+// Third-party
+import { Box, Container, Heading, Text } from "theme-ui"
 import { GetStaticPaths, GetStaticProps } from "next"
 import ReactMarkdown from "react-markdown"
+
+// My components
 import Layout from "components/Layout"
 import SEO from "components/SEO"
 import Image from "next/image"
 import ContactSection from "components/ContactSection"
 import BreadcrumbNav from "components/BreadcrumbNav"
 import { components } from "components/ReactMarkdownComponents"
+
+// Helpers
 import { getStrapiUrl } from "helpers/api"
 import { BlogPost, BlogPosts } from "helpers/myTypes"
 import { parsedKebabDate } from "helpers/dateParser"

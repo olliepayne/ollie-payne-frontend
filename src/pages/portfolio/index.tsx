@@ -50,8 +50,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
 // Props
 type PortfolioIndexPage = {
-  recentProjects: Projects
-  skillTags: SkillTags
+  recentProjects?: Projects
+  skillTags?: SkillTags
 }
 
 const PortfolioIndexPage = ({
@@ -66,8 +66,9 @@ const PortfolioIndexPage = ({
   const [resultsPageState, setResultsPageState] = useState(resultsPage)
   let canLoadMore = true
 
-  const [filteredProjects, setFilteredProjects] =
-    useState<Projects>(recentProjects)
+  const [filteredProjects, setFilteredProjects] = useState<
+    Projects | undefined
+  >(recentProjects)
   const handleGetFilteredProjects = async () => {
     const skillTagId = asPath.split("skill=")[1]
 
@@ -205,7 +206,7 @@ const PortfolioIndexPage = ({
                 }
               }}
             >
-              {filteredProjects.data
+              {filteredProjects?.data
                 .slice(0, resultsPageState * pageSize)
                 .map((project, index) => (
                   <li key={`filteredProjects:${project.id}`}>
@@ -217,19 +218,20 @@ const PortfolioIndexPage = ({
                 ))}
             </ul>
 
-            {resultsPageState * pageSize < filteredProjects.data.length && (
-              <Button
-                variant="secondary"
-                onClick={loadMoreResults}
-                sx={{
-                  cursor: "pointer",
-                  display: "block",
-                  m: "0 auto"
-                }}
-              >
-                Load More
-              </Button>
-            )}
+            {filteredProjects &&
+              resultsPageState * pageSize < filteredProjects.data.length && (
+                <Button
+                  variant="secondary"
+                  onClick={loadMoreResults}
+                  sx={{
+                    cursor: "pointer",
+                    display: "block",
+                    m: "0 auto"
+                  }}
+                >
+                  Load More
+                </Button>
+              )}
           </Container>
         </section>
       </main>

@@ -1,12 +1,18 @@
 /** @jsxImportSource theme-ui */
+
+// Third-party
+import { GetStaticProps } from "next"
+import { Container, Heading } from "theme-ui"
+
+// My components
 import Layout from "components/Layout"
 import SEO from "components/SEO"
-import { Flex, Container, Heading } from "theme-ui"
+import HeroSection from "components/HeroSection"
 import ArticleCard from "components/ArticleCard"
-import { GetStaticProps } from "next"
+
+// Helpers
 import { BlogPosts } from "helpers/myTypes"
 import { getStrapiUrl } from "helpers/api"
-import HeroSection from "components/HeroSection"
 
 // Data fetching
 const blogPostsUrl = `${getStrapiUrl()}/api/blog-posts`
@@ -23,7 +29,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 // Props
 type BlogIndexPage = {
-  blogPosts: BlogPosts
+  blogPosts?: BlogPosts
 }
 
 const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
@@ -31,20 +37,18 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
     <Layout>
       <SEO title="Blog | Ollie Payne" metaDescription="" />
       <HeroSection h1="Blog" />
-      <main>
+      <main
+        sx={{
+          minHeight: "100vh"
+        }}
+      >
         <section
           sx={{
-            py: 3
+            py: 5
           }}
         >
           <Container>
-            <Heading
-              as="h3"
-              variant="styles.h3"
-              sx={{
-                mb: 2
-              }}
-            >
+            <Heading as="h2" variant="styles.h2">
               Recent Articles
             </Heading>
             <ul
@@ -62,7 +66,7 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
                 }
               }}
             >
-              {blogPosts.data.map((blogPost, index) => (
+              {blogPosts?.data.map((blogPost, index) => (
                 <li key={index}>
                   <ArticleCard blogPost={blogPost.attributes} />
                 </li>
@@ -71,23 +75,6 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
           </Container>
         </section>
       </main>
-      <section
-        sx={{
-          py: 3
-        }}
-      >
-        <Container>
-          <Heading
-            as="h3"
-            variant="styles.h3"
-            sx={{
-              mb: 2
-            }}
-          >
-            Explore Categories
-          </Heading>
-        </Container>
-      </section>
     </Layout>
   )
 }
