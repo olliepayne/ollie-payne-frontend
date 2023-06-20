@@ -29,7 +29,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 // Props
 type BlogIndexPage = {
-  blogPosts?: BlogPosts
+  blogPosts: BlogPosts
 }
 
 const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
@@ -66,7 +66,7 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
                 }
               }}
             >
-              {blogPosts?.data.map((blogPost, index) => (
+              {blogPosts.data.map((blogPost, index) => (
                 <li key={index}>
                   <ArticleCard blogPost={blogPost.attributes} />
                 </li>

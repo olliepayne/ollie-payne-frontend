@@ -50,8 +50,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
 // Props
 type PortfolioIndexPage = {
-  recentProjects?: Projects
-  skillTags?: SkillTags
+  recentProjects: Projects
+  skillTags: SkillTags
 }
 
 const PortfolioIndexPage = ({
@@ -66,9 +66,8 @@ const PortfolioIndexPage = ({
   const [resultsPageState, setResultsPageState] = useState(resultsPage)
   let canLoadMore = true
 
-  const [filteredProjects, setFilteredProjects] = useState<
-    Projects | undefined
-  >(recentProjects)
+  const [filteredProjects, setFilteredProjects] =
+    useState<Projects>(recentProjects)
   const handleGetFilteredProjects = async () => {
     const skillTagId = asPath.split("skill=")[1]
 
@@ -218,20 +217,19 @@ const PortfolioIndexPage = ({
                 ))}
             </ul>
 
-            {filteredProjects &&
-              resultsPageState * pageSize < filteredProjects.data.length && (
-                <Button
-                  variant="secondary"
-                  onClick={loadMoreResults}
-                  sx={{
-                    cursor: "pointer",
-                    display: "block",
-                    m: "0 auto"
-                  }}
-                >
-                  Load More
-                </Button>
-              )}
+            {resultsPageState * pageSize < filteredProjects.data.length && (
+              <Button
+                variant="secondary"
+                onClick={loadMoreResults}
+                sx={{
+                  cursor: "pointer",
+                  display: "block",
+                  m: "0 auto"
+                }}
+              >
+                Load More
+              </Button>
+            )}
           </Container>
         </section>
       </main>
