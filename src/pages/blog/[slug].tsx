@@ -28,8 +28,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = blogPosts.data.map((blogPost: BlogPost) => {
     return {
       params: {
-        slug: blogPost.attributes.slug,
-        id: blogPost.id
+        slug: blogPost.attributes.slug
       }
     }
   })
@@ -43,11 +42,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const blogPostsUrlFilters = `?filters[slug][$eq]=${params?.slug}`
   const res = await fetch(blogPostsUrl + blogPostsUrlFilters)
-  const blogPost = await res.json()
+  const blogPosts = await res.json()
 
   return {
     props: {
-      blogPost
+      blogPosts
     }
   }
 }
