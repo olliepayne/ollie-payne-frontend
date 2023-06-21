@@ -1,12 +1,18 @@
 /** @jsxImportSource theme-ui */
+
+// Third-party
+import { GetStaticProps } from "next"
+import { Container } from "theme-ui"
+
+// My components
 import Layout from "components/Layout"
 import SEO from "components/SEO"
+import HeroSection from "components/HeroSection"
 import Timeline from "components/Timeline"
+
+// Helpers
 import { getStrapiUrl } from "helpers/api"
 import { TimelineEvents } from "helpers/myTypes"
-import { Container, Heading } from "theme-ui"
-import HeroSection from "components/HeroSection"
-import { GetStaticProps } from "next"
 
 // Data fetching
 const timelineEventsUrl = `${getStrapiUrl()}/api/timeline-events`
