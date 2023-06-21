@@ -3,6 +3,10 @@ export const getStrapiUrl = () => {
   if (env === "development") {
     return process.env.DEV_STRAPI_API_URL
   } else {
-    return process.env.STRAPI_API_URL
+    return process.env.PROD_STRAPI_API_URL
   }
+}
+
+export const getDevImagesDomain = () => {
+  return proc
 }
