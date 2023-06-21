@@ -1,7 +1,7 @@
 export const getStrapiUrl = () => {
   const env = process.env.NODE_ENV
   if (env === "development") {
-    return "http://192.168.0.2:1337"
+    return process.env.DEV_STRAPI_API_URL
   } else {
     return process.env.STRAPI_API_URL
   }
