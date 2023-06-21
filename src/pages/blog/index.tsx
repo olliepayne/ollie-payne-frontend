@@ -18,13 +18,12 @@ import { BlogPosts } from "helpers/myTypes"
 import { getStrapiUrl } from "helpers/api"
 
 // Data fetching
-// const blogPostsUrl = `${getStrapiUrl()}/api/blog-posts`
-const blogPostsUrl = `${process.env.STRAPI_URL}/api/blog-posts`
+const blogPostsUrl = `${getStrapiUrl()}/api/blog-posts`
 const resultsPerPage = 1
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(blogPostsUrl)
-  // const res = await fetch("http://192.168.0.3:1337/api/blog-posts")
+  // const res = await fetch(blogPostsUrl)
+  const res = await fetch("http://192.168.0.3:1337/api/blog-posts")
   const blogPosts = await res.json()
   return {
     props: {
