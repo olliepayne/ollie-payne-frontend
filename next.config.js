@@ -1,5 +1,3 @@
-const { default: getDevImagesDomain } = require('./src/helpers/getDevImagesDomain')
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -11,7 +9,7 @@ const nextConfig = {
     return config
   },
   images: {
-    domains: [`${getDevImagesDomain()}`]
+    domains: ["localhost"]
   }
 }
 
