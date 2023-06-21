@@ -109,7 +109,7 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
             >
               {results?.data.slice(0, resultsPerPage).map((blogPost, index) => (
                 <li key={index}>
-                  <ArticleCard blogPost={blogPost.attributes} />
+                  <ArticleCard blogPost={blogPost} />
                 </li>
               ))}
             </ul>

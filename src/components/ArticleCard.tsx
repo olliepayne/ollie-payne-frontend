@@ -1,22 +1,19 @@
 /** @jsxImportSource theme-ui */
-import { Box, Heading, Paragraph, Flex } from "theme-ui"
+
+// Third-party
 import Link from "next/link"
 import Image from "next/image"
+import { Box, Heading, Paragraph } from "theme-ui"
 
-type BlogPost = {
-  slug: string
-  pageTitle: string
-  datePublished: string
-  h1: string
-  content: string
-}
+// Helpers
+import { BlogPost } from "helpers/myTypes"
 
-interface IArticleCard {
+type ArticleCard = {
   className?: string
   blogPost: BlogPost
 }
 
-const ArticleCard = ({ className, blogPost }: IArticleCard) => {
+const ArticleCard = ({ className, blogPost }: ArticleCard) => {
   return (
     <article
       className={className}
@@ -33,6 +30,7 @@ const ArticleCard = ({ className, blogPost }: IArticleCard) => {
       }}
     >
       <Box
+        className="thumbnail-container"
         sx={{
           position: "relative",
           height: ["150px", "250px"],
@@ -49,6 +47,7 @@ const ArticleCard = ({ className, blogPost }: IArticleCard) => {
         />
       </Box>
       <Box
+        className="content"
         sx={{
           p: 3,
           display: "inline-block",
@@ -56,7 +55,7 @@ const ArticleCard = ({ className, blogPost }: IArticleCard) => {
         }}
       >
         <Link
-          href={`/blog/${blogPost.slug}`}
+          href={`/blog/${blogPost.attributes.slug}`}
           sx={{
             color: "unset",
             display: "block",
@@ -77,7 +76,7 @@ const ArticleCard = ({ className, blogPost }: IArticleCard) => {
               textDecoration: "underline"
             }}
           >
-            {blogPost.pageTitle}
+            {blogPost.attributes.h1}
           </Heading>
         </Link>
         <Paragraph>Snippet</Paragraph>
