@@ -1,9 +1,11 @@
 /** @jsxImportSource theme-ui */
 
 // Third-party
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { GetStaticProps } from "next"
-import { Container, Heading } from "theme-ui"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import { Container, Heading, Flex } from "theme-ui"
 
 // My components
 import Layout from "components/Layout"
@@ -20,7 +22,6 @@ const blogPostsUrl = `${getStrapiUrl()}/api/blog-posts`
 const resultsPerPage = 1
 
 export const getStaticProps: GetStaticProps = async () => {
-  const urlPagination = `?pagination[page]=1&pagination[pageSize]=${resultsPerPage}`
   const res = await fetch(blogPostsUrl)
   const blogPosts = await res.json()
   return {
@@ -36,9 +37,44 @@ type BlogIndexPage = {
 }
 
 const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
+  const { asPath } = useRouter()
+
   const [currentPage, setCurrentPage] = useState(1)
-  const [results, setResults] = useState<BlogPosts>()
-  const getNewResults = async () => {}
+  const [results, setResults] = useState<BlogPosts | undefined>()
+  const getNewResults = async () => {
+    let newPageNumber = 1
+    if (asPath.includes("results")) {
+      newPageNumber = parseInt(asPath.split("results=")[1])
+    }
+    setCurrentPage(newPageNumber)
+
+    // URLs
+    const urlSort = `sort[0]=datePublished:desc`
+    const urlPagination = `pagination[page]=${newPageNumber}&pagination[pageSize]=${resultsPerPage}`
+    const url = `${blogPostsUrl}?${urlSort}&${urlPagination}`
+
+    const res = await fetch(url)
+    const newBlogPosts = await res.json()
+    console.log(newBlogPosts)
+    setResults(newBlogPosts)
+  }
+
+  useEffect(() => {
+    getNewResults()
+  }, [asPath])
+
+  const [paginationArray, setPaginationArray] = useState<number[]>([])
+  useEffect(() => {
+    const createPaginationArray = () => {
+      let array: number[] = []
+      for (let i = 0; i < blogPosts.meta.pagination.total; i++) {
+        array.push(i + 1)
+      }
+
+      setPaginationArray(array)
+    }
+    createPaginationArray()
+  }, [])
 
   return (
     <Layout>
@@ -73,17 +109,49 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
                 }
               }}
             >
-              {blogPosts.data
-                .slice(0, resultsPerPage)
-                .map((blogPost, index) => (
-                  <li key={index}>
-                    <ArticleCard blogPost={blogPost.attributes} />
-                  </li>
-                ))}
+              {results?.data.slice(0, resultsPerPage).map((blogPost, index) => (
+                <li key={index}>
+                  <ArticleCard blogPost={blogPost.attributes} />
+                </li>
+              ))}
             </ul>
           </Container>
 
-          <ul></ul>
+          {/* Pagination control */}
+          <Flex
+            sx={{
+              justifyContent: "center"
+            }}
+          >
+            <ul
+              sx={{
+                m: "0 auto",
+                display: "inline-flex",
+                p: 0,
+                listStyle: "none",
+                textDecoration: "none",
+                "> li:not(:last-child)": {
+                  mr: 2
+                }
+              }}
+            >
+              {currentPage > 1 && (
+                <li>
+                  <Link href={""}>{"<"}</Link>
+                </li>
+              )}
+              {paginationArray.map((pageNumber) => (
+                <li key={`paginationLinks:${pageNumber}`}>
+                  <Link href={`/blog?results=${pageNumber}`}>{pageNumber}</Link>
+                </li>
+              ))}
+              {currentPage < paginationArray.length - 1 && (
+                <li>
+                  <Link href={`?results=${currentPage + 1}`}>{">"}</Link>
+                </li>
+              )}
+            </ul>
+          </Flex>
         </section>
       </main>
     </Layout>
