@@ -1,15 +1,21 @@
 /** @jsxImportSource theme-ui */
-import SEO from "components/SEO"
-import { Container, Heading, Flex, Paragraph } from "theme-ui"
-import Image from "next/image"
-import Layout from "components/Layout"
-import ContactSection from "components/ContactSection"
-import { getStrapiUrl } from "helpers/api"
+
+// Third-party
 import { GetStaticProps } from "next"
-import { Projects } from "helpers/myTypes"
-import RecentProjectsSection from "components/RecentProjectsSection"
+import Image from "next/image"
+import { Container, Heading, Flex, Paragraph } from "theme-ui"
+
+// My components
+import Layout from "components/Layout"
+import SEO from "components/SEO"
 import LinkedInSVG from "components/svgs/LinkedInSVG"
 import GithubSVG from "components/svgs/GithubSVG"
+import RecentProjectsSection from "components/RecentProjectsSection"
+import ContactSection from "components/ContactSection"
+
+// Helpers
+import { getStrapiUrl } from "helpers/api"
+import { Projects } from "helpers/myTypes"
 
 // Add: data fetching for headshot, hero image
 const projectsUrl = `${getStrapiUrl()}/api/projects`
@@ -30,7 +36,7 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 type Home = {
-  projects?: Projects
+  projects: Projects
 }
 
 export default function Home({ projects }: Home) {
@@ -175,7 +181,8 @@ export default function Home({ projects }: Home) {
                 borderRadius: "50%",
                 borderColor: "myGray",
                 borderWidth: "4px",
-                borderStyle: "solid"
+                borderStyle: "solid",
+                boxShadow: "0 0 8px rgb(0 0 0 / 0.5)"
               }}
             />
           </Flex>

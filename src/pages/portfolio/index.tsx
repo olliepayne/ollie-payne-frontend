@@ -1,15 +1,21 @@
 /** @jsxImportSource theme-ui */
-import { Heading, Box, Container, Button, Text } from "theme-ui"
+
+// Third-party
+import { useEffect, useState } from "react"
+import { GetStaticProps } from "next"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import { Heading, Box, Container, Button } from "theme-ui"
+
+// My components
 import Layout from "components/Layout"
 import SEO from "components/SEO"
-import { GetStaticProps } from "next"
-import { getStrapiUrl } from "helpers/api"
-import { Projects, SkillTags } from "helpers/myTypes"
-import { useEffect, useState } from "react"
-import { useRouter } from "next/router"
 import ProjectCard from "components/ProjectCard"
 import HeroSection from "components/HeroSection"
-import Link from "next/link"
+
+// Helpers
+import { getStrapiUrl } from "helpers/api"
+import { Projects, SkillTags } from "helpers/myTypes"
 
 // Root URLs
 const projectsUrl = `${getStrapiUrl()}/api/projects`
@@ -217,6 +223,7 @@ const PortfolioIndexPage = ({
                 ))}
             </ul>
 
+            {/* Load more button (pagination control) */}
             {resultsPageState * pageSize < filteredProjects.data.length && (
               <Button
                 variant="secondary"
