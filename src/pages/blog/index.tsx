@@ -55,7 +55,6 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
 
     const res = await fetch(url)
     const newBlogPosts = await res.json()
-    console.log(newBlogPosts)
     setResults(newBlogPosts)
   }
 
@@ -63,18 +62,17 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
     getNewResults()
   }, [asPath])
 
-  const [paginationArray, setPaginationArray] = useState<number[]>([])
-  useEffect(() => {
-    const createPaginationArray = () => {
-      let array: number[] = []
-      for (let i = 0; i < blogPosts.meta.pagination.total; i++) {
-        array.push(i + 1)
-      }
-
-      setPaginationArray(array)
+  const createPaginationArray = () => {
+    let array: number[] = []
+    for (let i = 0; i < blogPosts.meta.pagination.total; i++) {
+      array.push(i + 1)
     }
+
+    return array
+  }
+  const [paginationArray, setPaginationArray] = useState<number[]>(
     createPaginationArray()
-  }, [])
+  )
 
   return (
     <Layout>
@@ -137,12 +135,32 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
             >
               {currentPage > 1 && (
                 <li>
-                  <Link href={""}>{"<"}</Link>
+                  <Link href={`?results=${currentPage - 1}`}>{"<"}</Link>
                 </li>
               )}
               {paginationArray.map((pageNumber) => (
                 <li key={`paginationLinks:${pageNumber}`}>
-                  <Link href={`/blog?results=${pageNumber}`}>{pageNumber}</Link>
+                  <Link
+                    href={`?results=${pageNumber}`}
+                    sx={{
+                      zIndex: 1,
+                      display: "inline-block",
+                      position: "relative"
+                      // "::after": {
+                      //   content: `""`,
+                      //   width: "40px",
+                      //   height: "40px",
+                      //   backgroundColor: "subtlePink",
+                      //   position: "absolute",
+                      //   borderRadius: "50%",
+                      //   top: "-20px",
+                      //   left: "-20px",
+                      //   zIndex: -1
+                      // }
+                    }}
+                  >
+                    {pageNumber}
+                  </Link>
                 </li>
               ))}
               {currentPage < paginationArray.length - 1 && (

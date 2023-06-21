@@ -110,7 +110,7 @@ export default function Home({ projects }: Home) {
                 <li>
                   <a
                     href="https://www.linkedin.com/in/oliverpayne01"
-                    target="blank"
+                    target="_blank"
                     rel="nofollow"
                     sx={{
                       display: "inline-flex",
@@ -137,7 +137,7 @@ export default function Home({ projects }: Home) {
                 <li>
                   <a
                     href="https://github.com/olliepayne"
-                    target="blank"
+                    target="_blank"
                     rel="nofollow"
                     sx={{
                       display: "inline-flex",
