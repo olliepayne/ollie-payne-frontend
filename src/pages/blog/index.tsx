@@ -123,51 +123,92 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
           >
             <ul
               sx={{
-                m: "0 auto",
+                my: 5,
                 display: "inline-flex",
                 p: 0,
                 listStyle: "none",
-                textDecoration: "none",
                 "> li:not(:last-child)": {
-                  mr: 2
+                  mr: 4
                 }
               }}
             >
-              {currentPage > 1 && (
-                <li>
-                  <Link href={`?results=${currentPage - 1}`}>{"<"}</Link>
-                </li>
-              )}
+              {/* Previous */}
+              <li>
+                <Link
+                  href={`?results=${currentPage - 1}`}
+                  sx={{
+                    visibility: currentPage > 1 ? "visible" : "hidden",
+                    textDecoration: "none",
+                    color: "black",
+                    fontWeight: 500,
+                    fontFamily: "body",
+                    fontSize: 2
+                  }}
+                >
+                  {"<"}
+                </Link>
+              </li>
               {paginationArray.map((pageNumber) => (
                 <li key={`paginationLinks:${pageNumber}`}>
                   <Link
                     href={`?results=${pageNumber}`}
                     sx={{
-                      zIndex: 1,
                       display: "inline-block",
-                      position: "relative"
-                      // "::after": {
-                      //   content: `""`,
-                      //   width: "40px",
-                      //   height: "40px",
-                      //   backgroundColor: "subtlePink",
-                      //   position: "absolute",
-                      //   borderRadius: "50%",
-                      //   top: "-20px",
-                      //   left: "-20px",
-                      //   zIndex: -1
-                      // }
+                      textDecoration: "none",
+                      color: "black",
+                      fontWeight: 500,
+                      fontFamily: "body",
+                      position: "relative",
+                      zIndex: 1,
+                      fontSize: 2,
+                      ":hover": {
+                        "> span": {
+                          backgroundColor: "myPink"
+                        }
+                      }
                     }}
                   >
+                    <span
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        width: "35px",
+                        height: "35px",
+                        backgroundColor: asPath.includes(
+                          `results=${pageNumber}`
+                        )
+                          ? "subtlePink"
+                          : "transparent",
+                        borderRadius: "50%",
+                        zIndex: -1,
+                        transition: "background-color 0.2s ease-out"
+                      }}
+                    />
                     {pageNumber}
                   </Link>
                 </li>
               ))}
-              {currentPage < paginationArray.length - 1 && (
-                <li>
-                  <Link href={`?results=${currentPage + 1}`}>{">"}</Link>
-                </li>
-              )}
+              {/* Next */}
+              <li>
+                <Link
+                  href={`?results=${currentPage + 1}`}
+                  sx={{
+                    visibility:
+                      currentPage < paginationArray.length
+                        ? "visible"
+                        : "hidden",
+                    textDecoration: "none",
+                    color: "black",
+                    fontWeight: 500,
+                    fontFamily: "body",
+                    fontSize: 2
+                  }}
+                >
+                  {">"}
+                </Link>
+              </li>
             </ul>
           </Flex>
         </section>
