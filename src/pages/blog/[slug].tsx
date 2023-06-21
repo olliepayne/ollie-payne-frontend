@@ -1,8 +1,8 @@
 /** @jsxImportSource theme-ui */
 
 // Third-party
-import { Box, Container, Heading, Text } from "theme-ui"
 import { GetStaticPaths, GetStaticProps } from "next"
+import { Box, Container, Heading, Text } from "theme-ui"
 import ReactMarkdown from "react-markdown"
 
 // My components
@@ -40,8 +40,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const blogPostsUrlFilters = `?filters[slug][$eq]=${params?.slug}`
-  const res = await fetch(blogPostsUrl + blogPostsUrlFilters)
+  const urlFilters = `?filters[slug][$eq]=${params?.slug}`
+  const url = `${blogPostsUrl}?${urlFilters}`
+  const res = await fetch(url)
   const blogPosts = await res.json()
 
   return {
@@ -61,7 +62,7 @@ const BlogPostPage = ({ blogPosts }: BlogPostPage) => {
   const { pageTitle, metaDescription, h1, datePublished, dateEdited, content } =
     blogPosts.data[0].attributes
 
-  const parsedDatePublished = parsedKebabDate(datePublished, "SHORT")
+  const parsedDatePublished = parsedKebabDate(datePublished, "FULL")
 
   return (
     <Layout>
@@ -75,21 +76,15 @@ const BlogPostPage = ({ blogPosts }: BlogPostPage) => {
         }}
       >
         {/* Metadata / frontmatter */}
-        <section
-          sx={
-            {
-              // py: 4
-            }
-          }
-        >
+        <section>
           <Container variant="narrow">
             <Heading as="h1" variant="styles.h1">
               {h1}
             </Heading>
             <Text>
               <time dateTime={datePublished}>
-                {parsedDatePublished.month.toUpperCase()}{" "}
-                {parsedDatePublished.day}, {parsedDatePublished.year}
+                {parsedDatePublished.month} {parsedDatePublished.day},{" "}
+                {parsedDatePublished.year}
               </time>
             </Text>
           </Container>

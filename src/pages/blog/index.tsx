@@ -1,6 +1,7 @@
 /** @jsxImportSource theme-ui */
 
 // Third-party
+import { useState } from "react"
 import { GetStaticProps } from "next"
 import { Container, Heading } from "theme-ui"
 
@@ -16,8 +17,10 @@ import { getStrapiUrl } from "helpers/api"
 
 // Data fetching
 const blogPostsUrl = `${getStrapiUrl()}/api/blog-posts`
+const resultsPerPage = 1
 
 export const getStaticProps: GetStaticProps = async () => {
+  const urlPagination = `?pagination[page]=1&pagination[pageSize]=${resultsPerPage}`
   const res = await fetch(blogPostsUrl)
   const blogPosts = await res.json()
   return {
@@ -33,6 +36,10 @@ type BlogIndexPage = {
 }
 
 const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
+  const [currentPage, setCurrentPage] = useState(1)
+  const [results, setResults] = useState<BlogPosts>()
+  const getNewResults = async () => {}
+
   return (
     <Layout>
       <SEO title="Blog | Ollie Payne" metaDescription="" />
@@ -66,13 +73,17 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
                 }
               }}
             >
-              {blogPosts.data.map((blogPost, index) => (
-                <li key={index}>
-                  <ArticleCard blogPost={blogPost.attributes} />
-                </li>
-              ))}
+              {blogPosts.data
+                .slice(0, resultsPerPage)
+                .map((blogPost, index) => (
+                  <li key={index}>
+                    <ArticleCard blogPost={blogPost.attributes} />
+                  </li>
+                ))}
             </ul>
           </Container>
+
+          <ul></ul>
         </section>
       </main>
     </Layout>

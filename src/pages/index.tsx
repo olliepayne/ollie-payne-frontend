@@ -113,20 +113,25 @@ export default function Home({ projects }: Home) {
                     target="blank"
                     rel="nofollow"
                     sx={{
-                      display: "inline-block",
-                      color: "unset"
+                      display: "inline-flex",
+                      color: "black",
+                      fontFamily: "body",
+                      fontWeight: 500,
+                      textDecoration: "none",
+                      cursor: "pointer",
+                      alignItems: "center",
+                      ":hover": {
+                        color: "myPink"
+                      }
                     }}
                   >
                     <LinkedInSVG
                       sx={{
                         width: "50px",
-                        height: "50px",
-                        cursor: "pointer",
-                        ":hover": {
-                          fill: "myPink"
-                        }
+                        height: "50px"
                       }}
                     />
+                    LinkedIn
                   </a>
                 </li>
                 <li>
@@ -135,20 +140,26 @@ export default function Home({ projects }: Home) {
                     target="blank"
                     rel="nofollow"
                     sx={{
-                      display: "inline-block",
-                      color: "unset"
+                      display: "inline-flex",
+                      color: "black",
+                      fontFamily: "body",
+                      fontWeight: 500,
+                      textDecoration: "none",
+                      cursor: "pointer",
+                      alignItems: "center",
+                      ":hover": {
+                        color: "myPink"
+                      }
                     }}
                   >
                     <GithubSVG
                       sx={{
                         width: "50px",
                         height: "50px",
-                        cursor: "pointer",
-                        ":hover": {
-                          fill: "myPink"
-                        }
+                        mr: 1
                       }}
                     />
+                    Github
                   </a>
                 </li>
               </ul>
