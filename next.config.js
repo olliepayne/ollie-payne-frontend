@@ -9,7 +9,11 @@ const nextConfig = {
     return config
   },
   images: {
-    domains: ["192.168.0.3"]
+    domains: [
+      process.env.NODE_ENV === "development"
+        ? process.env.NEXT_PUBLIC_DEV_STRAPI_IMAGE_DOMAIN
+        : process.env.NEXT_PUBLIC_STRAPI_IMAGE_DOMAIN
+    ]
   }
 }
 

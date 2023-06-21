@@ -22,8 +22,7 @@ const blogPostsUrl = `${getStrapiUrl()}/api/blog-posts`
 const resultsPerPage = 1
 
 export const getStaticProps: GetStaticProps = async () => {
-  // const res = await fetch(blogPostsUrl)
-  const res = await fetch("http://192.168.0.3:1337/api/blog-posts")
+  const res = await fetch(blogPostsUrl)
   const blogPosts = await res.json()
   return {
     props: {
