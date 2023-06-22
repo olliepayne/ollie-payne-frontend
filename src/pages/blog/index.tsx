@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { GetStaticProps } from "next"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { Container, Heading, Flex } from "theme-ui"
+import { Container, Heading, Flex, ThemeUIStyleObject } from "theme-ui"
 
 // My components
 import Layout from "components/Layout"
@@ -21,6 +21,35 @@ import { getStrapiUrl } from "helpers/api"
 const blogPostsUrl = `${getStrapiUrl()}/api/blog-posts`
 const resultsPerPage = 1
 
+// Styles
+const paginationLinkStyle: ThemeUIStyleObject = {
+  display: "inline-block",
+  textDecoration: "none",
+  color: "black",
+  fontWeight: 500,
+  fontFamily: "body",
+  position: "relative",
+  zIndex: 1,
+  fontSize: 2,
+  ":hover": {
+    "> span": {
+      backgroundColor: "myPink"
+    }
+  },
+  ".background": {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "35px",
+    height: "35px",
+    borderRadius: "50%",
+    zIndex: -1,
+    transition: "background-color 0.2s ease-out"
+  }
+}
+
+// Initial Data fetching
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(blogPostsUrl)
   const blogPosts = await res.json()
@@ -139,14 +168,11 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
                 <Link
                   href={`?results=${currentPage - 1}`}
                   sx={{
-                    visibility: currentPage > 1 ? "visible" : "hidden",
-                    textDecoration: "none",
-                    color: "black",
-                    fontWeight: 500,
-                    fontFamily: "body",
-                    fontSize: 2
+                    ...paginationLinkStyle,
+                    visibility: currentPage > 1 ? "visible" : "hidden"
                   }}
                 >
+                  <span className="background" />
                   {"<"}
                 </Link>
               </li>
@@ -154,38 +180,16 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
                 <li key={`paginationLinks:${pageNumber}`}>
                   <Link
                     href={`?results=${pageNumber}`}
-                    sx={{
-                      display: "inline-block",
-                      textDecoration: "none",
-                      color: "black",
-                      fontWeight: 500,
-                      fontFamily: "body",
-                      position: "relative",
-                      zIndex: 1,
-                      fontSize: 2,
-                      ":hover": {
-                        "> span": {
-                          backgroundColor: "myPink"
-                        }
-                      }
-                    }}
+                    sx={paginationLinkStyle}
                   >
                     <span
+                      className="background"
                       sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        width: "35px",
-                        height: "35px",
                         backgroundColor: asPath.includes(
                           `results=${pageNumber}`
                         )
                           ? "subtlePink"
-                          : "transparent",
-                        borderRadius: "50%",
-                        zIndex: -1,
-                        transition: "background-color 0.2s ease-out"
+                          : "transparent"
                       }}
                     />
                     {pageNumber}
@@ -197,17 +201,14 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
                 <Link
                   href={`?results=${currentPage + 1}`}
                   sx={{
+                    ...paginationLinkStyle,
                     visibility:
                       currentPage < paginationArray.length
                         ? "visible"
-                        : "hidden",
-                    textDecoration: "none",
-                    color: "black",
-                    fontWeight: 500,
-                    fontFamily: "body",
-                    fontSize: 2
+                        : "hidden"
                   }}
                 >
+                  <span className="background" />
                   {">"}
                 </Link>
               </li>
