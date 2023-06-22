@@ -65,7 +65,6 @@ const PortfolioIndexPage = ({
   skillTags
 }: PortfolioIndexPage) => {
   const { asPath } = useRouter()
-  const router = useRouter()
 
   // For pagination
   const pageSize = 1
@@ -111,8 +110,7 @@ const PortfolioIndexPage = ({
     handleGetFilteredProjects()
 
     // Reset
-    resultsPage = 1
-    setResultsPageState(resultsPage)
+    setResultsPageState(1)
   }, [asPath])
 
   const checkCanLoadMore = (newFilteredProjectsLength: number) => {

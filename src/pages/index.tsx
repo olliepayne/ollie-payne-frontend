@@ -74,7 +74,7 @@ export default function Home({ projects }: Home) {
                   mt: 0
                 }}
               >
-                Hi, I'm Ollie.
+                Hi, I&apos;m Ollie.
               </Heading>
               <Heading as="h2" variant="styles.h2">
                 What I am
@@ -117,7 +117,7 @@ export default function Home({ projects }: Home) {
                   <a
                     href="https://www.linkedin.com/in/oliverpayne01"
                     target="_blank"
-                    rel="nofollow"
+                    rel="nofollow noreferrer"
                     sx={{
                       display: "inline-flex",
                       color: "black",
@@ -144,7 +144,7 @@ export default function Home({ projects }: Home) {
                   <a
                     href="https://github.com/olliepayne"
                     target="_blank"
-                    rel="nofollow"
+                    rel="nofollow noreferrer"
                     sx={{
                       display: "inline-flex",
                       color: "black",

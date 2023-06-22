@@ -13,8 +13,8 @@ const ContactSection = () => {
           How Can I Help?
         </Heading>
         <Paragraph>
-          Don't hesitate to reach out. I'd be happy to work with you to find a
-          solution to your problem.
+          Don&apos;t hesitate to reach out. I&apos;d be happy to work with you
+          to find a solution to your problem.
         </Paragraph>
       </Container>
     </section>
