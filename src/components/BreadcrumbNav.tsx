@@ -6,23 +6,41 @@ import { Text } from "theme-ui"
 const BreadcrumbNav = () => {
   // Get the current path and split each folder + current slug into an array
   const { asPath } = useRouter()
-  let pathSplit = asPath.split("/")
-  pathSplit = pathSplit.splice(1, pathSplit.length)
+  let splitPath = asPath.split("/")
+  splitPath.splice(0, 1)
+  console.log(splitPath)
+  const slug = splitPath[splitPath.length - 1]
 
   // Check if the slug has any "-", split and rejoin
   const parseSlug = () => {
-    const slug = pathSplit[pathSplit.length - 1]
     if (slug.includes("-")) {
-      const slugSplit = slug.split("-")
-      pathSplit[pathSplit.length - 1] = slugSplit.join(" ")
+      const splitSlug = slug.split("-")
+      splitPath[splitPath.length - 1] = splitSlug.join(" ")
     }
   }
   parseSlug()
 
   // Turn the current pathLink from our .map() into camel case
-  type PathLinkToCamelCase = (pathLink: string) => string
-  const pathLinkToCamelCase: PathLinkToCamelCase = (pathLink: string) =>
-    `${pathLink.charAt(0).toUpperCase()}${pathLink.slice(1, pathLink.length)}`
+  type PathLinkToTitleCase = (pathLink: string) => string
+  const pathLinkToTitleCase: PathLinkToTitleCase = (pathLink: string) => {
+    let newPathLink: string
+
+    if (pathLink.includes(" ")) {
+      const splitPathLink = pathLink.split(" ")
+      newPathLink = splitPathLink
+        .map(
+          (str) => `${str.charAt(0).toUpperCase()}${str.slice(1, str.length)}`
+        )
+        .join(" ")
+    } else {
+      newPathLink = `${pathLink.charAt(0).toUpperCase()}${pathLink.slice(
+        1,
+        pathLink.length
+      )}`
+    }
+
+    return newPathLink
+  }
 
   return (
     <ul
@@ -47,7 +65,7 @@ const BreadcrumbNav = () => {
       <li>
         <Link href="/">Home</Link>
       </li>
-      {pathSplit.map((pathLink, index) => (
+      {splitPath.map((pathLink, index) => (
         <li key={pathLink + index}>
           <Text
             sx={{
@@ -57,8 +75,8 @@ const BreadcrumbNav = () => {
           >
             /
           </Text>
-          {index < pathSplit.length - 1 ? (
-            <Link href={`/${pathLink}`}>{pathLinkToCamelCase(pathLink)}</Link>
+          {index < splitPath.length - 1 ? (
+            <Link href={`/${pathLink}`}>{pathLinkToTitleCase(pathLink)}</Link>
           ) : (
             <Text
               sx={{
@@ -66,7 +84,7 @@ const BreadcrumbNav = () => {
                 userSelect: "none"
               }}
             >
-              {pathLinkToCamelCase(pathLink)}
+              {pathLinkToTitleCase(pathLink)}
             </Text>
           )}
         </li>
