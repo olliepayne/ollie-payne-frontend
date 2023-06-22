@@ -7,6 +7,7 @@ import { Box, Heading, Paragraph } from "theme-ui"
 
 // Helpers
 import { BlogPost } from "helpers/myTypes"
+import ArrowSVG from "./svgs/ArrowSVG"
 
 type ArticleCard = {
   className?: string
@@ -54,12 +55,30 @@ const ArticleCard = ({ className, blogPost }: ArticleCard) => {
           verticalAlign: "top"
         }}
       >
+        <Heading className="article-title" as="h4" variant="styles.h4" sx={{}}>
+          {blogPost.attributes.h1}
+        </Heading>
+        <Paragraph
+          sx={{
+            my: 3
+          }}
+        >
+          Snippet
+        </Paragraph>
         <Link
           href={`/blog/${blogPost.attributes.slug}`}
           sx={{
-            color: "unset",
-            display: "block",
+            variant: "links.primary",
             textDecoration: "none",
+            display: "inline-flex",
+            alignItems: "center",
+            transition: "none",
+            ":hover": {
+              color: "gray",
+              ".icon": {
+                transform: "scale(1.05, 1.05)"
+              }
+            },
             "::after": {
               content: `""`,
               inset: 0,
@@ -67,16 +86,16 @@ const ArticleCard = ({ className, blogPost }: ArticleCard) => {
             }
           }}
         >
-          <Heading
-            className="article-title"
-            as="h4"
-            variant="styles.h4"
-            sx={{}}
-          >
-            {blogPost.attributes.h1}
-          </Heading>
+          Read More
+          <ArrowSVG
+            className="icon"
+            sx={{
+              width: "30px",
+              height: "30px",
+              ml: 2
+            }}
+          />
         </Link>
-        <Paragraph>Snippet</Paragraph>
       </Box>
     </article>
   )
