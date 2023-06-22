@@ -65,6 +65,7 @@ const PortfolioIndexPage = ({
   skillTags
 }: PortfolioIndexPage) => {
   const { asPath } = useRouter()
+  const router = useRouter()
 
   // For pagination
   const pageSize = 1
@@ -160,19 +161,20 @@ const PortfolioIndexPage = ({
             </Heading>
 
             {/* Tags */}
-            <Box
-              sx={{
-                mt: 3
-              }}
-            >
+            <Box>
               {skillTags && (
                 <ul
                   sx={{
                     my: 0,
                     listStyle: "none",
-                    p: 0,
+                    pl: 0,
+                    py: 3,
                     display: "inline-flex",
-                    "li:not(:last-child)": {
+                    overflow: "scroll",
+                    li: {
+                      flex: "0 0 fit-content"
+                    },
+                    "> li:not(:last-child)": {
                       mr: 2
                     }
                   }}

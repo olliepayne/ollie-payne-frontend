@@ -3,7 +3,7 @@
 // Third-party
 import { GetStaticProps } from "next"
 import Image from "next/image"
-import { Container, Heading, Flex, Paragraph } from "theme-ui"
+import { Container, Heading, Flex, Paragraph, Box } from "theme-ui"
 
 // My components
 import Layout from "components/Layout"

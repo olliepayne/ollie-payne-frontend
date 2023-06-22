@@ -20,6 +20,7 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
   )
   const formattedDatePublished = `${parsedDatePublished.month} ${parsedDatePublished.day}, ${parsedDatePublished.year}`
 
+  // Sort the skill tags alphabetically (A - Z)
   const sortedSkillTags = project.attributes.skillTags?.data.sort((a, b) => {
     if (a.attributes.name < b.attributes.name) {
       return -1
@@ -33,13 +34,13 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
   return (
     <Box
       sx={{
-        height: ["600px", "300px"],
+        height: ["400px", "250px"],
         display: "flex",
         flexDirection: ["column", flipped ? "row-reverse" : "row"],
         justifyContent: "space-between",
         position: "relative",
         bg: "subtlePink",
-        boxShadow: "0 0 8px rgb(0 0 0 / 0.1)"
+        boxShadow: "0 0 20px rgb(0 0 0 / 0.1)"
       }}
     >
       {/* Image */}
@@ -47,7 +48,7 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
         sx={{
           display: "inline-block",
           height: "100%",
-          flex: "1 0 50%",
+          flex: "0 0 40%",
           position: "relative"
         }}
       >
@@ -67,7 +68,8 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
       <Box
         sx={{
           flex: "1 0 50%",
-          p: 4
+          py: [2, 3],
+          px: [3, 4]
         }}
       >
         {/* Name */}
@@ -150,21 +152,7 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
           <Link
             href={`/portfolio/${project.attributes.slug}`}
             sx={{
-              display: "inline-block",
-              px: 3,
-              py: 2,
-              mr: 4,
-              textDecoration: "none",
-              borderStyle: "solid",
-              borderWidth: "2px",
-              borderColor: "black",
-              fontFamily: "body",
-              color: "black",
-              transition: "all 0.2s ease-out",
-              ":hover": {
-                backgroundColor: "black",
-                color: "white"
-              }
+              variant: "links.box"
             }}
           >
             View Case Study

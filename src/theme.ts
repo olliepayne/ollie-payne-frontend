@@ -48,14 +48,16 @@ export const theme: Theme = {
   breakpoints: ["769px", "1201px"],
   text: {
     default: {
-      fontFamily: "body"
+      fontFamily: "body",
+      fontSize: [0, 1]
     },
     heading: {
       fontWeight: 700
     },
     paragraph: {
       fontFamily: "body",
-      lineHeight: 1.5
+      lineHeight: 1.5,
+      fontSize: [0, 1]
     }
   },
   links: {
@@ -102,11 +104,30 @@ export const theme: Theme = {
       color: "black",
       fontFamily: "body",
       fontWeight: 500,
+      fontSize: [0, 1],
       py: 1,
       px: 2,
       transition: "all 0.2s ease-out",
       ":hover": {
         borderColor: "myPink"
+      }
+    },
+    box: {
+      display: "inline-block",
+      px: 3,
+      py: 2,
+      mr: 4,
+      textDecoration: "none",
+      borderStyle: "solid",
+      borderWidth: "2px",
+      borderColor: "black",
+      fontFamily: "body",
+      color: "black",
+      fontSize: [0, 1],
+      transition: "all 0.2s ease-out",
+      ":hover": {
+        backgroundColor: "black",
+        color: "white"
       }
     }
   },
@@ -118,6 +139,7 @@ export const theme: Theme = {
       borderColor: "black",
       borderRadius: "0",
       color: "black",
+      fontSize: [0, 1],
       transition: "all 0.2s ease-out",
       ":hover": {
         color: "white",

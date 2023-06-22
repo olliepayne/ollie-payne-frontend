@@ -18,22 +18,21 @@ const ArticleCard = ({ className, blogPost }: ArticleCard) => {
     <article
       className={className}
       sx={{
+        height: ["350px", "500px"],
         position: "relative",
         bg: "myLightGray",
-        boxShadow: "0 0px 10px rgb(0 0 0 / 0.25)",
+        boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
         ":hover": {
-          cursor: "pointer",
-          ".article-title": {
-            color: "gray"
-          }
+          cursor: "pointer"
         }
       }}
     >
+      {/* Thumbnail */}
       <Box
         className="thumbnail-container"
         sx={{
           position: "relative",
-          height: ["150px", "250px"],
+          height: ["40%"],
           width: "100%"
         }}
       >
@@ -46,11 +45,12 @@ const ArticleCard = ({ className, blogPost }: ArticleCard) => {
           }}
         />
       </Box>
+
+      {/* Content */}
       <Box
         className="content"
         sx={{
           p: 3,
-          display: "inline-block",
           verticalAlign: "top"
         }}
       >
@@ -59,6 +59,7 @@ const ArticleCard = ({ className, blogPost }: ArticleCard) => {
           sx={{
             color: "unset",
             display: "block",
+            textDecoration: "none",
             "::after": {
               content: `""`,
               inset: 0,
@@ -70,11 +71,7 @@ const ArticleCard = ({ className, blogPost }: ArticleCard) => {
             className="article-title"
             as="h4"
             variant="styles.h4"
-            sx={{
-              fontWeight: 400,
-              transition: "color 0.2s ease",
-              textDecoration: "underline"
-            }}
+            sx={{}}
           >
             {blogPost.attributes.h1}
           </Heading>
