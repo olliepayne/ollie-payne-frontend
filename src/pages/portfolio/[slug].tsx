@@ -1,8 +1,7 @@
 /** @jsxImportSource theme-ui */
 
-// Third-party
+// Packages
 import { GetStaticPaths, GetStaticProps } from "next"
-import Link from "next/link"
 import { Container, Heading, Text, Box } from "theme-ui"
 import { ReactMarkdown } from "react-markdown/lib/react-markdown"
 
@@ -12,6 +11,7 @@ import SEO from "components/SEO"
 import BreadcrumbNav from "components/BreadcrumbNav"
 import ContactSection from "components/ContactSection"
 import TemplatePageHeroImage from "components/TemplatePageHeroImage"
+import SkillTagsList from "components/SkillTagsList"
 import { components } from "components/ReactMarkdownComponents"
 
 // Helpers
@@ -116,44 +116,12 @@ const PortfolioSlugPage = ({ projects }: PortfolioSlugPage) => {
                   {parsedDatePublished.year}
                 </time>
               </Text>
-              <Box
+              <SkillTagsList
+                skillTags={sortedSkillTags}
                 sx={{
                   mt: 2
                 }}
-              >
-                <Text
-                  sx={{
-                    mr: 2,
-                    fontWeight: 500
-                  }}
-                >
-                  Skills:
-                </Text>
-                <ul
-                  sx={{
-                    my: 0,
-                    display: "inline-flex",
-                    p: 0,
-                    listStyle: "none",
-                    "li:not(:last-child)": {
-                      mr: 2
-                    }
-                  }}
-                >
-                  {sortedSkillTags?.map((skillTag, index) => (
-                    <li key={`skillTags:${index}`}>
-                      <Link
-                        href={`/portfolio?skill=${skillTag.id}`}
-                        sx={{
-                          variant: "links.tag"
-                        }}
-                      >
-                        {skillTag.attributes.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </Box>
+              />
             </Box>
           </Container>
           <Container>

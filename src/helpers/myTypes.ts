@@ -63,7 +63,7 @@ export type TimelineEventAttributes = {
   startDate: string
   endDate?: string
   description: string
-  skillTags?: SkillTags
+  skillTags: SkillTags
 }
 
 export type TimelineEvent = {
@@ -88,7 +88,7 @@ export type ProjectAttributes = {
   dateEdited?: string
   content: string
   liveUrl?: string
-  skillTags?: SkillTags
+  skillTags: SkillTags
 }
 
 export type Project = {

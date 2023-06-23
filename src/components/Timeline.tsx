@@ -9,6 +9,7 @@ import { Box, Flex, Heading, Paragraph, Text } from "theme-ui"
 import { TimelineEvent, TimelineEvents } from "helpers/myTypes"
 import { parsedKebabDate } from "helpers/dateParser"
 import { getStrapiUrl } from "helpers/api"
+import SkillTagsList from "./SkillTagsList"
 
 // Props
 type Timeline = {
@@ -161,38 +162,7 @@ const Timeline = ({ events }: Timeline) => {
             </Paragraph>
 
             {/* Project tags / tag links */}
-            <Text
-              sx={{
-                mr: 2,
-                fontWeight: 500
-              }}
-            >
-              Skills:
-            </Text>
-            <ul
-              sx={{
-                display: "inline-flex",
-                p: 0,
-                listStyle: "none",
-                flexWrap: "wrap",
-                "> li:not(:last-child)": {
-                  mr: 2
-                }
-              }}
-            >
-              {event.attributes.skillTags?.data.map((skillTag) => (
-                <li key={event.id + skillTag.attributes.name}>
-                  <Link
-                    href={`/portfolio/?skill=${skillTag.id}`}
-                    sx={{
-                      variant: "links.tag"
-                    }}
-                  >
-                    {skillTag.attributes.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <SkillTagsList skillTags={event.attributes.skillTags?.data} />
           </Box>
         </Flex>
       ))}

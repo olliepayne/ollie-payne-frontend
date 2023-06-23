@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { GetStaticProps } from "next"
 import Link from "next/link"
 import { useRouter } from "next/router"
+import useSWR from "swr"
 import { Heading, Box, Container, Button } from "theme-ui"
 
 // My components
@@ -16,12 +17,11 @@ import HeroSection from "components/HeroSection"
 // Helpers
 import { getStrapiUrl } from "helpers/api"
 import { Projects, SkillTags } from "helpers/myTypes"
+import SkillTagsList from "components/SkillTagsList"
 
 // Root URLs
-// const projectsUrl = `${getStrapiUrl()}/api/projects`
-const projectsUrl = `http://192.168.180.238:1337/api/projects`
-// const skillTagsUrl = `${getStrapiUrl()}/api/skill-tags`
-const skillTagsUrl = `http://192.168.180.238:1337/api/skill-tags`
+const projectsUrl = `${getStrapiUrl()}/api/projects`
+const skillTagsUrl = `${getStrapiUrl()}/api/skill-tags`
 
 export const getStaticProps: GetStaticProps = async () => {
   const getSkillTags = async () => {
@@ -42,15 +42,11 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 // Props
-type PortfolioIndexPage = {
-  recentProjects: Projects
+type Props = {
   skillTags: SkillTags
 }
 
-const PortfolioIndexPage = ({
-  recentProjects,
-  skillTags
-}: PortfolioIndexPage) => {
+const PortfolioIndexPage = ({ skillTags }: Props) => {
   const { asPath } = useRouter()
 
   // For pagination
@@ -80,16 +76,6 @@ const PortfolioIndexPage = ({
     setFilteredProjects(newFilteredProjects)
 
     checkCanLoadMore(newFilteredProjects.data.length)
-  }
-
-  type GetQuery = (skillTagId: number) => string
-  const getQuery: GetQuery = (skillTagId) => {
-    const query = `?skill=${skillTagId}`
-    if (asPath.includes(query)) {
-      return "/portfolio"
-    } else {
-      return query
-    }
   }
 
   useEffect(() => {
@@ -146,44 +132,7 @@ const PortfolioIndexPage = ({
 
             {/* Tags */}
             <Box>
-              {skillTags && (
-                <ul
-                  sx={{
-                    my: 0,
-                    listStyle: "none",
-                    pl: 0,
-                    py: 3,
-                    display: "inline-flex",
-                    overflow: "scroll",
-                    li: {
-                      flex: "0 0 fit-content"
-                    },
-                    "> li:not(:last-child)": {
-                      mr: 2
-                    }
-                  }}
-                >
-                  {skillTags.data.map((skillTag, index) => (
-                    <li key={`skillTags:${index}`}>
-                      <Link
-                        scroll={false}
-                        href={`${getQuery(skillTag.id)}`}
-                        sx={{
-                          variant: "links.tag",
-                          borderColor: skillTagIsActive(skillTag.id)
-                            ? "myPink"
-                            : "black",
-                          backgroundColor: skillTagIsActive(skillTag.id)
-                            ? "myPink"
-                            : "transparent"
-                        }}
-                      >
-                        {skillTag.attributes.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <SkillTagsList skillTags={skillTags.data} />
             </Box>
 
             {/* Filtered projects results */}
@@ -196,33 +145,20 @@ const PortfolioIndexPage = ({
                   mb: 4
                 }
               }}
-            >
-              {filteredProjects?.data
-                .slice(0, resultsPageState * pageSize)
-                .map((project, index) => (
-                  <li key={`filteredProjects:${project.id}`}>
-                    <ProjectCard
-                      project={project}
-                      flipped={index > 0 && index % 2 === 1 ? true : false}
-                    />
-                  </li>
-                ))}
-            </ul>
+            ></ul>
 
             {/* Load more button (pagination control) */}
-            {resultsPageState * pageSize < filteredProjects.data.length && (
-              <Button
-                variant="secondary"
-                onClick={loadMoreResults}
-                sx={{
-                  cursor: "pointer",
-                  display: "block",
-                  m: "0 auto"
-                }}
-              >
-                Load More
-              </Button>
-            )}
+            <Button
+              variant="secondary"
+              onClick={loadMoreResults}
+              sx={{
+                cursor: "pointer",
+                display: "block",
+                m: "0 auto"
+              }}
+            >
+              Load More
+            </Button>
           </Container>
         </section>
       </main>
