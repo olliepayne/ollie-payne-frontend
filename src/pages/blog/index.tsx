@@ -21,14 +21,20 @@ import PaginationControl from "components/PaginationControl"
 // Data fetching
 const blogPostsUrl = `${getStrapiUrl()}/api/blog-posts`
 const resultsPerPage = 1
+const urlSort = `sort[0]=datePublished:desc`
+const urlPopulate = "populate=*"
 
 // Initial Data fetching
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(blogPostsUrl)
-  const blogPosts = await res.json()
+  // URLs
+  const urlPagination = `pagination[page]=1&pagination[pageSize]=${resultsPerPage}`
+  const url = `${blogPostsUrl}?${urlSort}&${urlPagination}&${urlPopulate}`
+
+  const res = await fetch(url)
+  const data = await res.json()
   return {
     props: {
-      blogPosts
+      blogPosts: data
     }
   }
 }
@@ -39,27 +45,36 @@ type BlogIndexPage = {
 }
 
 const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
-  console.log(blogPosts)
-
   const { asPath } = useRouter()
 
+  // For pagination
   const [currentPageNumber, setCurrentPageNumber] = useState(1)
-  const [filterdBlogPosts, setFilteredBlogPosts] =
+
+  const handleBlogPostPagination = () => {}
+  const [paginatedBlogPosts, setPaginatedBlogPosts] =
     useState<BlogPosts>(blogPosts)
-  const getNewResults = async () => {
+
+  const handleUpdatePageNumber = async () => {
     let newPageNumber = 1
 
     // Check if the user is querying a specific page
     if (asPath.includes("results")) {
       newPageNumber = parseInt(asPath.split("results=")[1])
       if (newPageNumber !== currentPageNumber) {
+        const urlPagination = `pagination[page]=${newPageNumber}&pagination[pageSize]=${resultsPerPage}`
+        const url = `${blogPostsUrl}?${urlSort}&${urlPagination}&${urlPopulate}`
+
+        const res = await fetch(url)
+        const data = await res.json()
+        setPaginatedBlogPosts(data)
       }
     }
+
     setCurrentPageNumber(newPageNumber)
   }
 
   useEffect(() => {
-    getNewResults()
+    handleUpdatePageNumber()
   }, [asPath])
 
   return (
@@ -95,19 +110,19 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
                 }
               }}
             >
-              {/* {results?.data.slice(0, resultsPerPage).map((blogPost, index) => (
-                <li key={index}>
+              {paginatedBlogPosts.data.map((blogPost) => (
+                <li key={`blogPosts:${blogPost.id}`}>
                   <ArticleCard blogPost={blogPost} />
                 </li>
-              ))} */}
+              ))}
             </ul>
           </Container>
 
           {/* Pagination control */}
-          {/* <PaginationControl
+          <PaginationControl
             pagesToCreate={blogPosts.meta.pagination.total}
-            currentPage={currentPageNumber}
-          /> */}
+            currentPageNumber={currentPageNumber}
+          />
         </section>
       </main>
     </Layout>
