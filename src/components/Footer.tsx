@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <footer
       sx={{
-        py: 3
+        py: 4
       }}
     >
       <Container>
