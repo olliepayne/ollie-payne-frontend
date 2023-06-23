@@ -93,6 +93,7 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
     getNewResults()
   }, [asPath])
 
+  // Pagination
   const createPaginationArray = () => {
     let array: number[] = []
     for (let i = 0; i < blogPosts.meta.pagination.total; i++) {
@@ -104,6 +105,19 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
   const [paginationArray, setPaginationArray] = useState<number[]>(
     createPaginationArray()
   )
+
+  // For styling the pagination buttons
+  const getPaginationActiveState = (pageNumber: number) => {
+    if (asPath.includes("results")) {
+      if (currentPage === pageNumber) {
+        return "subtlePink"
+      } else {
+        return "transparent"
+      }
+    } else if (pageNumber === 1) {
+      return "subtlePink"
+    }
+  }
 
   return (
     <Layout>
@@ -185,11 +199,7 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
                     <span
                       className="background"
                       sx={{
-                        backgroundColor: asPath.includes(
-                          `results=${pageNumber}`
-                        )
-                          ? "subtlePink"
-                          : "transparent"
+                        backgroundColor: getPaginationActiveState(pageNumber)
                       }}
                     />
                     {pageNumber}

@@ -1,13 +1,16 @@
 /** @jsxImportSource theme-ui */
 
-// Third-party
+// Packages
 import Link from "next/link"
 import Image from "next/image"
-import { Box, Heading, Paragraph } from "theme-ui"
+import { Box, Heading, Paragraph, Text } from "theme-ui"
+
+// My components
+import ArrowSVG from "components/svgs/ArrowSVG"
 
 // Helpers
 import { BlogPost } from "helpers/myTypes"
-import ArrowSVG from "./svgs/ArrowSVG"
+import { parsedKebabDate } from "helpers/dateParser"
 
 type ArticleCard = {
   className?: string
@@ -15,6 +18,13 @@ type ArticleCard = {
 }
 
 const ArticleCard = ({ className, blogPost }: ArticleCard) => {
+  // - parse and store datePublished
+  const parsedDatePublished = parsedKebabDate(
+    blogPost.attributes.datePublished,
+    "FULL"
+  )
+  const formattedDatePublished = `${parsedDatePublished.month} ${parsedDatePublished.day}, ${parsedDatePublished.year}`
+
   return (
     <article
       className={className}
@@ -55,9 +65,19 @@ const ArticleCard = ({ className, blogPost }: ArticleCard) => {
           verticalAlign: "top"
         }}
       >
-        <Heading className="article-title" as="h4" variant="styles.h4" sx={{}}>
+        <Heading className="article-title" as="h4" variant="styles.h4">
           {blogPost.attributes.h1}
         </Heading>
+        <Text
+          sx={{
+            color: "dateGray",
+            mr: 3
+          }}
+        >
+          <time dateTime={blogPost.attributes.datePublished}>
+            {formattedDatePublished}
+          </time>
+        </Text>
         <Paragraph
           sx={{
             my: 3

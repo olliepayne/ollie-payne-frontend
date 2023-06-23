@@ -40,7 +40,6 @@ const ProjectCard = ({ project, flipped }: ProjectCard) => {
         justifyContent: "space-between",
         position: "relative",
         bg: "subtlePink"
-        // boxShadow: "0 0 20px rgb(0 0 0 / 0.1)"
       }}
     >
       {/* Image */}
