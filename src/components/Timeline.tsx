@@ -161,7 +161,6 @@ const Timeline = ({ events }: Timeline) => {
               {event.attributes.description}
             </Paragraph>
 
-            {/* Project tags / tag links */}
             <SkillTagsList skillTags={event.attributes.skillTags?.data} />
           </Box>
         </Flex>

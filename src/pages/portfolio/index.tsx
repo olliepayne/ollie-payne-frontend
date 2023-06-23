@@ -5,7 +5,6 @@ import { useEffect, useState } from "react"
 import { GetStaticProps } from "next"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import useSWR from "swr"
 import { Heading, Box, Container, Button } from "theme-ui"
 
 // My components
@@ -16,14 +15,27 @@ import HeroSection from "components/HeroSection"
 
 // Helpers
 import { getStrapiUrl } from "helpers/api"
-import { Projects, SkillTags } from "helpers/myTypes"
+import { Projects, SkillTags, Project } from "helpers/myTypes"
 import SkillTagsList from "components/SkillTagsList"
 
 // Root URLs
 const projectsUrl = `${getStrapiUrl()}/api/projects`
 const skillTagsUrl = `${getStrapiUrl()}/api/skill-tags`
 
+// Data fetching
 export const getStaticProps: GetStaticProps = async () => {
+  // Projects
+  const getProjects = async () => {
+    const urlPopulate = "populate=*"
+    const url = `${projectsUrl}?${urlPopulate}`
+
+    const res = await fetch(url)
+    const projects = await res.json()
+    return projects
+  }
+  const projects = await getProjects()
+
+  // Skill tags
   const getSkillTags = async () => {
     const urlSort = "sort[0]=name:asc"
     const url = `${skillTagsUrl}?${urlSort}`
@@ -36,6 +48,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
+      projects,
       skillTags
     }
   }
@@ -43,72 +56,39 @@ export const getStaticProps: GetStaticProps = async () => {
 
 // Props
 type Props = {
+  projects: Projects
   skillTags: SkillTags
 }
 
-const PortfolioIndexPage = ({ skillTags }: Props) => {
+const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
   const { asPath } = useRouter()
 
   // For pagination
-  const pageSize = 1
-  let resultsPage = 1
-  const [resultsPageState, setResultsPageState] = useState(resultsPage)
-  let canLoadMore = true
+  const [filteredProjects, setFilteredProjects] = useState<Project[]>(
+    projects.data
+  )
+  const handleFilterProjects = async () => {
+    if (asPath.includes("skill")) {
+      const skillTagId = asPath.split("skill=")[1]
 
-  const [filteredProjects, setFilteredProjects] = useState<Projects>()
-  const handleGetFilteredProjects = async () => {
-    const skillTagId = asPath.split("skill=")[1]
-
-    // URL handling
-    const urlFilters = `filters[skillTags][id][$eq]=${skillTagId}`
-    const urlSort = `sort[0]=datePublished:desc`
-    const urlPopualte = `populate=*`
-    let url: string
-    if (asPath.includes("?skill")) {
-      url = `${projectsUrl}?${urlFilters}&${urlSort}&${urlPopualte}`
+      const newFilteredProjects = projects.data.filter((project) => {
+        if (
+          project.attributes.skillTags.data.filter(
+            (skillTag) => skillTag.id === parseInt(skillTagId)
+          )
+        ) {
+          return project
+        }
+      })
+      console.log(newFilteredProjects)
     } else {
-      url = `${projectsUrl}?${urlSort}&${urlPopualte}`
+      console.log("test")
     }
-
-    // Fetch data and convert into JSON
-    const res = await fetch(url)
-    const newFilteredProjects = await res.json()
-    setFilteredProjects(newFilteredProjects)
-
-    checkCanLoadMore(newFilteredProjects.data.length)
   }
 
   useEffect(() => {
-    handleGetFilteredProjects()
-
-    // Reset
-    setResultsPageState(1)
+    handleFilterProjects()
   }, [asPath])
-
-  const checkCanLoadMore = (newFilteredProjectsLength: number) => {
-    if (resultsPage * pageSize >= newFilteredProjectsLength) {
-      canLoadMore = false
-    } else {
-      canLoadMore = true
-    }
-  }
-
-  const loadMoreResults = () => {
-    if (canLoadMore) {
-      resultsPage++
-      setResultsPageState(resultsPage)
-    }
-  }
-
-  // For styling, get the show which skill tag is currently selected with alternate styling
-  const skillTagIsActive = (skillTagId: number) => {
-    const queryTargetSkillTagId = `?skill=${skillTagId}`
-    if (asPath.includes(queryTargetSkillTagId)) {
-      return true
-    } else {
-      return false
-    }
-  }
 
   return (
     <Layout>
@@ -150,7 +130,7 @@ const PortfolioIndexPage = ({ skillTags }: Props) => {
             {/* Load more button (pagination control) */}
             <Button
               variant="secondary"
-              onClick={loadMoreResults}
+              // onClick={loadMoreResults}
               sx={{
                 cursor: "pointer",
                 display: "block",
