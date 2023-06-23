@@ -1,10 +1,14 @@
 /** @jsxImportSource theme-ui */
+
+// Third-party
+import Image from "next/image"
+import Link from "next/link"
+import { Box, Flex, Heading, Paragraph, Text } from "theme-ui"
+
+// Helpers
 import { TimelineEvent, TimelineEvents } from "helpers/myTypes"
 import { parsedKebabDate } from "helpers/dateParser"
-import { Box, Flex, Heading, Paragraph, Text } from "theme-ui"
-import Image from "next/image"
 import { getStrapiUrl } from "helpers/api"
-import Link from "next/link"
 
 // Props
 type Timeline = {
@@ -170,7 +174,10 @@ const Timeline = ({ events }: Timeline) => {
                 display: "inline-flex",
                 p: 0,
                 listStyle: "none",
-                flexWrap: "wrap"
+                flexWrap: "wrap",
+                "> li:not(:last-child)": {
+                  mr: 2
+                }
               }}
             >
               {event.attributes.skillTags?.data.map((skillTag) => (

@@ -47,13 +47,6 @@ const ExperienceIndexPage = ({ timelineEvents }: ExperienceIndexPage) => {
           minHeight: "100vh"
         }}
       >
-        {/* <section>
-          <Container>
-            <Heading as="h1" variant="styles.h1">
-              Experience
-            </Heading>
-          </Container>
-        </section> */}
         <section
           sx={{
             py: 5

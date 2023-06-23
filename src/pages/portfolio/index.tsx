@@ -18,24 +18,12 @@ import { getStrapiUrl } from "helpers/api"
 import { Projects, SkillTags } from "helpers/myTypes"
 
 // Root URLs
-const projectsUrl = `${getStrapiUrl()}/api/projects`
-const skillTagsUrl = `${getStrapiUrl()}/api/skill-tags`
+// const projectsUrl = `${getStrapiUrl()}/api/projects`
+const projectsUrl = `http://192.168.180.238:1337/api/projects`
+// const skillTagsUrl = `${getStrapiUrl()}/api/skill-tags`
+const skillTagsUrl = `http://192.168.180.238:1337/api/skill-tags`
 
 export const getStaticProps: GetStaticProps = async () => {
-  const getRecentProjects = async () => {
-    // URL handling
-    const urlSort = "sort[0]=datePublished:desc"
-    const urlPagination = "pagination[page]=1&pagination[pageSize]=5"
-    const urlPopulate = "populate=*"
-    const url = `${projectsUrl}?${urlSort}&${urlPagination}&${urlPopulate}`
-
-    // Fetch the data and convert into JSON
-    const res = await fetch(url)
-    const recentProjects = await res.json()
-    return recentProjects
-  }
-  const recentProjects = await getRecentProjects()
-
   const getSkillTags = async () => {
     const urlSort = "sort[0]=name:asc"
     const url = `${skillTagsUrl}?${urlSort}`
@@ -48,7 +36,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      recentProjects,
       skillTags
     }
   }
@@ -72,8 +59,7 @@ const PortfolioIndexPage = ({
   const [resultsPageState, setResultsPageState] = useState(resultsPage)
   let canLoadMore = true
 
-  const [filteredProjects, setFilteredProjects] =
-    useState<Projects>(recentProjects)
+  const [filteredProjects, setFilteredProjects] = useState<Projects>()
   const handleGetFilteredProjects = async () => {
     const skillTagId = asPath.split("skill=")[1]
 
