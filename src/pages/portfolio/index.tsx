@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { GetStaticProps } from "next"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { Heading, Box, Container, Button } from "theme-ui"
+import { Heading, Box, Container, Button, AspectImage } from "theme-ui"
 
 // My components
 import Layout from "components/Layout"
@@ -64,6 +64,8 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
   const { asPath } = useRouter()
 
   // For pagination
+  const pageSize = 1
+  const [currentPage, setCurrentPage] = useState(1)
 
   // Filtered projects dat (state) and handle filtering
   const [filteredProjects, setFilteredProjects] = useState<Project[]>(
@@ -91,10 +93,18 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
 
   useEffect(() => {
     handleFilterProjects()
+
+    // Rest
+    setCurrentPage(1)
   }, [asPath])
 
   //
-  const handleLoadMoreResults = () => {}
+  const handleLoadMoreResults = () => {
+    if (pageSize * currentPage < filteredProjects.length) {
+      const newPage = currentPage + 1
+      setCurrentPage(newPage)
+    }
+  }
 
   return (
     <Layout>
@@ -132,25 +142,32 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
                 }
               }}
             >
-              {filteredProjects.map((project, index) => (
-                <li>
-                  <ProjectCard project={project} flipped={index > 0 && index % 2 === 1 ? true : false} />
-                </li>
-              ))}
+              {filteredProjects
+                .slice(0, pageSize * currentPage)
+                .map((project, index) => (
+                  <li>
+                    <ProjectCard
+                      project={project}
+                      flipped={index > 0 && index % 2 === 1 ? true : false}
+                    />
+                  </li>
+                ))}
             </ul>
 
             {/* Load more button (pagination control) */}
-            <Button
-              variant="secondary"
-              onClick={handleLoadMoreResults}
-              sx={{
-                cursor: "pointer",
-                display: "block",
-                m: "0 auto"
-              }}
-            >
-              Load More
-            </Button>
+            {pageSize * currentPage < filteredProjects.length && (
+              <Button
+                variant="secondary"
+                onClick={handleLoadMoreResults}
+                sx={{
+                  cursor: "pointer",
+                  display: "block",
+                  m: "0 auto"
+                }}
+              >
+                Load More
+              </Button>
+            )}
           </Container>
         </section>
       </main>

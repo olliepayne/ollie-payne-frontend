@@ -18,7 +18,7 @@ const SkillTagsList = ({ className, skillTags }: Props) => {
 
   type CreateSkillQuery = (skillTagId: number) => string
   const createSkillQuery: CreateSkillQuery = (skillTagId) => {
-    const query = `?skill=${skillTagId}`
+    const query = `/portfolio?skill=${skillTagId}`
     if (asPath.includes(query)) {
       return "/portfolio"
     } else {
