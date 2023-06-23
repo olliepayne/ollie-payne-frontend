@@ -1,6 +1,7 @@
 /** @jsxImportSource theme-ui */
 
 // Packages
+import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { Flex, ThemeUIStyleObject } from "theme-ui"
@@ -34,16 +35,28 @@ const paginationLinkStyle: ThemeUIStyleObject = {
 }
 
 type Props = {
-  paginationArray: number[]
+  pagesToCreate: number
+  currentPageNumber: number
 }
 
-const PaginationControl = ({}: Props) => {
+const PaginationControl = ({ pagesToCreate, currentPageNumber }: Props) => {
   const { asPath } = useRouter()
+
+  // Create an array of page numbers based off of our data
+  const createPageNumberArray = () => {
+    let array: number[] = []
+    for (let i = 0; i < pagesToCreate; i++) {
+      array.push(i + 1)
+    }
+
+    return array
+  }
+  const [pageNumberArray] = useState<number[]>(createPageNumberArray())
 
   // For styling the pagination buttons
   const getActiveStyle = (pageNumber: number) => {
     if (asPath.includes("results")) {
-      if (currentPage === pageNumber) {
+      if (currentPageNumber === pageNumber) {
         return "subtlePink"
       } else {
         return "transparent"
@@ -73,23 +86,23 @@ const PaginationControl = ({}: Props) => {
         {/* Previous */}
         <li>
           <Link
-            href={`?results=${currentPage - 1}`}
+            href={`?results=${currentPageNumber - 1}`}
             sx={{
               ...paginationLinkStyle,
-              visibility: currentPage > 1 ? "visible" : "hidden"
+              visibility: currentPageNumber > 1 ? "visible" : "hidden"
             }}
           >
             <span className="background" />
             {"<"}
           </Link>
         </li>
-        {paginationArray.map((pageNumber) => (
+        {pageNumberArray.map((pageNumber) => (
           <li key={`paginationLinks:${pageNumber}`}>
             <Link href={`?results=${pageNumber}`} sx={paginationLinkStyle}>
               <span
                 className="background"
                 sx={{
-                  backgroundColor: getPaginationActiveState(pageNumber)
+                  backgroundColor: getActiveStyle(pageNumber)
                 }}
               />
               {pageNumber}
@@ -99,11 +112,13 @@ const PaginationControl = ({}: Props) => {
         {/* Next */}
         <li>
           <Link
-            href={`?results=${currentPage + 1}`}
+            href={`?results=${currentPageNumber + 1}`}
             sx={{
               ...paginationLinkStyle,
               visibility:
-                currentPage < paginationArray.length ? "visible" : "hidden"
+                currentPageNumber < pageNumberArray.length
+                  ? "visible"
+                  : "hidden"
             }}
           >
             <span className="background" />
