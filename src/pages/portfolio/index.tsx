@@ -20,14 +20,17 @@ import SkillTagsList from "components/SkillTagsList"
 
 // Root URLs
 const projectsUrl = `${getStrapiUrl()}/api/projects`
+const urlSort = `sort[0]=datePublished:desc`
+
 const skillTagsUrl = `${getStrapiUrl()}/api/skill-tags`
+
+const urlPopulate = "populate=*"
 
 // Data fetching
 export const getStaticProps: GetStaticProps = async () => {
   // Projects
   const getProjects = async () => {
-    const urlPopulate = "populate=*"
-    const url = `${projectsUrl}?${urlPopulate}`
+    const url = `${projectsUrl}?${urlSort}&${urlPopulate}`
 
     const res = await fetch(url)
     const projects = await res.json()
@@ -68,39 +71,33 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
   const [currentPage, setCurrentPage] = useState(1)
 
   // Filtered projects dat (state) and handle filtering
-  const [filteredProjects, setFilteredProjects] = useState<Project[]>(
-    projects.data
-  )
-  const handleFilterProjects = async () => {
+  const [filteredProjects, setFilteredProjects] = useState<Projects>(projects)
+  const getFilteredProjects = async () => {
     if (asPath.includes("skill")) {
       const skillTagId = parseInt(asPath.split("skill=")[1])
 
-      const newFilteredProjects = projects.data.filter((project) => {
-        let skillMatch = false
-        project.attributes.skillTags.data.filter((skillTag) => {
-          if (skillTag.id === skillTagId) {
-            skillMatch = true
-          }
-        })
+      // URLs
+      const urlFilters = `filters[skillTags][id][$eq]=${skillTagId}`
+      const url = `${projectsUrl}?${urlFilters}&${urlSort}&${urlPopulate}`
 
-        return skillMatch
-      })
-      setFilteredProjects(newFilteredProjects)
+      const res = await fetch(url)
+      const data = await res.json()
+      setFilteredProjects(data)
     } else {
-      setFilteredProjects(projects.data)
+      setFilteredProjects(projects)
     }
   }
 
   useEffect(() => {
-    handleFilterProjects()
+    getFilteredProjects()
 
-    // Rest
+    // Reset
     setCurrentPage(1)
   }, [asPath])
 
   //
   const handleLoadMoreResults = () => {
-    if (pageSize * currentPage < filteredProjects.length) {
+    if (pageSize * currentPage < filteredProjects.data.length) {
       const newPage = currentPage + 1
       setCurrentPage(newPage)
     }
@@ -142,7 +139,7 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
                 }
               }}
             >
-              {filteredProjects.map((project, index) => (
+              {filteredProjects.data.map((project, index) => (
                 <li
                   key={index}
                   sx={{
@@ -158,7 +155,7 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
             </ul>
 
             {/* Load more button (pagination control) */}
-            {pageSize * currentPage < filteredProjects.length && (
+            {pageSize * currentPage < filteredProjects.data.length && (
               <Button
                 variant="secondary"
                 onClick={handleLoadMoreResults}
