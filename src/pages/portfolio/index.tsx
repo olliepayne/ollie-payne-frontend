@@ -1,7 +1,7 @@
 /** @jsxImportSource theme-ui */
 
 // Third-party
-import { useEffect, useState } from "react"
+import { useEffect, useReducer, useState } from "react"
 import { GetStaticProps } from "next"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -70,25 +70,24 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
   const pageSize = 1
   const [currentPage, setCurrentPage] = useState(1)
 
-  // Filtered projects dat (state) and handle filtering
+  // Get filtered projects and handle state
   const [filteredProjects, setFilteredProjects] = useState<Projects>(projects)
-  const getFilteredProjects = async () => {
-    if (asPath.includes("skill")) {
-      const skillTagId = parseInt(asPath.split("skill=")[1])
-
-      // URLs
-      const urlFilters = `filters[skillTags][id][$eq]=${skillTagId}`
-      const url = `${projectsUrl}?${urlFilters}&${urlSort}&${urlPopulate}`
-
-      const res = await fetch(url)
-      const data = await res.json()
-      setFilteredProjects(data)
-    } else {
-      setFilteredProjects(projects)
-    }
-  }
-
   useEffect(() => {
+    const getFilteredProjects = async () => {
+      if (asPath.includes("skill")) {
+        const skillTagId = parseInt(asPath.split("skill=")[1])
+
+        // URLs
+        const urlFilters = `filters[skillTags][id][$eq]=${skillTagId}`
+        const url = `${projectsUrl}?${urlFilters}&${urlSort}&${urlPopulate}`
+
+        const res = await fetch(url)
+        const data = await res.json()
+        setFilteredProjects(data)
+      } else {
+        setFilteredProjects(projects)
+      }
+    }
     getFilteredProjects()
 
     // Reset

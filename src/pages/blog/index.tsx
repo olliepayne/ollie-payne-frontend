@@ -50,30 +50,28 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
   // For pagination
   const [currentPageNumber, setCurrentPageNumber] = useState(1)
 
-  const handleBlogPostPagination = () => {}
   const [paginatedBlogPosts, setPaginatedBlogPosts] =
     useState<BlogPosts>(blogPosts)
 
-  const handleUpdatePageNumber = async () => {
-    let newPageNumber = 1
-
-    // Check if the user is querying a specific page
-    if (asPath.includes("results")) {
-      newPageNumber = parseInt(asPath.split("results=")[1])
-      if (newPageNumber !== currentPageNumber) {
-        const urlPagination = `pagination[page]=${newPageNumber}&pagination[pageSize]=${resultsPerPage}`
-        const url = `${blogPostsUrl}?${urlSort}&${urlPagination}&${urlPopulate}`
-
-        const res = await fetch(url)
-        const data = await res.json()
-        setPaginatedBlogPosts(data)
-      }
-    }
-
-    setCurrentPageNumber(newPageNumber)
-  }
-
   useEffect(() => {
+    const handleUpdatePageNumber = async () => {
+      let newPageNumber = 1
+
+      // Check if the user is querying a specific page
+      if (asPath.includes("results")) {
+        newPageNumber = parseInt(asPath.split("results=")[1])
+        if (newPageNumber !== currentPageNumber) {
+          const urlPagination = `pagination[page]=${newPageNumber}&pagination[pageSize]=${resultsPerPage}`
+          const url = `${blogPostsUrl}?${urlSort}&${urlPagination}&${urlPopulate}`
+
+          const res = await fetch(url)
+          const data = await res.json()
+          setPaginatedBlogPosts(data)
+        }
+      }
+
+      setCurrentPageNumber(newPageNumber)
+    }
     handleUpdatePageNumber()
   }, [asPath])
 
