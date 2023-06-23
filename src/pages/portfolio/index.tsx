@@ -64,31 +64,37 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
   const { asPath } = useRouter()
 
   // For pagination
+
+  // Filtered projects dat (state) and handle filtering
   const [filteredProjects, setFilteredProjects] = useState<Project[]>(
     projects.data
   )
   const handleFilterProjects = async () => {
     if (asPath.includes("skill")) {
-      const skillTagId = asPath.split("skill=")[1]
+      const skillTagId = parseInt(asPath.split("skill=")[1])
 
       const newFilteredProjects = projects.data.filter((project) => {
-        if (
-          project.attributes.skillTags.data.filter(
-            (skillTag) => skillTag.id === parseInt(skillTagId)
-          )
-        ) {
-          return project
-        }
+        let skillMatch = false
+        project.attributes.skillTags.data.filter((skillTag) => {
+          if (skillTag.id === skillTagId) {
+            skillMatch = true
+          }
+        })
+
+        return skillMatch
       })
-      console.log(newFilteredProjects)
+      setFilteredProjects(newFilteredProjects)
     } else {
-      console.log("test")
+      setFilteredProjects(projects.data)
     }
   }
 
   useEffect(() => {
     handleFilterProjects()
   }, [asPath])
+
+  //
+  const handleLoadMoreResults = () => {}
 
   return (
     <Layout>
@@ -125,12 +131,18 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
                   mb: 4
                 }
               }}
-            ></ul>
+            >
+              {filteredProjects.map((project, index) => (
+                <li>
+                  <ProjectCard project={project} flipped={index > 0 && index % 2 === 1 ? true : false} />
+                </li>
+              ))}
+            </ul>
 
             {/* Load more button (pagination control) */}
             <Button
               variant="secondary"
-              // onClick={loadMoreResults}
+              onClick={handleLoadMoreResults}
               sx={{
                 cursor: "pointer",
                 display: "block",
