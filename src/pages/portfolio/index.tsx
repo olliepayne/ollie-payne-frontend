@@ -142,16 +142,19 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
                 }
               }}
             >
-              {filteredProjects
-                .slice(0, pageSize * currentPage)
-                .map((project, index) => (
-                  <li>
-                    <ProjectCard
-                      project={project}
-                      flipped={index > 0 && index % 2 === 1 ? true : false}
-                    />
-                  </li>
-                ))}
+              {filteredProjects.map((project, index) => (
+                <li
+                  key={index}
+                  sx={{
+                    display: index < pageSize * currentPage ? "block" : "none"
+                  }}
+                >
+                  <ProjectCard
+                    project={project}
+                    flipped={index > 0 && index % 2 === 1 ? true : false}
+                  />
+                </li>
+              ))}
             </ul>
 
             {/* Load more button (pagination control) */}
