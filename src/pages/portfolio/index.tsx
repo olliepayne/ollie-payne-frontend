@@ -1,11 +1,11 @@
 /** @jsxImportSource theme-ui */
 
 // Third-party
-import { useEffect, useState } from "react"
+import { useEffect, useReducer, useState } from "react"
 import { GetStaticProps } from "next"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { Heading, Box, Container, Button } from "theme-ui"
+import { Heading, Box, Container, Button, AspectImage } from "theme-ui"
 
 // My components
 import Layout from "components/Layout"
@@ -15,27 +15,30 @@ import HeroSection from "components/HeroSection"
 
 // Helpers
 import { getStrapiUrl } from "helpers/api"
-import { Projects, SkillTags } from "helpers/myTypes"
+import { Projects, SkillTags, Project } from "helpers/myTypes"
+import SkillTagsList from "components/SkillTagsList"
 
 // Root URLs
 const projectsUrl = `${getStrapiUrl()}/api/projects`
+const urlSort = `sort[0]=datePublished:desc`
+
 const skillTagsUrl = `${getStrapiUrl()}/api/skill-tags`
 
+const urlPopulate = "populate=*"
+
+// Data fetching
 export const getStaticProps: GetStaticProps = async () => {
-  const getRecentProjects = async () => {
-    // URL handling
-    const urlSort = "sort[0]=datePublished:desc"
-    const urlPagination = "pagination[page]=1&pagination[pageSize]=5"
-    const urlPopulate = "populate=*"
-    const url = `${projectsUrl}?${urlSort}&${urlPagination}&${urlPopulate}`
+  // Projects
+  const getProjects = async () => {
+    const url = `${projectsUrl}?${urlSort}&${urlPopulate}`
 
-    // Fetch the data and convert into JSON
     const res = await fetch(url)
-    const recentProjects = await res.json()
-    return recentProjects
+    const projects = await res.json()
+    return projects
   }
-  const recentProjects = await getRecentProjects()
+  const projects = await getProjects()
 
+  // Skill tags
   const getSkillTags = async () => {
     const urlSort = "sort[0]=name:asc"
     const url = `${skillTagsUrl}?${urlSort}`
@@ -48,93 +51,54 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      recentProjects,
+      projects,
       skillTags
     }
   }
 }
 
 // Props
-type PortfolioIndexPage = {
-  recentProjects: Projects
+type Props = {
+  projects: Projects
   skillTags: SkillTags
 }
 
-const PortfolioIndexPage = ({
-  recentProjects,
-  skillTags
-}: PortfolioIndexPage) => {
+const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
   const { asPath } = useRouter()
 
   // For pagination
   const pageSize = 1
-  let resultsPage = 1
-  const [resultsPageState, setResultsPageState] = useState(resultsPage)
-  let canLoadMore = true
+  const [currentPage, setCurrentPage] = useState(1)
 
-  const [filteredProjects, setFilteredProjects] =
-    useState<Projects>(recentProjects)
-  const handleGetFilteredProjects = async () => {
-    const skillTagId = asPath.split("skill=")[1]
-
-    // URL handling
-    const urlFilters = `filters[skillTags][id][$eq]=${skillTagId}`
-    const urlSort = `sort[0]=datePublished:desc`
-    const urlPopualte = `populate=*`
-    let url: string
-    if (asPath.includes("?skill")) {
-      url = `${projectsUrl}?${urlFilters}&${urlSort}&${urlPopualte}`
-    } else {
-      url = `${projectsUrl}?${urlSort}&${urlPopualte}`
-    }
-
-    // Fetch data and convert into JSON
-    const res = await fetch(url)
-    const newFilteredProjects = await res.json()
-    setFilteredProjects(newFilteredProjects)
-
-    checkCanLoadMore(newFilteredProjects.data.length)
-  }
-
-  type GetQuery = (skillTagId: number) => string
-  const getQuery: GetQuery = (skillTagId) => {
-    const query = `?skill=${skillTagId}`
-    if (asPath.includes(query)) {
-      return "/portfolio"
-    } else {
-      return query
-    }
-  }
-
+  // Get filtered projects and handle state
+  const [filteredProjects, setFilteredProjects] = useState<Projects>(projects)
   useEffect(() => {
-    handleGetFilteredProjects()
+    const getFilteredProjects = async () => {
+      if (asPath.includes("skill")) {
+        const skillTagId = parseInt(asPath.split("skill=")[1])
+
+        // URLs
+        const urlFilters = `filters[skillTags][id][$eq]=${skillTagId}`
+        const url = `${projectsUrl}?${urlFilters}&${urlSort}&${urlPopulate}`
+
+        const res = await fetch(url)
+        const data = await res.json()
+        setFilteredProjects(data)
+      } else {
+        setFilteredProjects(projects)
+      }
+    }
+    getFilteredProjects()
 
     // Reset
-    setResultsPageState(1)
+    setCurrentPage(1)
   }, [asPath])
 
-  const checkCanLoadMore = (newFilteredProjectsLength: number) => {
-    if (resultsPage * pageSize >= newFilteredProjectsLength) {
-      canLoadMore = false
-    } else {
-      canLoadMore = true
-    }
-  }
-
-  const loadMoreResults = () => {
-    if (canLoadMore) {
-      resultsPage++
-      setResultsPageState(resultsPage)
-    }
-  }
-
-  // For styling, get the show which skill tag is currently selected with alternate styling
-  const skillTagIsActive = (skillTagId: number) => {
-    const queryTargetSkillTagId = `?skill=${skillTagId}`
-    if (asPath.includes(queryTargetSkillTagId)) {
-      return true
-    } else {
-      return false
+  //
+  const handleLoadMoreResults = () => {
+    if (pageSize * currentPage < filteredProjects.data.length) {
+      const newPage = currentPage + 1
+      setCurrentPage(newPage)
     }
   }
 
@@ -160,44 +124,7 @@ const PortfolioIndexPage = ({
 
             {/* Tags */}
             <Box>
-              {skillTags && (
-                <ul
-                  sx={{
-                    my: 0,
-                    listStyle: "none",
-                    pl: 0,
-                    py: 3,
-                    display: "inline-flex",
-                    overflow: "scroll",
-                    li: {
-                      flex: "0 0 fit-content"
-                    },
-                    "> li:not(:last-child)": {
-                      mr: 2
-                    }
-                  }}
-                >
-                  {skillTags.data.map((skillTag, index) => (
-                    <li key={`skillTags:${index}`}>
-                      <Link
-                        scroll={false}
-                        href={`${getQuery(skillTag.id)}`}
-                        sx={{
-                          variant: "links.tag",
-                          borderColor: skillTagIsActive(skillTag.id)
-                            ? "myPink"
-                            : "black",
-                          backgroundColor: skillTagIsActive(skillTag.id)
-                            ? "myPink"
-                            : "transparent"
-                        }}
-                      >
-                        {skillTag.attributes.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <SkillTagsList skillTags={skillTags.data} />
             </Box>
 
             {/* Filtered projects results */}
@@ -211,23 +138,26 @@ const PortfolioIndexPage = ({
                 }
               }}
             >
-              {filteredProjects?.data
-                .slice(0, resultsPageState * pageSize)
-                .map((project, index) => (
-                  <li key={`filteredProjects:${project.id}`}>
-                    <ProjectCard
-                      project={project}
-                      flipped={index > 0 && index % 2 === 1 ? true : false}
-                    />
-                  </li>
-                ))}
+              {filteredProjects.data.map((project, index) => (
+                <li
+                  key={index}
+                  sx={{
+                    display: index < pageSize * currentPage ? "block" : "none"
+                  }}
+                >
+                  <ProjectCard
+                    project={project}
+                    flipped={index > 0 && index % 2 === 1 ? true : false}
+                  />
+                </li>
+              ))}
             </ul>
 
             {/* Load more button (pagination control) */}
-            {resultsPageState * pageSize < filteredProjects.data.length && (
+            {pageSize * currentPage < filteredProjects.data.length && (
               <Button
                 variant="secondary"
-                onClick={loadMoreResults}
+                onClick={handleLoadMoreResults}
                 sx={{
                   cursor: "pointer",
                   display: "block",

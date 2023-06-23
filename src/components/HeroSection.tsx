@@ -18,26 +18,16 @@ const HeroSection = ({ h1, heroImage }: HeroSection) => {
 
   const [imageScale, setImageScale] = useState(1)
   const maxImageScale = 1.5
-  let canUpdateImageScale = true
   const handleNewImageScale = () => {
-    // If we are back at the top of the window, allow scale updates otherwise there is a delay
-    if (window.scrollY === 0) canUpdateImageScale = true
-
     // If we have reached the max scale, don't allow any more updates and return out of the function
-    if (imageScale >= maxImageScale) {
-      canUpdateImageScale = false
-      return
-    }
-
-    if (canUpdateImageScale) {
+    if (imageScale < maxImageScale) {
       const newImageScale = 1 + window.scrollY / 1000
       setImageScale(newImageScale)
     }
   }
-
-  useEffect(() => {
+  if (typeof window !== "undefined") {
     document.addEventListener("scroll", handleNewImageScale)
-  }, [])
+  }
 
   return (
     <section>

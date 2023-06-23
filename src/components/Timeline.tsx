@@ -1,10 +1,15 @@
 /** @jsxImportSource theme-ui */
+
+// Third-party
+import Image from "next/image"
+import Link from "next/link"
+import { Box, Flex, Heading, Paragraph, Text } from "theme-ui"
+
+// Helpers
 import { TimelineEvent, TimelineEvents } from "helpers/myTypes"
 import { parsedKebabDate } from "helpers/dateParser"
-import { Box, Flex, Heading, Paragraph, Text } from "theme-ui"
-import Image from "next/image"
 import { getStrapiUrl } from "helpers/api"
-import Link from "next/link"
+import SkillTagsList from "./SkillTagsList"
 
 // Props
 type Timeline = {
@@ -156,36 +161,7 @@ const Timeline = ({ events }: Timeline) => {
               {event.attributes.description}
             </Paragraph>
 
-            {/* Project tags / tag links */}
-            <Text
-              sx={{
-                mr: 2,
-                fontWeight: 500
-              }}
-            >
-              Skills:
-            </Text>
-            <ul
-              sx={{
-                display: "inline-flex",
-                p: 0,
-                listStyle: "none",
-                flexWrap: "wrap"
-              }}
-            >
-              {event.attributes.skillTags?.data.map((skillTag) => (
-                <li key={event.id + skillTag.attributes.name}>
-                  <Link
-                    href={`/portfolio/?skill=${skillTag.id}`}
-                    sx={{
-                      variant: "links.tag"
-                    }}
-                  >
-                    {skillTag.attributes.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <SkillTagsList skillTags={event.attributes.skillTags?.data} />
           </Box>
         </Flex>
       ))}

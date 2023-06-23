@@ -63,3 +63,5 @@ export const parsedKebabDate = (
     year: splitKebabDate[0]
   }
 }
+
+type DateFormat = "MONTH DAY, YEAR"

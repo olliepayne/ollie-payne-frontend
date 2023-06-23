@@ -16,46 +16,25 @@ import ArticleCard from "components/ArticleCard"
 // Helpers
 import { BlogPosts } from "helpers/myTypes"
 import { getStrapiUrl } from "helpers/api"
+import PaginationControl from "components/PaginationControl"
 
 // Data fetching
 const blogPostsUrl = `${getStrapiUrl()}/api/blog-posts`
 const resultsPerPage = 1
-
-// Styles
-const paginationLinkStyle: ThemeUIStyleObject = {
-  display: "inline-block",
-  textDecoration: "none",
-  color: "black",
-  fontWeight: 500,
-  fontFamily: "body",
-  position: "relative",
-  zIndex: 1,
-  fontSize: 2,
-  ":hover": {
-    "> span": {
-      backgroundColor: "myPink"
-    }
-  },
-  ".background": {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "35px",
-    height: "35px",
-    borderRadius: "50%",
-    zIndex: -1,
-    transition: "background-color 0.2s ease-out"
-  }
-}
+const urlSort = `sort[0]=datePublished:desc`
+const urlPopulate = "populate=*"
 
 // Initial Data fetching
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(blogPostsUrl)
-  const blogPosts = await res.json()
+  // URLs
+  const urlPagination = `pagination[page]=1&pagination[pageSize]=${resultsPerPage}`
+  const url = `${blogPostsUrl}?${urlSort}&${urlPagination}&${urlPopulate}`
+
+  const res = await fetch(url)
+  const data = await res.json()
   return {
     props: {
-      blogPosts
+      blogPosts: data
     }
   }
 }
@@ -66,44 +45,35 @@ type BlogIndexPage = {
 }
 
 const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
-  // console.log(blogPosts)
-
   const { asPath } = useRouter()
 
-  const [currentPage, setCurrentPage] = useState(1)
-  const [results, setResults] = useState<BlogPosts | undefined>()
-  const getNewResults = async () => {
-    let newPageNumber = 1
-    if (asPath.includes("results")) {
-      newPageNumber = parseInt(asPath.split("results=")[1])
-    }
-    setCurrentPage(newPageNumber)
+  // For pagination
+  const [currentPageNumber, setCurrentPageNumber] = useState(1)
 
-    // URLs
-    const urlSort = `sort[0]=datePublished:desc`
-    const urlPagination = `pagination[page]=${newPageNumber}&pagination[pageSize]=${resultsPerPage}`
-    const url = `${blogPostsUrl}?${urlSort}&${urlPagination}`
-
-    const res = await fetch(url)
-    const newBlogPosts = await res.json()
-    setResults(newBlogPosts)
-  }
+  const [paginatedBlogPosts, setPaginatedBlogPosts] =
+    useState<BlogPosts>(blogPosts)
 
   useEffect(() => {
-    getNewResults()
-  }, [asPath])
+    const handleUpdatePageNumber = async () => {
+      let newPageNumber = 1
 
-  const createPaginationArray = () => {
-    let array: number[] = []
-    for (let i = 0; i < blogPosts.meta.pagination.total; i++) {
-      array.push(i + 1)
+      // Check if the user is querying a specific page
+      if (asPath.includes("results")) {
+        newPageNumber = parseInt(asPath.split("results=")[1])
+        if (newPageNumber !== currentPageNumber) {
+          const urlPagination = `pagination[page]=${newPageNumber}&pagination[pageSize]=${resultsPerPage}`
+          const url = `${blogPostsUrl}?${urlSort}&${urlPagination}&${urlPopulate}`
+
+          const res = await fetch(url)
+          const data = await res.json()
+          setPaginatedBlogPosts(data)
+        }
+      }
+
+      setCurrentPageNumber(newPageNumber)
     }
-
-    return array
-  }
-  const [paginationArray, setPaginationArray] = useState<number[]>(
-    createPaginationArray()
-  )
+    handleUpdatePageNumber()
+  }, [asPath])
 
   return (
     <Layout>
@@ -138,8 +108,8 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
                 }
               }}
             >
-              {results?.data.slice(0, resultsPerPage).map((blogPost, index) => (
-                <li key={index}>
+              {paginatedBlogPosts.data.map((blogPost) => (
+                <li key={`blogPosts:${blogPost.id}`}>
                   <ArticleCard blogPost={blogPost} />
                 </li>
               ))}
@@ -147,73 +117,10 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
           </Container>
 
           {/* Pagination control */}
-          <Flex
-            sx={{
-              justifyContent: "center"
-            }}
-          >
-            <ul
-              sx={{
-                my: 5,
-                display: "inline-flex",
-                p: 0,
-                listStyle: "none",
-                "> li:not(:last-child)": {
-                  mr: 4
-                }
-              }}
-            >
-              {/* Previous */}
-              <li>
-                <Link
-                  href={`?results=${currentPage - 1}`}
-                  sx={{
-                    ...paginationLinkStyle,
-                    visibility: currentPage > 1 ? "visible" : "hidden"
-                  }}
-                >
-                  <span className="background" />
-                  {"<"}
-                </Link>
-              </li>
-              {paginationArray.map((pageNumber) => (
-                <li key={`paginationLinks:${pageNumber}`}>
-                  <Link
-                    href={`?results=${pageNumber}`}
-                    sx={paginationLinkStyle}
-                  >
-                    <span
-                      className="background"
-                      sx={{
-                        backgroundColor: asPath.includes(
-                          `results=${pageNumber}`
-                        )
-                          ? "subtlePink"
-                          : "transparent"
-                      }}
-                    />
-                    {pageNumber}
-                  </Link>
-                </li>
-              ))}
-              {/* Next */}
-              <li>
-                <Link
-                  href={`?results=${currentPage + 1}`}
-                  sx={{
-                    ...paginationLinkStyle,
-                    visibility:
-                      currentPage < paginationArray.length
-                        ? "visible"
-                        : "hidden"
-                  }}
-                >
-                  <span className="background" />
-                  {">"}
-                </Link>
-              </li>
-            </ul>
-          </Flex>
+          <PaginationControl
+            pagesToCreate={blogPosts.meta.pagination.total}
+            currentPageNumber={currentPageNumber}
+          />
         </section>
       </main>
     </Layout>
