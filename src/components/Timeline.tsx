@@ -1,22 +1,22 @@
 /** @jsxImportSource theme-ui */
 
-// Third-party
+// Packages
 import Image from "next/image"
-import Link from "next/link"
 import { Box, Flex, Heading, Paragraph, Text } from "theme-ui"
+
+// My components
+import SkillTagsList from "components/SkillTagsList"
 
 // Helpers
 import { TimelineEvent, TimelineEvents } from "helpers/myTypes"
 import { parsedKebabDate } from "helpers/dateParser"
 import { getStrapiUrl } from "helpers/api"
-import SkillTagsList from "./SkillTagsList"
 
-// Props
-type Timeline = {
+type Props = {
   events: TimelineEvents
 }
 
-const Timeline = ({ events }: Timeline) => {
+const Timeline = ({ events }: Props) => {
   type IsSameInstituion = (event: TimelineEvent, index: number) => boolean
   const isSameInstitution: IsSameInstituion = (event, index) => {
     if (
@@ -39,14 +39,14 @@ const Timeline = ({ events }: Timeline) => {
           key={event.id + event.attributes.occupationTitle}
           className="event"
           sx={{
-            pt: 2,
+            pt: index > 0 ? 4 : 0,
             pl: 2,
             justifyContent: "start"
           }}
         >
           <Flex
             sx={{
-              flex: "1 0 50px",
+              flex: "0 0 50px",
               flexDirection: "column",
               alignItems: "center"
             }}
@@ -57,10 +57,16 @@ const Timeline = ({ events }: Timeline) => {
                   event.attributes.cover.data.attributes.url
                 }`}
                 alt={event.attributes.cover.data.attributes.alternativeText}
+                placeholder="blur"
+                blurDataURL={`${getStrapiUrl()}${
+                  event.attributes.cover.data.attributes.url
+                }`}
                 width={50}
                 height={50}
                 sx={{
-                  mb: 3
+                  mb: 3,
+                  objectFit: "contain",
+                  bg: "myLightGray"
                 }}
               />
             )}
@@ -94,6 +100,7 @@ const Timeline = ({ events }: Timeline) => {
               display: "inline-block"
             }}
           >
+            {/* Institution name */}
             {!isSameInstitution(event, index) && (
               <Box
                 sx={{
@@ -113,6 +120,8 @@ const Timeline = ({ events }: Timeline) => {
                 </Heading>
               </Box>
             )}
+
+            {/* Occupation title */}
             <Heading
               as="h4"
               variant="styles.h4"
@@ -122,6 +131,8 @@ const Timeline = ({ events }: Timeline) => {
             >
               {event.attributes.occupationTitle}
             </Heading>
+
+            {/* Commitment */}
             <Text
               sx={{
                 fontWeight: 500
@@ -129,6 +140,8 @@ const Timeline = ({ events }: Timeline) => {
             >
               {event.attributes.commitment}
             </Text>
+
+            {/* Start date (and end date / present) */}
             <Text
               sx={{
                 mt: 2,
@@ -153,6 +166,8 @@ const Timeline = ({ events }: Timeline) => {
                 " Present"
               )}
             </Text>
+
+            {/* Description */}
             <Paragraph
               sx={{
                 my: 2

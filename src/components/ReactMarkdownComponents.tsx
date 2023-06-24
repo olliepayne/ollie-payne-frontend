@@ -29,5 +29,19 @@ export const components: any = {
     >
       {children}
     </Heading>
-  )
+  ),
+  h4: ({ children }: CustomComponentProps) => (
+    <Heading
+      as="h4"
+      variant="styles.h4"
+      sx={{
+        mt: 4
+      }}
+    >
+      {children}
+    </Heading>
+  ),
+  // a: {
+
+  // }
 }
