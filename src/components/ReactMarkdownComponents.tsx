@@ -7,7 +7,9 @@ type CustomComponentProps = {
 }
 
 export const components: any = {
-  p: Paragraph,
+  p: ({ children }: CustomComponentProps) => (
+    <Paragraph variant="styles.p">{children}</Paragraph>
+  ),
   h2: ({ children }: CustomComponentProps) => (
     <Heading
       as="h2"
@@ -20,27 +22,15 @@ export const components: any = {
     </Heading>
   ),
   h3: ({ children }: CustomComponentProps) => (
-    <Heading
-      as="h3"
-      variant="styles.h3"
-      sx={{
-        mt: 4
-      }}
-    >
+    <Heading as="h3" variant="styles.h3">
       {children}
     </Heading>
   ),
   h4: ({ children }: CustomComponentProps) => (
-    <Heading
-      as="h4"
-      variant="styles.h4"
-      sx={{
-        mt: 4
-      }}
-    >
+    <Heading as="h4" variant="styles.h4">
       {children}
     </Heading>
-  ),
+  )
   // a: {
 
   // }

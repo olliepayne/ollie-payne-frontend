@@ -39,7 +39,7 @@ const Timeline = ({ events }: Props) => {
           key={event.id + event.attributes.occupationTitle}
           className="event"
           sx={{
-            pt: index > 0 ? 4 : 0,
+            pt: !isSameInstitution(event, index) ? 4 : 2,
             pl: 2,
             justifyContent: "start"
           }}

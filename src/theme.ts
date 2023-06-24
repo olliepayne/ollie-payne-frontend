@@ -151,22 +151,25 @@ export const theme: Theme = {
     h1: {
       variant: "text.heading",
       fontSize: [4, 5],
-      my: 4
+      mb: 4
     },
     h2: {
       variant: "text.heading",
       fontSize: [3, 4],
-      my: 3
+      mb: 4
     },
     h3: {
       variant: "text.heading",
       fontSize: [2, 3],
-      my: 2
+      mb: 3
     },
     h4: {
       variant: "text.heading",
       fontSize: [1, 2],
-      my: 2
+      mb: 2
+    },
+    p: {
+      mb: 4
     }
   }
 }
