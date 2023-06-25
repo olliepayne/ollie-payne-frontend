@@ -190,8 +190,6 @@ export default function Home({ projects }: Home) {
       </section>
 
       <RecentProjectsSection projects={projects} />
-
-      <ContactSection />
     </Layout>
   )
 }

@@ -119,7 +119,6 @@ const BlogPostPage = ({ blogPosts }: BlogPostPage) => {
       </article>
 
       {/* Contact */}
-      <ContactSection />
     </Layout>
   )
 }

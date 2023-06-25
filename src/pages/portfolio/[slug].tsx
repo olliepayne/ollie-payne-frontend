@@ -139,7 +139,6 @@ const PortfolioSlugPage = ({ projects }: PortfolioSlugPage) => {
           </Container>
         </section>
       </article>
-      <ContactSection />
     </Layout>
   )
 }

@@ -1,53 +1,60 @@
 /** @jsxImportSource theme-ui */
+
+// Packages
 import { useState } from "react"
 import Link from "next/link"
-import { Container, Box, Flex, ThemeUICSSObject } from "theme-ui"
-import MenuButton from "./MenuButton"
+import { Container, Flex } from "theme-ui"
 
-const headerStyles: ThemeUICSSObject = {
-  position: "sticky",
-  top: 0,
-  transition: "all 0.2s ease-out",
-  transitionDelay: "0.05s",
-  borderWidth: "0 0 2px 0",
-  borderStyle: "solid",
-  borderColor: "subtlePink",
-  backgroundColor: "rgb(255 255 255 / 80%)",
-  backdropFilter: "blur(5px)",
-  // boxShadow: "0px -4px 8px rgb(0 0 0 / 0.25)",
-  a: {
-    textDecoration: "none"
-  },
-  zIndex: 10
-}
+// My components
+import MenuButton from "components/MenuButton"
 
 const Header = () => {
-  const navStyles: ThemeUICSSObject = {
-    display: "flex",
-    flexDirection: ["column", "row"],
-    justifyContent: "space-between",
-    alignItems: ["flex-start", "center"],
-    transition: "all 0.1s ease-out"
-  }
-
-  // Review: does this need to come back?
-  // const closeNavOnResize = () => {
-  //   if (screen.width > 768) setNavIsOpen(false)
-  // }
-
   const [navIsOpen, setNavIsOpen] = useState(false)
   const openNav = () => {
     const newState = !navIsOpen
     setNavIsOpen(newState)
   }
 
+  const [userHasScrolled, setUserHasScrolled] = useState(false)
+  if (typeof window !== "undefined") {
+    document.addEventListener("scroll", () => {
+      if (window.scrollY > 0) {
+        setUserHasScrolled(true)
+      } else {
+        setUserHasScrolled(false)
+      }
+    })
+  }
+
   return (
-    <header sx={headerStyles}>
+    <header
+      sx={{
+        mx: userHasScrolled ? 3 : 0,
+        position: "sticky",
+        top: userHasScrolled ? 2 : 0,
+        borderWidth: "0 0 2px 0",
+        borderStyle: "solid",
+        borderColor: "subtlePink",
+        backgroundColor: "rgb(255 255 255 / 0.9)",
+        backdropFilter: "blur(5px)",
+        borderRadius: "8px",
+        boxShadow: "0 0px 15px rgb(0 0 0 / 0.1)",
+        transition: "all 0.3s ease-out",
+        a: {
+          textDecoration: "none"
+        },
+        zIndex: 10
+      }}
+    >
       <Container>
         <nav
           sx={{
-            ...navStyles,
-            py: 2
+            display: "flex",
+            flexDirection: ["column", "row"],
+            justifyContent: "space-between",
+            alignItems: ["flex-start", "center"],
+            transition: "all 0.3s ease-out",
+            py: userHasScrolled ? 2 : 1
           }}
         >
           <Flex
@@ -125,7 +132,7 @@ const Header = () => {
                 Blog
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 href="/contact"
                 sx={{
@@ -133,7 +140,6 @@ const Header = () => {
                   px: 3,
                   mt: [1, 0],
                   display: "inline-block",
-                  // variant: "links.underlineLeftToRight",
                   fontSize: 1,
                   fontFamily: "body",
                   color: "black",
@@ -149,7 +155,7 @@ const Header = () => {
               >
                 Hire Me
               </Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
       </Container>
