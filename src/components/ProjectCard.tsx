@@ -38,15 +38,16 @@ const ProjectCard = ({ project, flipped }: Props) => {
     <Flex
       sx={{
         alignItems: "center",
-        flexDirection: flipped ? "row-reverse" : "row"
+        flexDirection: ["column", flipped ? "row-reverse" : "row"]
       }}
     >
       <Box
         sx={{
-          flex: "0 0 350px",
-          height: ["350px"],
+          flex: ["0 0 150px", "0 0 350px"],
+          height: ["unset", "350px"],
+          width: ["100%", "unset"],
           position: "relative",
-          boxShadow: "0 4px 15px rgb(0 0 0 / 0.1)",
+          boxShadow: "0 4px 15px rgb(0 0 0 / 0.25)",
           borderRadius: "8px"
         }}
       >
@@ -70,8 +71,9 @@ const ProjectCard = ({ project, flipped }: Props) => {
         sx={{
           py: 3,
           px: 4,
-          flex: "1 1 100%",
-          height: ["300px"],
+          flex: "0 1 100%",
+          height: ["unset", "300px"],
+          width: ["100%", "unset"],
           bg: "subtlePink"
         }}
       >

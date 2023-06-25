@@ -9,12 +9,11 @@ import ProjectCard from "components/ProjectCard"
 // Helpers
 import { Projects } from "helpers/myTypes"
 
-// Props
-type RecentProjectsSection = {
+type Props = {
   projects?: Projects
 }
 
-const RecentProjectsSection = ({ projects }: RecentProjectsSection) => {
+const RecentProjectsSection = ({ projects }: Props) => {
   return (
     <section
       sx={{
@@ -34,17 +33,15 @@ const RecentProjectsSection = ({ projects }: RecentProjectsSection) => {
         <ul
           sx={{
             p: 0,
-            listStyle: "none"
+            listStyle: "none",
+            "> li:not(:last-child)": {
+              mb: 5
+            }
           }}
         >
           {/* Map projects here */}
           {projects?.data.map((project, index) => (
-            <li
-              key={project.attributes.slug}
-              sx={{
-                my: index > 0 ? 4 : 0
-              }}
-            >
+            <li key={project.attributes.slug}>
               <ProjectCard
                 project={project}
                 flipped={index > 0 && index % 2 === 1}
