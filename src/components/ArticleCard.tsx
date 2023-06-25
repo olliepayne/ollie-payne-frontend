@@ -92,12 +92,9 @@ const ArticleCard = ({ className, blogPost }: ArticleCard) => {
             textDecoration: "none",
             display: "inline-flex",
             alignItems: "center",
-            transition: "none",
+            transition: "all 0.2s ease-out",
             ":hover": {
-              color: "gray",
-              ".icon": {
-                transform: "scale(1.05, 1.05)"
-              }
+              color: "gray"
             },
             "::after": {
               content: `""`,

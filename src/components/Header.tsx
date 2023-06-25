@@ -38,7 +38,7 @@ const Header = () => {
         backgroundColor: "rgb(255 255 255 / 0.9)",
         backdropFilter: "blur(5px)",
         borderRadius: "8px",
-        boxShadow: "0 0px 15px rgb(0 0 0 / 0.1)",
+        boxShadow: userHasScrolled ? "0 0px 20px rgb(0 0 0 / 0.08)" : "none",
         transition: "all 0.3s ease-out",
         a: {
           textDecoration: "none"

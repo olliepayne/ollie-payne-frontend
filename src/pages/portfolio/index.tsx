@@ -9,7 +9,7 @@ import { Heading, Box, Container, Button, AspectImage } from "theme-ui"
 // My components
 import Layout from "components/Layout"
 import SEO from "components/SEO"
-import ProjectCard from "components/ProjectCard"
+import ProjectCard from "components/OldProjectCard"
 import HeroSection from "components/HeroSection"
 
 // Helpers

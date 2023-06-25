@@ -1,6 +1,7 @@
 /** @jsxImportSource theme-ui */
 import { Container, Heading } from "theme-ui"
 import { Projects } from "helpers/myTypes"
+import OldProjectCard from "components/OldProjectCard"
 import ProjectCard from "components/ProjectCard"
 
 // Props
