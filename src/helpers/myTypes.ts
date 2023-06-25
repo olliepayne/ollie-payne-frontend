@@ -39,6 +39,7 @@ export type BlogPostAttributes = {
   pageTitle: string
   metaDescription: string
   h1: string
+  hero: StrapiImage
   datePublished: string
   dateEdited?: string
   content: string

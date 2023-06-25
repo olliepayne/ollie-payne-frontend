@@ -9,7 +9,6 @@ import ReactMarkdown from "react-markdown"
 import Layout from "components/Layout"
 import SEO from "components/SEO"
 import Image from "next/image"
-import ContactSection from "components/ContactSection"
 import BreadcrumbNav from "components/BreadcrumbNav"
 import { components } from "components/ReactMarkdownComponents"
 
@@ -17,6 +16,7 @@ import { components } from "components/ReactMarkdownComponents"
 import { getStrapiUrl } from "helpers/api"
 import { BlogPost, BlogPosts } from "helpers/myTypes"
 import { parsedKebabDate } from "helpers/dateParser"
+import TemplatePageHeroImage from "components/TemplatePageHeroImage"
 
 // Data fetching
 const blogPostsUrl = `${getStrapiUrl()}/api/blog-posts`
@@ -41,7 +41,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const urlFilters = `?filters[slug][$eq]=${params?.slug}`
-  const url = `${blogPostsUrl}?${urlFilters}`
+  const urlPopulate = "populate=*"
+  const url = `${blogPostsUrl}?${urlFilters}&${urlPopulate}`
   const res = await fetch(url)
   const blogPosts = await res.json()
 
@@ -52,15 +53,21 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 }
 
-// Props
-type BlogPostPage = {
+type Props = {
   blogPosts: BlogPosts
 }
 
-const BlogPostPage = ({ blogPosts }: BlogPostPage) => {
-  // - Destructure data
-  const { pageTitle, metaDescription, h1, datePublished, dateEdited, content } =
-    blogPosts.data[0].attributes
+const BlogPostPage = ({ blogPosts }: Props) => {
+  // Destructure data
+  const {
+    pageTitle,
+    metaDescription,
+    h1,
+    hero,
+    datePublished,
+    dateEdited,
+    content
+  } = blogPosts.data[0].attributes
 
   const parsedDatePublished = parsedKebabDate(datePublished, "FULL")
 
@@ -89,24 +96,10 @@ const BlogPostPage = ({ blogPosts }: BlogPostPage) => {
             </Text>
           </Container>
           <Container>
-            <Box
-              sx={{
-                position: "relative",
-                height: ["250px", "400px"],
-                my: 4
-              }}
-            >
-              <Image
-                src="/placeholder.jpeg"
-                alt=""
-                fill
-                sx={{
-                  objectFit: "cover",
-                  borderRadius: "8px",
-                  filter: "drop-shadow(2px 2px 6px rgb(0 0 0 / 0.3))"
-                }}
-              />
-            </Box>
+            <TemplatePageHeroImage
+              src={`${getStrapiUrl()}${hero.data.attributes.url}`}
+              alt={`${getStrapiUrl()}${hero.data.attributes.alternativeText}`}
+            />
           </Container>
         </section>
 
@@ -119,7 +112,6 @@ const BlogPostPage = ({ blogPosts }: BlogPostPage) => {
       </article>
 
       {/* Contact */}
-      <ContactSection />
     </Layout>
   )
 }

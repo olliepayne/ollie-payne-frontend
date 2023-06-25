@@ -1,18 +1,20 @@
 /** @jsxImportSource theme-ui */
-import { Box, Container, Heading, Flex } from "theme-ui"
+
+// Packages
+import { useState } from "react"
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { Box, Container, Heading, Flex } from "theme-ui"
+
+// Helpers
 import { StrapiImage } from "helpers/myTypes"
 import { getStrapiUrl } from "helpers/api"
 
-// Props
-// Change: not optional
-type HeroSection = {
+type Props = {
   h1: string
   heroImage?: StrapiImage
 }
 
-const HeroSection = ({ h1, heroImage }: HeroSection) => {
+const HeroSection = ({ h1, heroImage }: Props) => {
   // Review: maybe import hero images from strapi?
   // const getHeroImageUrl = () => getStrapiUrl() + heroImage.data.attributes.url
 
@@ -48,9 +50,8 @@ const HeroSection = ({ h1, heroImage }: HeroSection) => {
             // background:
             //   "linear-gradient(90deg, rgb(255 206 218 / 1) 50%, rgba(255 255 255 / 0) 100%)",
             background:
-              "linear-gradient(90deg, rgb(0 0 0 / 0.5) 50%, rgba(255 255 255 / 0) 100%)",
-            backgroundColor: "rgb(0 0 0 / 0.3)",
-            backdropFilter: "blur(4px)"
+              "linear-gradient(90deg, rgb(0 0 0 / 0.75) 50%, rgba(255 255 255 / 0) 100%)",
+            backgroundColor: "rgb(0 0 0 / 0.3)"
           }}
         />
         <Image

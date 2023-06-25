@@ -1,14 +1,15 @@
 /** @jsxImportSource theme-ui */
-import { Box } from "theme-ui"
-import Image from "next/image"
 
-// Props
-type TemplatePageHeroImage = {
+// Packages
+import Image from "next/image"
+import { Box } from "theme-ui"
+
+type Props = {
   src: string
   alt: string
 }
 
-const TemplatePageHeroImage = ({ src, alt }: TemplatePageHeroImage) => {
+const TemplatePageHeroImage = ({ src, alt }: Props) => {
   return (
     <Box
       sx={{
@@ -24,7 +25,7 @@ const TemplatePageHeroImage = ({ src, alt }: TemplatePageHeroImage) => {
         sx={{
           objectFit: "cover",
           borderRadius: "8px",
-          filter: "drop-shadow(2px 2px 6px rgb(0 0 0 / 0.3))"
+          filter: "drop-shadow(0 0 10px rgb(0 0 0 / 0.25))"
         }}
       />
     </Box>

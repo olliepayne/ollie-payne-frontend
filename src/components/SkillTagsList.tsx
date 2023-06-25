@@ -65,7 +65,6 @@ const SkillTagsList = ({ className, skillTags }: Props) => {
         {skillTags.map((skillTag, index) => (
           <li key={`skillTags:${index}`}>
             <Link
-              scroll={false}
               href={`${createSkillQuery(skillTag.id)}`}
               sx={{
                 variant: "links.tag",

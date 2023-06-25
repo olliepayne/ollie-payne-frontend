@@ -3,7 +3,7 @@
 // Packages
 import Image from "next/image"
 import Link from "next/link"
-import { Box, Heading, Paragraph, Text, Flex } from "theme-ui"
+import { Box, Heading, Paragraph, Text } from "theme-ui"
 
 // Helpers
 import { Project } from "helpers/myTypes"
@@ -15,7 +15,7 @@ type Props = {
   flipped?: boolean
 }
 
-const ProjectCard = ({ project, flipped }: Props) => {
+const OldProjectCard = ({ project, flipped }: Props) => {
   // Parse and store datePublished
   const parsedDatePublished = parsedKebabDate(
     project.attributes.datePublished,
@@ -35,46 +35,43 @@ const ProjectCard = ({ project, flipped }: Props) => {
   })
 
   return (
-    <Flex
+    <Box
       sx={{
-        alignItems: "center",
-        flexDirection: ["column", flipped ? "row-reverse" : "row"]
+        height: ["400px", "250px"],
+        display: "flex",
+        flexDirection: ["column", flipped ? "row-reverse" : "row"],
+        justifyContent: "space-between",
+        position: "relative",
+        bg: "subtlePink"
       }}
     >
+      {/* Image */}
       <Box
         sx={{
-          flex: ["0 0 150px", "0 0 350px"],
-          height: ["unset", "350px"],
-          width: ["100%", "unset"],
-          position: "relative",
-          boxShadow: "0 4px 15px rgb(0 0 0 / 0.1)",
-          borderRadius: "8px"
+          display: "inline-block",
+          height: "100%",
+          flex: "0 0 40%",
+          position: "relative"
         }}
       >
         <Image
           src={`${getStrapiUrl()}${
-            project.attributes.hero.data.attributes.url
+            project.attributes.hero?.data.attributes.url
           }`}
-          alt={`${getStrapiUrl()}${
-            project.attributes.hero.data.attributes.alternativeText
-          }`}
+          alt=""
           fill
           sx={{
-            objectFit: "cover",
-            borderRadius: "8px"
+            objectFit: "cover"
           }}
         />
       </Box>
 
-      {/* Content */}
+      {/* Copy / CTA links */}
       <Box
         sx={{
-          py: 3,
-          px: 4,
-          flex: ["0 0 250px", "1 1 100%"],
-          height: ["unset", "300px"],
-          width: ["100%", "unset"],
-          bg: "subtlePink"
+          flex: "1 0 50%",
+          py: [2, 3],
+          px: [3, 4]
         }}
       >
         {/* Name */}
@@ -181,8 +178,8 @@ const ProjectCard = ({ project, flipped }: Props) => {
           )}
         </Box>
       </Box>
-    </Flex>
+    </Box>
   )
 }
 
-export default ProjectCard
+export default OldProjectCard

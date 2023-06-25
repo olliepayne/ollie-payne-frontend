@@ -1,9 +1,8 @@
 /** @jsxImportSource theme-ui */
 
-// Third-party
-import { useEffect, useReducer, useState } from "react"
+// Packages
+import { useEffect, useState } from "react"
 import { GetStaticProps } from "next"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import { Heading, Box, Container, Button, AspectImage } from "theme-ui"
 
@@ -57,7 +56,6 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-// Props
 type Props = {
   projects: Projects
   skillTags: SkillTags
