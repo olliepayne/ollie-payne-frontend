@@ -47,7 +47,7 @@ const ProjectCard = ({ project, flipped }: Props) => {
           height: ["unset", "350px"],
           width: ["100%", "unset"],
           position: "relative",
-          boxShadow: "0 4px 15px rgb(0 0 0 / 0.25)",
+          boxShadow: "0 4px 15px rgb(0 0 0 / 0.1)",
           borderRadius: "8px"
         }}
       >
@@ -71,7 +71,7 @@ const ProjectCard = ({ project, flipped }: Props) => {
         sx={{
           py: 3,
           px: 4,
-          flex: "0 1 100%",
+          flex: ["0 0 250px", "1 1 100%"],
           height: ["unset", "300px"],
           width: ["100%", "unset"],
           bg: "subtlePink"

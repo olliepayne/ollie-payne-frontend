@@ -22,8 +22,6 @@ const TemplatePageHeroImage = ({ src, alt }: Props) => {
         src={src}
         alt={alt}
         fill
-        placeholder="blur"
-        blurDataURL={src}
         sx={{
           objectFit: "cover",
           borderRadius: "8px",

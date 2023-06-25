@@ -17,9 +17,9 @@ const buttonStyles: ThemeUICSSObject = {
     width: "100%",
     display: "block",
     backgroundColor: "black",
-    transition: "all 0.2s ease-in",
     borderRadius: "4px",
-    transform: "none"
+    transform: "none",
+    transition: "all 0.2s ease-in"
   }
 }
 
