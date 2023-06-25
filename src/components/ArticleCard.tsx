@@ -11,6 +11,7 @@ import ArrowSVG from "components/svgs/ArrowSVG"
 // Helpers
 import { BlogPost } from "helpers/myTypes"
 import { parsedKebabDate } from "helpers/dateParser"
+import { getStrapiUrl } from "helpers/api"
 
 type ArticleCard = {
   className?: string
@@ -18,7 +19,7 @@ type ArticleCard = {
 }
 
 const ArticleCard = ({ className, blogPost }: ArticleCard) => {
-  // - parse and store datePublished
+  // Parse and store datePublished
   const parsedDatePublished = parsedKebabDate(
     blogPost.attributes.datePublished,
     "FULL"
@@ -48,8 +49,12 @@ const ArticleCard = ({ className, blogPost }: ArticleCard) => {
         }}
       >
         <Image
-          src="/placeholder.jpeg"
-          alt=""
+          src={`${getStrapiUrl()}${
+            blogPost.attributes.hero.data.attributes.url
+          }`}
+          alt={`${getStrapiUrl()}${
+            blogPost.attributes.hero.data.attributes.alternativeText
+          }`}
           fill
           sx={{
             objectFit: "cover"

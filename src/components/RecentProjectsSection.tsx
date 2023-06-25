@@ -1,8 +1,13 @@
 /** @jsxImportSource theme-ui */
+
+// Packages
 import { Container, Heading } from "theme-ui"
-import { Projects } from "helpers/myTypes"
-import OldProjectCard from "components/OldProjectCard"
+
+// My components
 import ProjectCard from "components/ProjectCard"
+
+// Helpers
+import { Projects } from "helpers/myTypes"
 
 // Props
 type RecentProjectsSection = {

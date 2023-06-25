@@ -9,7 +9,6 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown"
 import Layout from "components/Layout"
 import SEO from "components/SEO"
 import BreadcrumbNav from "components/BreadcrumbNav"
-import ContactSection from "components/ContactSection"
 import TemplatePageHeroImage from "components/TemplatePageHeroImage"
 import SkillTagsList from "components/SkillTagsList"
 import { components } from "components/ReactMarkdownComponents"
@@ -56,12 +55,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 }
 
-// Props
-type PortfolioSlugPage = {
+type Props = {
   projects: Projects
 }
 
-const PortfolioSlugPage = ({ projects }: PortfolioSlugPage) => {
+const PortfolioSlugPage = ({ projects }: Props) => {
   const {
     pageTitle,
     metaDescription,
