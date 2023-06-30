@@ -1,4 +1,5 @@
 /** @jsxImportSource theme-ui */
+import { theme } from "theme"
 
 // Packages
 import { GetStaticPaths, GetStaticProps } from "next"
@@ -11,7 +12,7 @@ import SEO from "components/SEO"
 import BreadcrumbNav from "components/BreadcrumbNav"
 import TemplatePageHeroImage from "components/TemplatePageHeroImage"
 import SkillTagsList from "components/SkillTagsList"
-import { components } from "components/ReactMarkdownComponents"
+// import { components } from "components/ReactMarkdownComponents"
 
 // Helpers
 import { Projects } from "helpers/myTypes"
@@ -40,7 +41,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  // URL
+  // URLs
   const urlFilters = `filters[slug][$eq]=${params?.slug}`
   const urlPopulate = "populate=*"
   const url = `${projectsUrl}?${urlFilters}&${urlPopulate}`
@@ -133,7 +134,7 @@ const PortfolioSlugPage = ({ projects }: Props) => {
         {/* Markdown */}
         <section>
           <Container variant="narrow">
-            <ReactMarkdown components={components}>{content}</ReactMarkdown>
+            <ReactMarkdown sx={theme.styles}>{content}</ReactMarkdown>
           </Container>
         </section>
       </article>

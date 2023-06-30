@@ -31,7 +31,5 @@ export const components: any = {
       {children}
     </Heading>
   )
-  // a: {
-
-  // }
+  // a: 
 }

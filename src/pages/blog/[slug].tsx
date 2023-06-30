@@ -1,16 +1,16 @@
 /** @jsxImportSource theme-ui */
+import { theme } from "theme"
 
 // Third-party
 import { GetStaticPaths, GetStaticProps } from "next"
-import { Box, Container, Heading, Text } from "theme-ui"
+import { Container, Heading, Text } from "theme-ui"
 import ReactMarkdown from "react-markdown"
 
 // My components
 import Layout from "components/Layout"
 import SEO from "components/SEO"
-import Image from "next/image"
 import BreadcrumbNav from "components/BreadcrumbNav"
-import { components } from "components/ReactMarkdownComponents"
+// import { components } from "components/ReactMarkdownComponents"
 
 // Helpers
 import { getStrapiUrl } from "helpers/api"
@@ -40,9 +40,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const urlFilters = `?filters[slug][$eq]=${params?.slug}`
+  // URLs
+  const urlFilters = `filters[slug][$eq]=${params?.slug}`
   const urlPopulate = "populate=*"
   const url = `${blogPostsUrl}?${urlFilters}&${urlPopulate}`
+
   const res = await fetch(url)
   const blogPosts = await res.json()
 
@@ -58,7 +60,6 @@ type Props = {
 }
 
 const BlogPostPage = ({ blogPosts }: Props) => {
-  // Destructure data
   const {
     pageTitle,
     metaDescription,
@@ -88,7 +89,11 @@ const BlogPostPage = ({ blogPosts }: Props) => {
             <Heading as="h1" variant="styles.h1">
               {h1}
             </Heading>
-            <Text>
+            <Text
+              sx={{
+                color: "dateGray"
+              }}
+            >
               <time dateTime={datePublished}>
                 {parsedDatePublished.month} {parsedDatePublished.day},{" "}
                 {parsedDatePublished.year}
@@ -106,7 +111,7 @@ const BlogPostPage = ({ blogPosts }: Props) => {
         {/* Markdown / blog post content */}
         <section>
           <Container variant="narrow">
-            <ReactMarkdown components={components}>{content}</ReactMarkdown>
+            <ReactMarkdown sx={theme.styles}>{content}</ReactMarkdown>
           </Container>
         </section>
       </article>

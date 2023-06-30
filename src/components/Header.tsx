@@ -37,8 +37,8 @@ const Header = () => {
         borderColor: "subtlePink",
         backgroundColor: "rgb(255 255 255 / 0.9)",
         backdropFilter: "blur(5px)",
-        borderRadius: "8px",
-        boxShadow: userHasScrolled ? "0 0px 20px rgb(0 0 0 / 0.08)" : "none",
+        borderRadius: userHasScrolled ? "8px" : 0,
+        boxShadow: userHasScrolled ? "0 0px 20px rgb(0 0 0 / 0.1)" : "none",
         transition: "all 0.3s ease-out",
         a: {
           textDecoration: "none"
@@ -132,6 +132,7 @@ const Header = () => {
                 Blog
               </Link>
             </li>
+            {/* Review: future addition */}
             {/* <li>
               <Link
                 href="/contact"

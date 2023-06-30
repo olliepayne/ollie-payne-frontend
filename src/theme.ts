@@ -52,6 +52,7 @@ export const theme: Theme = {
       fontSize: [0, 1]
     },
     heading: {
+      fontFamily: "heading",
       fontWeight: 700
     },
     paragraph: {
@@ -169,6 +170,7 @@ export const theme: Theme = {
       mb: 2
     },
     p: {
+      variant: "text.paragraph",
       mb: 4
     }
   }
