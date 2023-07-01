@@ -5,12 +5,12 @@ import { theme } from "theme"
 import { GetStaticPaths, GetStaticProps } from "next"
 import { Container, Heading, Text } from "theme-ui"
 import ReactMarkdown from "react-markdown"
+import rehypeRaw from "rehype-raw"
 
 // My components
 import Layout from "components/Layout"
 import SEO from "components/SEO"
 import BreadcrumbNav from "components/BreadcrumbNav"
-// import { components } from "components/ReactMarkdownComponents"
 
 // Helpers
 import { getStrapiUrl } from "helpers/api"
@@ -111,7 +111,7 @@ const BlogPostPage = ({ blogPosts }: Props) => {
         {/* Markdown / blog post content */}
         <section>
           <Container variant="narrow">
-            <ReactMarkdown sx={theme.styles}>{content}</ReactMarkdown>
+            <ReactMarkdown sx={theme.styles} rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown>
           </Container>
         </section>
       </article>

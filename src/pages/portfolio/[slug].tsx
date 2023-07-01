@@ -5,6 +5,7 @@ import { theme } from "theme"
 import { GetStaticPaths, GetStaticProps } from "next"
 import { Container, Heading, Text, Box } from "theme-ui"
 import { ReactMarkdown } from "react-markdown/lib/react-markdown"
+import rehypeRaw from "rehype-raw"
 
 // My components
 import Layout from "components/Layout"
@@ -12,7 +13,6 @@ import SEO from "components/SEO"
 import BreadcrumbNav from "components/BreadcrumbNav"
 import TemplatePageHeroImage from "components/TemplatePageHeroImage"
 import SkillTagsList from "components/SkillTagsList"
-// import { components } from "components/ReactMarkdownComponents"
 
 // Helpers
 import { Projects } from "helpers/myTypes"
@@ -134,7 +134,7 @@ const PortfolioSlugPage = ({ projects }: Props) => {
         {/* Markdown */}
         <section>
           <Container variant="narrow">
-            <ReactMarkdown sx={theme.styles}>{content}</ReactMarkdown>
+            <ReactMarkdown sx={theme.styles} rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown>
           </Container>
         </section>
       </article>
