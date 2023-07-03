@@ -29,15 +29,13 @@ const Header = () => {
   return (
     <header
       sx={{
-        mx: userHasScrolled ? 3 : 0,
-        position: "sticky",
-        top: userHasScrolled ? 2 : 0,
+        position: ["sticky", "static"],
+        top: 0,
         borderWidth: "0 0 2px 0",
         borderStyle: "solid",
         borderColor: "subtlePink",
-        backgroundColor: "rgb(255 255 255 / 0.9)",
-        backdropFilter: "blur(5px)",
-        borderRadius: userHasScrolled ? "8px" : 0,
+        backgroundColor: "white",
+        backdropFilter: "blur(4px)",
         boxShadow: userHasScrolled ? "0 0px 20px rgb(0 0 0 / 0.1)" : "none",
         transition: "all 0.3s ease-out",
         a: {
@@ -54,7 +52,7 @@ const Header = () => {
             justifyContent: "space-between",
             alignItems: ["flex-start", "center"],
             transition: "all 0.3s ease-out",
-            py: userHasScrolled ? 2 : 1
+            py: 1
           }}
         >
           <Flex

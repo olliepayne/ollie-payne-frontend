@@ -183,7 +183,6 @@ export const theme: Theme = {
     },
     img: {
       width: "100%",
-      // maxWidth: "100%",
       height: "300px",
       display: "block",
       objectFit: "cover",
