@@ -47,11 +47,10 @@ const HeroSection = ({ h1, heroImage }: Props) => {
             width: "100%",
             height: "100%",
             inset: 0,
-            // background:
-            //   "linear-gradient(90deg, rgb(255 206 218 / 1) 50%, rgba(255 255 255 / 0.25) 100%)",
             background:
               "linear-gradient(90deg, rgb(0 0 0 / 0.75) 50%, rgba(255 255 255 / 0) 100%)",
-            backgroundColor: "rgb(0 0 0 / 0.3)"
+            backgroundColor: "rgb(0 0 0 / 0.3)",
+            backdropFilter: "blur(4px)"
           }}
         />
         <Image

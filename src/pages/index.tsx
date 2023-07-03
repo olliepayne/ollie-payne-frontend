@@ -43,8 +43,8 @@ export default function Home({ projects }: Home) {
   return (
     <Layout>
       <SEO
-        title="Ollie Payne - Frontend Developer & Digital Marketer"
-        metaDescription="Description"
+        title="Ollie Payne - Front-End Developer and SEO Analyst"
+        metaDescription="Hi, I'm Ollie. I'm a Front-End Developer, SEO Analyst, and a Competitive Sport Climber and Boulderer currently working and training out of Prescott, AZ."
       />
       {/* Services / About me */}
       <section
@@ -181,8 +181,7 @@ export default function Home({ projects }: Home) {
                 borderRadius: "50%",
                 borderColor: "myGray",
                 borderWidth: "4px",
-                borderStyle: "solid",
-                boxShadow: "0 0 8px rgb(0 0 0 / 0.5)"
+                borderStyle: "solid"
               }}
             />
           </Flex>

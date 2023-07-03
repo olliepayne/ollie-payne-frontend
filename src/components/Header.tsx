@@ -35,8 +35,6 @@ const Header = () => {
         borderStyle: "solid",
         borderColor: "subtlePink",
         backgroundColor: "white",
-        backdropFilter: "blur(4px)",
-        boxShadow: userHasScrolled ? "0 0px 20px rgb(0 0 0 / 0.1)" : "none",
         transition: "all 0.3s ease-out",
         a: {
           textDecoration: "none"
@@ -86,6 +84,10 @@ const Header = () => {
               p: 0,
               listStyleType: "none",
               display: [navIsOpen ? "flex" : "none", "flex"],
+              // START TEST
+              // transform: navIsOpen ? "scaleY(1)" : "scaleY(0)",
+              // transformOrigin: "top",
+              // END TEST
               transition: "all 0.2s ease-out",
               flexDirection: ["column", "row"],
               justifyContent: "flex-end",

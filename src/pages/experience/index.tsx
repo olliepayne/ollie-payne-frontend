@@ -40,8 +40,11 @@ type ExperienceIndexPage = {
 const ExperienceIndexPage = ({ timelineEvents }: ExperienceIndexPage) => {
   return (
     <Layout>
-      <SEO title="My Experience" metaDescription="" />
-      <HeroSection h1="Experience" />
+      <SEO
+        title="Experience: Front-End Development, SEO, and Everything Else"
+        metaDescription="Everywhere that I have worked, and everything that I have learned while doing so."
+      />
+      {/* <HeroSection h1="Experience" /> */}
       <main
         sx={{
           minHeight: "100vh"
