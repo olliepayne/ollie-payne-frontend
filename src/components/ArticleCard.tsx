@@ -32,8 +32,6 @@ const ArticleCard = ({ className, blogPost }: ArticleCard) => {
       sx={{
         height: ["350px", "500px"],
         position: "relative",
-        bg: "myLightGray",
-        boxShadow: "0 0px 20px rgb(0 0 0 / 0.1)",
         ":hover": {
           cursor: "pointer"
         }
@@ -44,8 +42,10 @@ const ArticleCard = ({ className, blogPost }: ArticleCard) => {
         className="thumbnail-container"
         sx={{
           position: "relative",
-          height: ["40%"],
-          width: "100%"
+          height: "40%",
+          width: "100%",
+          borderRadius: "8px",
+          overflow: "hidden"
         }}
       >
         <Image
