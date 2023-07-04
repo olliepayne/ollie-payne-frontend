@@ -96,9 +96,11 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
 
   //
   const handleLoadMoreResults = () => {
-    if (pageSize * currentPage < filteredProjects.data.length) {
-      const newPage = currentPage + 1
-      setCurrentPage(newPage)
+    if (filteredProjects) {
+      if (pageSize * currentPage < filteredProjects.data.length) {
+        const newPage = currentPage + 1
+        setCurrentPage(newPage)
+      }
     }
   }
 
