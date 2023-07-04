@@ -110,7 +110,7 @@ const BlogIndexPage = ({ blogPosts }: Props) => {
                 }
               }}
             >
-              {paginatedBlogPosts.data.map((blogPost) => (
+              {paginatedBlogPosts?.data.map((blogPost) => (
                 <li key={`blogPosts:${blogPost.id}`}>
                   <ArticleCard blogPost={blogPost} />
                 </li>
