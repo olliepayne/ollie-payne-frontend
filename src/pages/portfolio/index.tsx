@@ -69,7 +69,9 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
   const [currentPage, setCurrentPage] = useState(1)
 
   // Get filtered projects and handle state
-  const [filteredProjects, setFilteredProjects] = useState<Projects>(projects)
+  const [filteredProjects, setFilteredProjects] = useState<
+    Projects | undefined
+  >(projects)
   useEffect(() => {
     const getFilteredProjects = async () => {
       if (asPath.includes("skill")) {
@@ -94,9 +96,11 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
 
   //
   const handleLoadMoreResults = () => {
-    if (pageSize * currentPage < filteredProjects.data.length) {
-      const newPage = currentPage + 1
-      setCurrentPage(newPage)
+    if (filteredProjects) {
+      if (pageSize * currentPage < filteredProjects.data.length) {
+        const newPage = currentPage + 1
+        setCurrentPage(newPage)
+      }
     }
   }
 
@@ -139,7 +143,7 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
                 }
               }}
             >
-              {filteredProjects.data.map((project, index) => (
+              {filteredProjects?.data.map((project, index) => (
                 <li
                   key={index}
                   sx={{
@@ -155,19 +159,20 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
             </ul>
 
             {/* Load more button (pagination control) */}
-            {pageSize * currentPage < filteredProjects.data.length && (
-              <Button
-                variant="secondary"
-                onClick={handleLoadMoreResults}
-                sx={{
-                  cursor: "pointer",
-                  display: "block",
-                  m: "0 auto"
-                }}
-              >
-                Load More
-              </Button>
-            )}
+            {filteredProjects &&
+              pageSize * currentPage < filteredProjects.data.length && (
+                <Button
+                  variant="secondary"
+                  onClick={handleLoadMoreResults}
+                  sx={{
+                    cursor: "pointer",
+                    display: "block",
+                    m: "0 auto"
+                  }}
+                >
+                  Load More
+                </Button>
+              )}
           </Container>
         </section>
       </main>

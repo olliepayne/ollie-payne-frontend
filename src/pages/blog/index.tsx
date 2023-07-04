@@ -50,7 +50,7 @@ const BlogIndexPage = ({ blogPosts }: Props) => {
   const [currentPageNumber, setCurrentPageNumber] = useState(1)
 
   const [paginatedBlogPosts, setPaginatedBlogPosts] =
-    useState<BlogPosts>(blogPosts)
+    useState<BlogPosts | undefined>(blogPosts)
 
   useEffect(() => {
     const handleUpdatePageNumber = async () => {
@@ -110,7 +110,7 @@ const BlogIndexPage = ({ blogPosts }: Props) => {
                 }
               }}
             >
-              {paginatedBlogPosts.data.map((blogPost) => (
+              {paginatedBlogPosts?.data.map((blogPost) => (
                 <li key={`blogPosts:${blogPost.id}`}>
                   <ArticleCard blogPost={blogPost} />
                 </li>
