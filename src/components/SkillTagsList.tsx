@@ -53,7 +53,7 @@ const SkillTagsList = ({ className, skillTags }: Props) => {
           pl: 0,
           py: 3,
           display: "inline-flex",
-          overflow: "scroll",
+          overflow: "auto",
           li: {
             flex: "0 0 fit-content"
           },
@@ -66,6 +66,7 @@ const SkillTagsList = ({ className, skillTags }: Props) => {
           <li key={`skillTags:${index}`}>
             <Link
               href={`${createSkillQuery(skillTag.id)}`}
+              scroll={asPath.includes("/portfolio") ? false : true}
               sx={{
                 variant: "links.tag",
                 borderColor: skillTagIsActive(skillTag.id) ? "myPink" : "black",

@@ -29,16 +29,12 @@ const Header = () => {
   return (
     <header
       sx={{
-        mx: userHasScrolled ? 3 : 0,
-        position: "sticky",
-        top: userHasScrolled ? 2 : 0,
+        position: ["sticky", "static"],
+        top: 0,
         borderWidth: "0 0 2px 0",
         borderStyle: "solid",
         borderColor: "subtlePink",
-        backgroundColor: "rgb(255 255 255 / 0.9)",
-        backdropFilter: "blur(5px)",
-        borderRadius: "8px",
-        boxShadow: userHasScrolled ? "0 0px 20px rgb(0 0 0 / 0.08)" : "none",
+        backgroundColor: "white",
         transition: "all 0.3s ease-out",
         a: {
           textDecoration: "none"
@@ -54,7 +50,7 @@ const Header = () => {
             justifyContent: "space-between",
             alignItems: ["flex-start", "center"],
             transition: "all 0.3s ease-out",
-            py: userHasScrolled ? 2 : 1
+            py: 1
           }}
         >
           <Flex
@@ -88,6 +84,10 @@ const Header = () => {
               p: 0,
               listStyleType: "none",
               display: [navIsOpen ? "flex" : "none", "flex"],
+              // START TEST
+              // transform: navIsOpen ? "scaleY(1)" : "scaleY(0)",
+              // transformOrigin: "top",
+              // END TEST
               transition: "all 0.2s ease-out",
               flexDirection: ["column", "row"],
               justifyContent: "flex-end",
@@ -132,6 +132,7 @@ const Header = () => {
                 Blog
               </Link>
             </li>
+            {/* Review: future addition */}
             {/* <li>
               <Link
                 href="/contact"

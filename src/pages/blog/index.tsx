@@ -39,12 +39,11 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-// Props
-type BlogIndexPage = {
+type Props = {
   blogPosts: BlogPosts
 }
 
-const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
+const BlogIndexPage = ({ blogPosts }: Props) => {
   const { asPath } = useRouter()
 
   // For pagination
@@ -77,8 +76,11 @@ const BlogIndexPage = ({ blogPosts }: BlogIndexPage) => {
 
   return (
     <Layout>
-      <SEO title="Blog | Ollie Payne" metaDescription="" />
-      <HeroSection h1="Blog" />
+      <SEO
+        title="Blog"
+        metaDescription="What I'm up to, tutorials, and trends in Front-End Development and SEO."
+      />
+      {/* <HeroSection h1="Blog" /> */}
       <main
         sx={{
           minHeight: "100vh"

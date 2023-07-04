@@ -52,11 +52,12 @@ export const theme: Theme = {
       fontSize: [0, 1]
     },
     heading: {
+      fontFamily: "heading",
       fontWeight: 700
     },
     paragraph: {
       fontFamily: "body",
-      lineHeight: 1.5,
+      lineHeight: "28px",
       fontSize: [0, 1]
     }
   },
@@ -151,25 +152,47 @@ export const theme: Theme = {
     h1: {
       variant: "text.heading",
       fontSize: [4, 5],
-      mb: 4
+      mt: 0,
+      mb: 5
     },
     h2: {
       variant: "text.heading",
       fontSize: [3, 4],
+      mt: 0,
       mb: 4
     },
     h3: {
       variant: "text.heading",
       fontSize: [2, 3],
-      mb: 3
+      mt: 0,
+      mb: 4
     },
     h4: {
       variant: "text.heading",
       fontSize: [1, 2],
-      mb: 2
+      mt: 0,
+      mb: 1
+    },
+    span: {
+      variant: "text.default"
     },
     p: {
+      variant: "text.paragraph",
+      mt: 0,
       mb: 4
+    },
+    img: {
+      width: "100%",
+      height: "300px",
+      display: "block",
+      objectFit: "cover",
+      borderRadius: "8px",
+      filter: "drop-shadow(0 0 10px rgb(0 0 0 / 0.1))"
+    },
+    code: {
+      p: "2px",
+      backgroundColor: "bone",
+      borderRadius: "2px"
     }
   }
 }

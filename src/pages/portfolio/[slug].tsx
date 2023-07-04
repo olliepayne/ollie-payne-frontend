@@ -1,9 +1,11 @@
 /** @jsxImportSource theme-ui */
+import { theme } from "theme"
 
 // Packages
 import { GetStaticPaths, GetStaticProps } from "next"
 import { Container, Heading, Text, Box } from "theme-ui"
 import { ReactMarkdown } from "react-markdown/lib/react-markdown"
+import rehypeRaw from "rehype-raw"
 
 // My components
 import Layout from "components/Layout"
@@ -11,7 +13,6 @@ import SEO from "components/SEO"
 import BreadcrumbNav from "components/BreadcrumbNav"
 import TemplatePageHeroImage from "components/TemplatePageHeroImage"
 import SkillTagsList from "components/SkillTagsList"
-import { components } from "components/ReactMarkdownComponents"
 
 // Helpers
 import { Projects } from "helpers/myTypes"
@@ -40,7 +41,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  // URL
+  // URLs
   const urlFilters = `filters[slug][$eq]=${params?.slug}`
   const urlPopulate = "populate=*"
   const url = `${projectsUrl}?${urlFilters}&${urlPopulate}`
@@ -133,7 +134,7 @@ const PortfolioSlugPage = ({ projects }: Props) => {
         {/* Markdown */}
         <section>
           <Container variant="narrow">
-            <ReactMarkdown components={components}>{content}</ReactMarkdown>
+            <ReactMarkdown sx={theme.styles} rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown>
           </Container>
         </section>
       </article>
