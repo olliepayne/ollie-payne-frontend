@@ -176,6 +176,7 @@ export default function Home({ projects }: Home) {
               width={250}
               height={250}
               sx={{
+                flex: "0 0 250px",
                 mt: [4, 0],
                 objectFit: "cover",
                 borderRadius: "50%",
