@@ -33,14 +33,20 @@ const Timeline = ({ events }: Props) => {
   }
 
   // Get duration
-  const getDuration = (eventStartDateStr: string) => {
+  const getDuration = (eventStartDateStr: string, eventEndDateStr?: string) => {
     const eventStartDate = new Date(eventStartDateStr)
-    const monthsDiff = new Date().getMonth() - eventStartDate.getMonth() - 1
-    const yearDiff = new Date().getFullYear() - eventStartDate.getFullYear()
+    const monthsDiff = eventEndDateStr
+      ? new Date(eventEndDateStr).getMonth() -
+        1 -
+        (eventStartDate.getMonth() - 1)
+      : new Date().getMonth() - eventStartDate.getMonth() - 1
+    const yearDiff = eventEndDateStr
+      ? new Date(eventEndDateStr).getFullYear() - eventStartDate.getFullYear()
+      : new Date().getFullYear() - eventStartDate.getFullYear()
 
     const duration =
-      (yearDiff > 0 ? `${yearDiff} year ` : "") +
-      (monthsDiff > 0 ? `${monthsDiff} months` : "")
+      (yearDiff > 0 ? `${yearDiff} year${yearDiff > 1 ? "s" : ""} ` : "") +
+      (monthsDiff > 0 ? `${monthsDiff} month${monthsDiff > 1 ? "s" : ""}` : "")
     return duration
   }
 
@@ -185,7 +191,12 @@ const Timeline = ({ events }: Props) => {
               >
                 &bull;
               </Text>
-              <Text>{getDuration(event.attributes.startDate)}</Text>
+              <Text>
+                {getDuration(
+                  event.attributes.startDate,
+                  event.attributes.endDate
+                )}
+              </Text>
             </Box>
             <Text
               sx={{
