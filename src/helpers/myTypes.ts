@@ -66,7 +66,7 @@ export type TimelineEventAttributes = {
   currentlyHere: boolean
   location: string
   description: string
-  skillTags: SkillTags
+  skillTags?: SkillTags
 }
 
 export type TimelineEvent = {

@@ -43,7 +43,8 @@ export const theme: Theme = {
     "1.125rem", // 2 - 18px
     "1.5rem", // 3 - 24px
     "2.25rem", // 4 - 36px
-    "3.375rem" // 5 - 54px
+    "3.375rem", // 5 - 54px
+    "5.063rem" // 6 - 81.00px
   ],
   breakpoints: ["769px", "1201px"],
   text: {
@@ -151,25 +152,25 @@ export const theme: Theme = {
   styles: {
     h1: {
       variant: "text.heading",
-      fontSize: [4, 5],
+      fontSize: [5, 6],
       mt: 0,
       mb: 5
     },
     h2: {
       variant: "text.heading",
-      fontSize: [3, 4],
+      fontSize: [4, 5],
       mt: 0,
       mb: 4
     },
     h3: {
       variant: "text.heading",
-      fontSize: [2, 3],
+      fontSize: [3, 4],
       mt: 0,
       mb: 4
     },
     h4: {
       variant: "text.heading",
-      fontSize: [1, 2],
+      fontSize: [2, 3],
       mt: 0,
       mb: 1
     },

@@ -219,7 +219,9 @@ const Timeline = ({ events }: Props) => {
               {event.attributes.description}
             </Paragraph>
 
-            <SkillTagsList skillTags={event.attributes.skillTags?.data} />
+            {event.attributes.skillTags && (
+              <SkillTagsList skillTags={event.attributes.skillTags.data} />
+            )}
           </Box>
         </Flex>
       ))}
