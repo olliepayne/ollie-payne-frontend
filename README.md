@@ -44,10 +44,6 @@ Since the data needed to be filtered, It was more efficient to query to the CMS 
 
 So, by default, all of the various case studies are baked onto /portfolio at build time but only a few are initially visible to the user (taking advantage of <code>display: none</code> to show and hide vs using JavaScript, which is bad for SEO). More can be “loaded” with the “Load More” button (again, this just changes the <code>display: none</code> to <code>display: block</code>. Then, when the user filters via skill tag, all of the initial projects cards are no longer visible and the results correlate to the matching data from the CMS. This way, we preserve the SEO value while also incorporating the dynamic fetching to the back-end that is required for an efficiently handled filtering system.
 
-![Hero image](https://ollie-payne-strapi-v2-vkuir.ondigitalocean.app/uploads/Screenshot 2023-07-03 at 4.26.08 PM.png)
-
-*A project built in Svelte would be cool to create someday …*
-
 ### Parsing and Rendering Markdown (and HTML)
 
 When importing a test case study that contained an external link that was written as anchor text (<code>\<a href=”URL”>My Link\</a></code>) vs as a markdown link, I noticed that the HTML wasn’t rendered as an element but was rather “escaped” and the HTML tag was rendered as visible text on the page.
