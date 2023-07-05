@@ -158,7 +158,7 @@ const Timeline = ({ events }: Props) => {
               {event.attributes.commitment}
             </Text>
 
-            {/* Start date (and end date / present) */}
+            {/* Start date (and end date or present) */}
             <Box
               sx={{
                 mt: 2,
