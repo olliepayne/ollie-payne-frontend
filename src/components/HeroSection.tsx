@@ -28,7 +28,7 @@ const HeroSection = ({ h1 }: Props) => {
       />
       <Container
         sx={{
-          py: 5
+          py: [4, 5]
         }}
       >
         <Heading

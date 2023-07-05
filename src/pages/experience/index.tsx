@@ -52,7 +52,7 @@ const ExperienceIndexPage = ({ timelineEvents }: ExperienceIndexPage) => {
       >
         <section
           sx={{
-            py: 5
+            py: [4, 5]
           }}
         >
           <Container variant="narrow">

@@ -32,6 +32,18 @@ const Timeline = ({ events }: Props) => {
     return true
   }
 
+  // Get duration
+  const getDuration = (eventStartDateStr: string) => {
+    const eventStartDate = new Date(eventStartDateStr)
+    const monthsDiff = new Date().getMonth() - eventStartDate.getMonth() - 1
+    const yearDiff = new Date().getFullYear() - eventStartDate.getFullYear()
+
+    const duration =
+      (yearDiff > 0 ? `${yearDiff} year ` : "") +
+      (monthsDiff > 0 ? `${monthsDiff} months` : "")
+    return duration
+  }
+
   return (
     <Box className="timeline">
       {events.data.map((event, index) => (
@@ -142,6 +154,39 @@ const Timeline = ({ events }: Props) => {
             </Text>
 
             {/* Start date (and end date / present) */}
+            <Box
+              sx={{
+                mt: 2,
+                fontFamily: "body",
+                color: "#5c5c5c"
+              }}
+            >
+              <Text>
+                <time dateTime={event.attributes.startDate}>
+                  {parsedKebabDate(event.attributes.startDate, "SHORT").month}{" "}
+                  {parsedKebabDate(event.attributes.startDate, "SHORT").year} -
+                </time>
+                {event.attributes.endDate ? (
+                  <time dateTime={event.attributes.endDate}>
+                    {" "}
+                    {
+                      parsedKebabDate(event.attributes.endDate, "SHORT").month
+                    }{" "}
+                    {parsedKebabDate(event.attributes.endDate, "SHORT").year}
+                  </time>
+                ) : (
+                  " Present"
+                )}
+              </Text>
+              <Text
+                sx={{
+                  mx: 2
+                }}
+              >
+                &bull;
+              </Text>
+              <Text>{getDuration(event.attributes.startDate)}</Text>
+            </Box>
             <Text
               sx={{
                 mt: 2,
@@ -150,21 +195,7 @@ const Timeline = ({ events }: Props) => {
                 color: "#5c5c5c"
               }}
             >
-              <time>
-                {parsedKebabDate(event.attributes.startDate, "SHORT").month}{" "}
-                {parsedKebabDate(event.attributes.startDate, "SHORT").year} -
-              </time>
-              {event.attributes.endDate ? (
-                <time>
-                  {" "}
-                  {
-                    parsedKebabDate(event.attributes.endDate, "SHORT").month
-                  }{" "}
-                  {parsedKebabDate(event.attributes.endDate, "SHORT").year}
-                </time>
-              ) : (
-                " Present"
-              )}
+              {event.attributes.location}
             </Text>
 
             {/* Description */}

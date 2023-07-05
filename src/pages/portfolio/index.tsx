@@ -119,7 +119,7 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
         {/* Project filtering */}
         <section
           sx={{
-            py: 5
+            py: [4, 5]
           }}
         >
           <Container>
