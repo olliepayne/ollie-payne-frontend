@@ -8,7 +8,7 @@ My goal was to build a professional looking portfolio site using Node.js instead
 
 #### Next.js
 
-What: Next.js is a framework for building web applications and provides additional structure, features, and optimizations. *Taken from the <a target=”_blank” rel=”nofollow noreferrer”>Next.js docs</a>*
+What: Next.js is a framework for building web applications and provides additional structure, features, and optimizations.
 
 Why?: I wanted the dynamic routing structure as well as the hybrid client / server rendering capabilities. Gatsby.js was also an option, but having used it previously it can be frustrating to work with sometimes due to it only offering SSG (Static Site Generation). For example: having to restart the local server after the CMS updates if you wish to see up to date content / test data during development.
 
