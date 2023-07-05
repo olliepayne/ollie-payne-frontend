@@ -171,17 +171,19 @@ const Timeline = ({ events }: Props) => {
                   {parsedKebabDate(event.attributes.startDate, "SHORT").month}{" "}
                   {parsedKebabDate(event.attributes.startDate, "SHORT").year} -
                 </time>
-                {event.attributes.endDate ? (
-                  <time dateTime={event.attributes.endDate}>
-                    {" "}
-                    {
-                      parsedKebabDate(event.attributes.endDate, "SHORT").month
-                    }{" "}
-                    {parsedKebabDate(event.attributes.endDate, "SHORT").year}
-                  </time>
-                ) : (
-                  " Present"
-                )}
+                <time dateTime={event.attributes.endDate}>
+                  {event.attributes.currentlyHere ? (
+                    <>{" Present"}</>
+                  ) : (
+                    <>
+                      {" "}
+                      {
+                        parsedKebabDate(event.attributes.endDate, "SHORT").month
+                      }{" "}
+                      {parsedKebabDate(event.attributes.endDate, "SHORT").year}
+                    </>
+                  )}
+                </time>
               </Text>
               <Text
                 sx={{

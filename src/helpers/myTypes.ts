@@ -62,7 +62,8 @@ export type TimelineEventAttributes = {
   occupationTitle: string
   commitment: string
   startDate: string
-  endDate?: string
+  endDate: string
+  currentlyHere: boolean
   location: string
   description: string
   skillTags: SkillTags
