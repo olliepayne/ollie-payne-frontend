@@ -53,12 +53,14 @@ const SkillTagsList = ({ className, skillTags }: Props) => {
           pl: 0,
           py: 3,
           display: "inline-flex",
-          overflow: "auto",
+          // overflow: "auto",
+          flexWrap: "wrap",
+          gap: 2,
           li: {
             flex: "0 0 fit-content"
           },
           "> li:not(:last-child)": {
-            mr: 2
+            // mr: 2
           }
         }}
       >

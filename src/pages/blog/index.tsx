@@ -80,7 +80,7 @@ const BlogIndexPage = ({ blogPosts }: Props) => {
         title="Blog"
         metaDescription="What I'm up to, tutorials, and trends in Front-End Development and SEO."
       />
-      {/* <HeroSection h1="Blog" /> */}
+      <HeroSection h1="Blog" />
       <main
         sx={{
           minHeight: "100vh"

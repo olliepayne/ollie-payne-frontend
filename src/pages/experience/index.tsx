@@ -44,7 +44,7 @@ const ExperienceIndexPage = ({ timelineEvents }: ExperienceIndexPage) => {
         title="Experience: Front-End Development, SEO, and Everything Else"
         metaDescription="Everywhere that I have worked, and everything that I have learned while doing so."
       />
-      {/* <HeroSection h1="Experience" /> */}
+      <HeroSection h1="Experience" />
       <main
         sx={{
           minHeight: "100vh"
