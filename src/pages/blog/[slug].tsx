@@ -80,7 +80,7 @@ const BlogPostPage = ({ blogPosts }: Props) => {
       </Container>
       <article
         sx={{
-          pb: 5
+          pb: [4, 5]
         }}
       >
         {/* Metadata / frontmatter */}

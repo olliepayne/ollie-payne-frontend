@@ -11,7 +11,7 @@ const nextConfig = {
   images: {
     domains: [
       process.env.NODE_ENV === "development"
-        ? process.env.NEXT_PUBLIC_DEV_STRAPI_IMAGE_DOMAIN
+        ? process.env.NEXT_PUBLIC_STRAPI_IMAGE_DOMAIN
         : process.env.NEXT_PUBLIC_STRAPI_IMAGE_DOMAIN
     ]
   }

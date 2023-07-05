@@ -95,7 +95,7 @@ const PortfolioSlugPage = ({ projects }: Props) => {
 
       <article
         sx={{
-          pb: 5
+          pb: [4, 5]
         }}
       >
         {/* Hero -- Metadata / frontmatter */}

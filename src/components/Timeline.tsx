@@ -32,6 +32,23 @@ const Timeline = ({ events }: Props) => {
     return true
   }
 
+  const getDuration = (eventStartDateStr: string, eventEndDateStr?: string) => {
+    const eventStartDate = new Date(eventStartDateStr)
+    const monthsDiff = eventEndDateStr
+      ? new Date(eventEndDateStr).getMonth() -
+        1 -
+        (eventStartDate.getMonth() - 1)
+      : new Date().getMonth() - eventStartDate.getMonth() - 1
+    const yearDiff = eventEndDateStr
+      ? new Date(eventEndDateStr).getFullYear() - eventStartDate.getFullYear()
+      : new Date().getFullYear() - eventStartDate.getFullYear()
+
+    const duration =
+      (yearDiff > 0 ? `${yearDiff} year${yearDiff > 1 ? "s" : ""} ` : "") +
+      (monthsDiff > 0 ? `${monthsDiff} month${monthsDiff > 1 ? "s" : ""}` : "")
+    return duration
+  }
+
   return (
     <Box className="timeline">
       {events.data.map((event, index) => (
@@ -112,7 +129,7 @@ const Timeline = ({ events }: Props) => {
                   as="h3"
                   variant="styles.h3"
                   sx={{
-                    mt: 0,
+                    mb: 0,
                     mr: 3
                   }}
                 >
@@ -141,7 +158,47 @@ const Timeline = ({ events }: Props) => {
               {event.attributes.commitment}
             </Text>
 
-            {/* Start date (and end date / present) */}
+            {/* Start date (and end date or present) */}
+            <Box
+              sx={{
+                mt: 2,
+                fontFamily: "body",
+                color: "#5c5c5c"
+              }}
+            >
+              <Text>
+                <time dateTime={event.attributes.startDate}>
+                  {parsedKebabDate(event.attributes.startDate, "SHORT").month}{" "}
+                  {parsedKebabDate(event.attributes.startDate, "SHORT").year} -
+                </time>
+                <time dateTime={event.attributes.endDate}>
+                  {event.attributes.currentlyHere ? (
+                    <>{" Present"}</>
+                  ) : (
+                    <>
+                      {" "}
+                      {
+                        parsedKebabDate(event.attributes.endDate, "SHORT").month
+                      }{" "}
+                      {parsedKebabDate(event.attributes.endDate, "SHORT").year}
+                    </>
+                  )}
+                </time>
+              </Text>
+              <Text
+                sx={{
+                  mx: 2
+                }}
+              >
+                &bull;
+              </Text>
+              <Text>
+                {getDuration(
+                  event.attributes.startDate,
+                  event.attributes.endDate
+                )}
+              </Text>
+            </Box>
             <Text
               sx={{
                 mt: 2,
@@ -150,21 +207,7 @@ const Timeline = ({ events }: Props) => {
                 color: "#5c5c5c"
               }}
             >
-              <time>
-                {parsedKebabDate(event.attributes.startDate, "SHORT").month}{" "}
-                {parsedKebabDate(event.attributes.startDate, "SHORT").year} -
-              </time>
-              {event.attributes.endDate ? (
-                <time>
-                  {" "}
-                  {
-                    parsedKebabDate(event.attributes.endDate, "SHORT").month
-                  }{" "}
-                  {parsedKebabDate(event.attributes.endDate, "SHORT").year}
-                </time>
-              ) : (
-                " Present"
-              )}
+              {event.attributes.location}
             </Text>
 
             {/* Description */}
@@ -176,7 +219,9 @@ const Timeline = ({ events }: Props) => {
               {event.attributes.description}
             </Paragraph>
 
-            <SkillTagsList skillTags={event.attributes.skillTags?.data} />
+            {event.attributes.skillTags && (
+              <SkillTagsList skillTags={event.attributes.skillTags.data} />
+            )}
           </Box>
         </Flex>
       ))}

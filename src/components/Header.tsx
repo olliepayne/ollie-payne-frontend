@@ -29,12 +29,13 @@ const Header = () => {
   return (
     <header
       sx={{
-        position: ["sticky", "static"],
+        position: "sticky",
         top: 0,
         borderWidth: "0 0 2px 0",
         borderStyle: "solid",
         borderColor: "subtlePink",
-        backgroundColor: "white",
+        backgroundColor: "rgb(255 255 255 / 0.9)",
+        backdropFilter: "blur(4px)",
         transition: "all 0.3s ease-out",
         a: {
           textDecoration: "none"

@@ -110,7 +110,7 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
         title="Portfolio: My Projects for Front-End Development and SEO"
         metaDescription="Check out what I have built, how I built them, and the problems that I encountered as well as how I solved them."
       />
-      {/* <HeroSection h1="Portfolio" /> */}
+      <HeroSection h1="Portfolio" />
       <main
         sx={{
           minHeight: "100vh"
@@ -119,7 +119,7 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
         {/* Project filtering */}
         <section
           sx={{
-            py: 5
+            py: [4, 5]
           }}
         >
           <Container>

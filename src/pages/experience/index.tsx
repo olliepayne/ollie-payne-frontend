@@ -16,8 +16,8 @@ import { TimelineEvents } from "helpers/myTypes"
 
 // Data fetching
 const timelineEventsUrl = `${getStrapiUrl()}/api/timeline-events`
-const timelineEventsUrlSort = "sort[0]=startDate:desc&sort[1]=endDate:desc"
-const timelineEventsUrlPopulate = "&populate=*"
+const timelineEventsUrlSort = "sort[0]=institutionName&sort[1]=startDate:desc"
+const timelineEventsUrlPopulate = "populate=*"
 
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(
@@ -44,7 +44,7 @@ const ExperienceIndexPage = ({ timelineEvents }: ExperienceIndexPage) => {
         title="Experience: Front-End Development, SEO, and Everything Else"
         metaDescription="Everywhere that I have worked, and everything that I have learned while doing so."
       />
-      {/* <HeroSection h1="Experience" /> */}
+      <HeroSection h1="Experience" />
       <main
         sx={{
           minHeight: "100vh"
@@ -52,7 +52,7 @@ const ExperienceIndexPage = ({ timelineEvents }: ExperienceIndexPage) => {
       >
         <section
           sx={{
-            py: 5
+            py: [4, 5]
           }}
         >
           <Container variant="narrow">
