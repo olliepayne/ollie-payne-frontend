@@ -36,7 +36,7 @@ const HeroSection = ({ h1 }: Props) => {
           variant="styles.h1"
           sx={{
             my: 0,
-            textShadow: "0 0 30px #FFCEDA",
+            textShadow: "0 0 40px #FFCEDA",
             background: "transparent"
           }}
         >
