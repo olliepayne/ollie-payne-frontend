@@ -16,8 +16,8 @@ import { TimelineEvents } from "helpers/myTypes"
 
 // Data fetching
 const timelineEventsUrl = `${getStrapiUrl()}/api/timeline-events`
-const timelineEventsUrlSort = "sort[0]=startDate:desc&sort[1]=endDate:desc"
-const timelineEventsUrlPopulate = "&populate=*"
+const timelineEventsUrlSort = "sort[0]=institutionName&sort[1]=currentlyHere:desc&sort[2]=startDate:desc"
+const timelineEventsUrlPopulate = "populate=*"
 
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(

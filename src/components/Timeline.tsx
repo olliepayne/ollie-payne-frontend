@@ -1,7 +1,6 @@
 /** @jsxImportSource theme-ui */
 
 // Packages
-import { useState } from "react"
 import Image from "next/image"
 import { Box, Flex, Heading, Paragraph, Text } from "theme-ui"
 
@@ -18,11 +17,6 @@ type Props = {
 }
 
 const Timeline = ({ events }: Props) => {
-  let currentInstitutionName = ""
-  const [institutionEndDateStr, setInstitutionEndDateStr] = useState()
-  const [institutionStartDateStr, setInstitutionStartDateStr] =
-    useState<string>()
-
   type IsSameInstituion = (event: TimelineEvent, index: number) => boolean
   const isSameInstitution: IsSameInstituion = (event, index) => {
     if (
@@ -38,16 +32,6 @@ const Timeline = ({ events }: Props) => {
     return true
   }
 
-  //
-  const getInstitutionDuration = (index: number) => {
-    if (
-      events.data[index].attributes.institutionName !== currentInstitutionName
-    ) {
-      setInstitutionStartDateStr(events.data[index - 1].attributes.startDate)
-    }
-  }
-
-  // Get duration
   const getDuration = (eventStartDateStr: string, eventEndDateStr?: string) => {
     const eventStartDate = new Date(eventStartDateStr)
     const monthsDiff = eventEndDateStr
@@ -145,13 +129,12 @@ const Timeline = ({ events }: Props) => {
                   as="h3"
                   variant="styles.h3"
                   sx={{
-                    mt: 0,
+                    mb: 0,
                     mr: 3
                   }}
                 >
                   {event.attributes.institutionName}
                 </Heading>
-                <Text>{getInstitutionDuration(index)}</Text>
               </Box>
             )}
 
