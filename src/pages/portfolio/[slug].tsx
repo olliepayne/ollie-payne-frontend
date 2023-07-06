@@ -105,7 +105,8 @@ const PortfolioSlugPage = ({ projects }: Props) => {
               as="h1"
               variant="styles.h1"
               sx={{
-                my: [4, 5]
+                mt: [4, 5],
+                mb: 2
               }}
             >
               {name}
