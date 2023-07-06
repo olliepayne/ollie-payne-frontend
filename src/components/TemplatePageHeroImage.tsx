@@ -25,7 +25,7 @@ const TemplatePageHeroImage = ({ src, alt }: Props) => {
         sx={{
           objectFit: "cover",
           borderRadius: "8px",
-          filter: "drop-shadow(0 0 10px rgb(0 0 0 / 0.2))"
+          filter: "drop-shadow(0 0 20px rgb(0 0 0 / 0.1))"
         }}
       />
     </Box>
