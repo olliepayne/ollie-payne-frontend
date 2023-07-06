@@ -65,7 +65,7 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
   const { asPath } = useRouter()
 
   // For pagination
-  const pageSize = 1
+  const pageSize = 3
   const [currentPage, setCurrentPage] = useState(1)
 
   // Get filtered projects and handle state
