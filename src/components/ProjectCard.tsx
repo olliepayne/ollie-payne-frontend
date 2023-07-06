@@ -43,9 +43,9 @@ const ProjectCard = ({ project, flipped }: Props) => {
     >
       <Box
         sx={{
-          flex: ["0 0 150px", "0 0 350px"],
+          width: ["100%", "350px"],
           height: ["unset", "350px"],
-          width: ["100%", "unset"],
+          flex: ["0 0 250px", "0 0 350px"],
           position: "relative",
           boxShadow: "0 4px 15px rgb(0 0 0 / 0.1)",
           borderRadius: "8px"
@@ -71,9 +71,9 @@ const ProjectCard = ({ project, flipped }: Props) => {
         sx={{
           py: 3,
           px: 4,
-          flex: ["0 0 250px", "1 1 100%"],
-          height: ["unset", "300px"],
           width: ["100%", "unset"],
+          height: ["unset", "300px"],
+          flex: ["0 0 350px", "1 1 100%"],
           bg: "subtlePink"
         }}
       >
@@ -127,7 +127,7 @@ const ProjectCard = ({ project, flipped }: Props) => {
                 listStyle: "none"
               }}
             >
-              {sortedSkillTags?.map((skillTag, index) => (
+              {sortedSkillTags.map((skillTag, index) => (
                 <li key={`project${project.id}:skillTag:${skillTag.id}`}>
                   <Text
                     sx={{
