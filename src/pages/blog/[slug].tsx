@@ -86,7 +86,13 @@ const BlogPostPage = ({ blogPosts }: Props) => {
         {/* Metadata / frontmatter */}
         <section>
           <Container variant="narrow">
-            <Heading as="h1" variant="styles.h1">
+            <Heading
+              as="h1"
+              variant="styles.h1"
+              sx={{
+                mt: [4, 5]
+              }}
+            >
               {h1}
             </Heading>
             <Text
@@ -111,7 +117,9 @@ const BlogPostPage = ({ blogPosts }: Props) => {
         {/* Markdown / blog post content */}
         <section>
           <Container variant="narrow">
-            <ReactMarkdown sx={theme.styles} rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown>
+            <ReactMarkdown sx={theme.styles} rehypePlugins={[rehypeRaw]}>
+              {content}
+            </ReactMarkdown>
           </Container>
         </section>
       </article>
