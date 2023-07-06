@@ -14,8 +14,8 @@ const TemplatePageHeroImage = ({ src, alt }: Props) => {
     <Box
       sx={{
         position: "relative",
-        height: ["250px", "400px"],
-        my: 4
+        height: ["250px", "500px"],
+        my: [4, 5]
       }}
     >
       <Image
