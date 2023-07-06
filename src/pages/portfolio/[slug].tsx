@@ -101,7 +101,14 @@ const PortfolioSlugPage = ({ projects }: Props) => {
         {/* Hero -- Metadata / frontmatter */}
         <section>
           <Container variant="narrow">
-            <Heading as="h1" variant="styles.h1">
+            <Heading
+              as="h1"
+              variant="styles.h1"
+              sx={{
+                mt: [4, 5],
+                mb: 2
+              }}
+            >
               {name}
             </Heading>
             <Box>
@@ -134,7 +141,9 @@ const PortfolioSlugPage = ({ projects }: Props) => {
         {/* Markdown */}
         <section>
           <Container variant="narrow">
-            <ReactMarkdown sx={theme.styles} rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown>
+            <ReactMarkdown sx={theme.styles} rehypePlugins={[rehypeRaw]}>
+              {content}
+            </ReactMarkdown>
           </Container>
         </section>
       </article>

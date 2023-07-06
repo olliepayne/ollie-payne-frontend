@@ -51,7 +51,7 @@ const SkillTagsList = ({ className, skillTags }: Props) => {
           my: 0,
           listStyle: "none",
           pl: 0,
-          py: 3,
+          // py: 3,
           display: "inline-flex",
           // overflow: "auto",
           flexWrap: "wrap",

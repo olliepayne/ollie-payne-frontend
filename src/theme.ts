@@ -183,6 +183,7 @@ export const theme: Theme = {
       mb: 4
     },
     img: {
+      my: 4,
       width: "100%",
       height: "300px",
       display: "block",

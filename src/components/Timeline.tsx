@@ -32,21 +32,51 @@ const Timeline = ({ events }: Props) => {
     return true
   }
 
-  const getDuration = (eventStartDateStr: string, eventEndDateStr?: string) => {
+  const getDuration = (
+    currentlyHere: boolean,
+    eventStartDateStr: string,
+    index: number
+  ) => {
     const eventStartDate = new Date(eventStartDateStr)
-    const monthsDiff = eventEndDateStr
-      ? new Date(eventEndDateStr).getMonth() -
-        1 -
-        (eventStartDate.getMonth() - 1)
-      : new Date().getMonth() - eventStartDate.getMonth() - 1
-    const yearDiff = eventEndDateStr
-      ? new Date(eventEndDateStr).getFullYear() - eventStartDate.getFullYear()
-      : new Date().getFullYear() - eventStartDate.getFullYear()
 
-    const duration =
-      (yearDiff > 0 ? `${yearDiff} year${yearDiff > 1 ? "s" : ""} ` : "") +
-      (monthsDiff > 0 ? `${monthsDiff} month${monthsDiff > 1 ? "s" : ""}` : "")
-    return duration
+    let yearsDiff = 0
+    let yearsStr = ""
+    let monthsDiff = 0
+    let monthsStr = ""
+
+    if (currentlyHere) {
+      const todaysDate = new Date()
+
+      yearsDiff = todaysDate.getFullYear() - eventStartDate.getFullYear()
+
+      // We need to subract 1 here due to how the date is interpreted by the creation of the instance of the class (zero-based)
+      monthsDiff = todaysDate.getMonth() - eventStartDate.getMonth() - 1
+      if (monthsDiff < 0) {
+        monthsDiff = 12 - monthsDiff
+      }
+    } else {
+      const endDate = new Date(events.data[index].attributes.endDate)
+
+      yearsDiff = endDate.getFullYear() - eventStartDate.getFullYear()
+
+      // We DON'T need to subtract 1 here becuase both dates are interpreted, so it cancels out
+      monthsDiff = endDate.getMonth() - eventStartDate.getMonth()
+      if (monthsDiff < 0) {
+        monthsDiff = 12 - monthsDiff
+      }
+    }
+
+    if (yearsDiff > 0) {
+      yearsStr = `${yearsDiff > 1 ? `${yearsDiff} years` : `${yearsDiff} year`}`
+    }
+
+    if (monthsDiff > 0) {
+      monthsStr = `${
+        monthsDiff > 1 ? `${monthsDiff} months` : `${monthsDiff} month`
+      }`
+    }
+
+    return `${yearsStr} ${monthsStr}`
   }
 
   return (
@@ -194,8 +224,9 @@ const Timeline = ({ events }: Props) => {
               </Text>
               <Text>
                 {getDuration(
+                  event.attributes.currentlyHere,
                   event.attributes.startDate,
-                  event.attributes.endDate
+                  index
                 )}
               </Text>
             </Box>
