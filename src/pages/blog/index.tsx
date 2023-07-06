@@ -20,7 +20,7 @@ import PaginationControl from "components/PaginationControl"
 
 // Data fetching
 const blogPostsUrl = `${getStrapiUrl()}/api/blog-posts`
-const resultsPerPage = 1
+const resultsPerPage = 9
 const urlSort = `sort[0]=datePublished:desc`
 const urlPopulate = "populate=*"
 
