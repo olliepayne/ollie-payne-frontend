@@ -39,44 +39,40 @@ const Timeline = ({ events }: Props) => {
   ) => {
     const eventStartDate = new Date(eventStartDateStr)
 
-    let yearsDiff = 0
-    let yearsStr = ""
     let monthsDiff = 0
-    let monthsStr = ""
+    let monthsDiffStr = ""
+    let yearDiff = 0
+    let yearDiffStr = ""
 
     if (currentlyHere) {
       const todaysDate = new Date()
-
-      yearsDiff = todaysDate.getFullYear() - eventStartDate.getFullYear()
-
-      // We need to subract 1 here due to how the date is interpreted by the creation of the instance of the class (zero-based)
       monthsDiff = todaysDate.getMonth() - eventStartDate.getMonth() - 1
-      if (monthsDiff < 0) {
-        monthsDiff = 12 - monthsDiff
+      yearDiff = todaysDate.getFullYear() - eventStartDate.getFullYear()
+    } else {
+      const eventEndDate = new Date(events.data[index].attributes.endDate)
+      monthsDiff = eventEndDate.getMonth() - eventStartDate.getMonth()
+      yearDiff = eventEndDate.getFullYear() - eventStartDate.getFullYear()
+    }
+
+    if (monthsDiff < 0) {
+      monthsDiffStr = `${12 - monthsDiff} months`
+
+      if (yearDiff > 1) {
+        yearDiffStr = `${yearDiff} year`
       }
     } else {
-      const endDate = new Date(events.data[index].attributes.endDate)
+      monthsDiffStr = `${
+        monthsDiff > 1 ? `${monthsDiff} months` : `${monthsDiff} month`
+      }`
 
-      yearsDiff = endDate.getFullYear() - eventStartDate.getFullYear()
-
-      // We DON'T need to subtract 1 here becuase both dates are interpreted, so it cancels out
-      monthsDiff = endDate.getMonth() - eventStartDate.getMonth()
-      if (monthsDiff < 0) {
-        monthsDiff = 12 - monthsDiff
+      if (yearDiff === 1) {
+        yearDiffStr = `${yearDiff} year`
+      } else if (yearDiff > 1) {
+        yearDiffStr = `${yearDiff} years`
       }
     }
 
-    if (yearsDiff > 0) {
-      yearsStr = `${yearsDiff > 1 ? `${yearsDiff} years` : `${yearsDiff} year`}`
-    }
-
-    if (monthsDiff > 0) {
-      monthsStr = `${
-        monthsDiff > 1 ? `${monthsDiff} months` : `${monthsDiff} month`
-      }`
-    }
-
-    return `${yearsStr} ${monthsStr}`
+    return `${yearDiffStr} ${monthsDiffStr}`
   }
 
   return (
