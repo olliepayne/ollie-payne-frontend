@@ -55,7 +55,7 @@ const Timeline = ({ events }: Props) => {
     }
 
     if (monthsDiff < 0) {
-      monthsDiffStr = `${12 - monthsDiff} months`
+      monthsDiffStr = `${12 - Math.abs(monthsDiff)} months`
 
       if (yearDiff > 1) {
         yearDiffStr = `${yearDiff} year`
