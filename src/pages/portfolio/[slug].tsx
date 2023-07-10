@@ -13,9 +13,10 @@ import SEO from "components/SEO"
 import BreadcrumbNav from "components/BreadcrumbNav"
 import TemplatePageHeroImage from "components/TemplatePageHeroImage"
 import SkillTagsList from "components/SkillTagsList"
+import RelatedProjectsSection from "components/RelatedProjectsSection"
 
 // Helpers
-import { Projects } from "helpers/myTypes"
+import { Project, Projects } from "helpers/myTypes"
 import { getStrapiUrl } from "helpers/api"
 import { parsedKebabDate } from "helpers/dateParser"
 
@@ -41,26 +42,47 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  // URLs
-  const urlFilters = `filters[slug][$eq]=${params?.slug}`
-  const urlPopulate = "populate=*"
-  const url = `${projectsUrl}?${urlFilters}&${urlPopulate}`
+  const getProjectFromSlug = async () => {
+    // URLs
+    const urlFilters = `filters[slug][$eq]=${params?.slug}`
+    const urlPopulate = "populate=*"
+    const url = `${projectsUrl}?${urlFilters}&${urlPopulate}`
 
-  const res = await fetch(url)
-  const projects = await res.json()
+    const res = await fetch(url)
+    const projects: Projects = await res.json()
+
+    return projects.data[0]
+  }
+  const project = await getProjectFromSlug()
+
+  const getRelatedProjects = async () => {
+    // URLs
+    const urlFilters = `filters[skillTags][name][$eq]=${project.attributes.skillTags.data[0].attributes.name}`
+    const urlPaginate = `pagination[pageSize]=3`
+    const urlPopulate = "populate=*"
+    const url = `${projectsUrl}?${urlFilters}&${urlPopulate}`
+
+    const res = await fetch(url)
+    const relatedProjects: Projects = await res.json()
+
+    return relatedProjects
+  }
+  const relatedProjects = await getRelatedProjects()
 
   return {
     props: {
-      projects
+      project,
+      relatedProjects
     }
   }
 }
 
 type Props = {
-  projects: Projects
+  project: Project
+  relatedProjects: Projects
 }
 
-const PortfolioSlugPage = ({ projects }: Props) => {
+const PortfolioSlugPage = ({ project, relatedProjects }: Props) => {
   const {
     pageTitle,
     metaDescription,
@@ -69,7 +91,7 @@ const PortfolioSlugPage = ({ projects }: Props) => {
     datePublished,
     skillTags,
     content
-  } = projects.data[0].attributes
+  } = project.attributes
 
   // Alphabetically sort skill tags
   const sortedSkillTags = skillTags?.data.sort((a, b) => {
@@ -147,6 +169,8 @@ const PortfolioSlugPage = ({ projects }: Props) => {
           </Container>
         </section>
       </article>
+
+      <RelatedProjectsSection projects={relatedProjects} />
     </Layout>
   )
 }
