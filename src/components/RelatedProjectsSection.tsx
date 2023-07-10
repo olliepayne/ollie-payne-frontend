@@ -11,10 +11,10 @@ import ProjectCard from "components/ProjectCard"
 import { Projects } from "helpers/myTypes"
 
 type Props = {
-  projects?: Projects
+  projects: Projects
 }
 
-const RecentProjectsSection = ({ projects }: Props) => {
+const RelatedProjectsSection = ({ projects }: Props) => {
   return (
     <section
       sx={{
@@ -29,7 +29,7 @@ const RecentProjectsSection = ({ projects }: Props) => {
             mb: 2
           }}
         >
-          Recent Projects
+          Related Projects
         </Heading>
         <Link
           href="/portfolio"
@@ -51,7 +51,7 @@ const RecentProjectsSection = ({ projects }: Props) => {
           }}
         >
           {/* Map projects here */}
-          {projects?.data.map((project, index) => (
+          {projects.data.map((project, index) => (
             <li key={project.attributes.slug}>
               <ProjectCard
                 project={project}
@@ -65,4 +65,4 @@ const RecentProjectsSection = ({ projects }: Props) => {
   )
 }
 
-export default RecentProjectsSection
+export default RelatedProjectsSection
