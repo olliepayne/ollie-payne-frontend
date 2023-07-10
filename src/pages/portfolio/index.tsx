@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react"
 import { GetStaticProps } from "next"
 import { useRouter } from "next/router"
-import { Heading, Box, Container, Button, AspectImage } from "theme-ui"
+import { Heading, Box, Container, Button } from "theme-ui"
 
 // My components
 import Layout from "components/Layout"
