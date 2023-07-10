@@ -1,6 +1,7 @@
 /** @jsxImportSource theme-ui */
 
 // Packages
+import Link from "next/link"
 import { Container, Heading } from "theme-ui"
 
 // My components
@@ -25,11 +26,21 @@ const RelatedProjectsSection = ({ projects }: Props) => {
           as="h2"
           variant="styles.h2"
           sx={{
-            mb: 4
+            mb: 2
           }}
         >
           Related Projects
         </Heading>
+        <Link
+          href="/portfolio"
+          sx={{
+            variant: "links.primary",
+            display: "inline-block",
+            mb: 4
+          }}
+        >
+          View All Projects
+        </Link>
         <ul
           sx={{
             p: 0,
