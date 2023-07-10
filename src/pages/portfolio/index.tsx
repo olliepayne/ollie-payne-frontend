@@ -109,7 +109,9 @@ const PortfolioIndexPage = ({ projects, skillTags }: Props) => {
       <SEO
         title="Portfolio: My Projects for Front-End Development and SEO"
         metaDescription="Check out what I have built, how I built them, and the problems that I encountered as well as how I solved them."
-      />
+      >
+        <link rel="canonical" href="https://olliepayne.me/portfolio" />
+      </SEO>
       <HeroSection h1="Portfolio" />
       <main
         sx={{
