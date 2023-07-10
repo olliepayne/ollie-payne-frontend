@@ -3,7 +3,6 @@
 // Third-party
 import { useEffect, useState } from "react"
 import { GetStaticProps } from "next"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import { Container, Heading, Flex, ThemeUIStyleObject } from "theme-ui"
 
@@ -27,7 +26,7 @@ const urlPopulate = "populate=*"
 // Initial Data fetching
 export const getStaticProps: GetStaticProps = async () => {
   // URLs
-  const urlPagination = `pagination[page]=1&pagination[pageSize]=${resultsPerPage}`
+  const urlPagination = `pagination[pageSize]=${resultsPerPage}`
   const url = `${blogPostsUrl}?${urlSort}&${urlPagination}&${urlPopulate}`
 
   const res = await fetch(url)
@@ -49,8 +48,9 @@ const BlogIndexPage = ({ blogPosts }: Props) => {
   // For pagination
   const [currentPageNumber, setCurrentPageNumber] = useState(1)
 
-  const [paginatedBlogPosts, setPaginatedBlogPosts] =
-    useState<BlogPosts | undefined>(blogPosts)
+  const [paginatedBlogPosts, setPaginatedBlogPosts] = useState<
+    BlogPosts | undefined
+  >(blogPosts)
 
   useEffect(() => {
     const handleUpdatePageNumber = async () => {
@@ -122,7 +122,7 @@ const BlogIndexPage = ({ blogPosts }: Props) => {
 
           {/* Pagination control */}
           <PaginationControl
-            pagesToCreate={blogPosts.meta.pagination.total}
+            pagesToCreate={blogPosts.meta.pagination.pageCount}
             currentPageNumber={currentPageNumber}
           />
         </section>
