@@ -18,7 +18,8 @@ const RecentProjectsSection = ({ projects }: Props) => {
   return (
     <section
       sx={{
-        py: [4, 5]
+        py: [4, 5],
+        bg: "bone"
       }}
     >
       <Container>
