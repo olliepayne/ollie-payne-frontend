@@ -19,7 +19,7 @@ const RelatedProjectsSection = ({ projects }: Props) => {
     <section
       sx={{
         py: [4, 5],
-        bg: "myPink"
+        bg: "bone"
       }}
     >
       <Container>
