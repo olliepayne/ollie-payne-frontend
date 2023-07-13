@@ -151,7 +151,6 @@ export default function Home({ projects, skillTags }: Props) {
                   sx={{
                     width: "25px",
                     height: "25px",
-                    // color: "myPink",
                     verticalAlign: "middle",
                     mr: 2
                   }}
