@@ -1,9 +1,11 @@
 /** @jsxImportSource theme-ui */
 
 // Third-party
+import { useEffect, useState } from "react"
 import { GetStaticProps } from "next"
 import Image from "next/image"
-import { Container, Heading, Flex, Paragraph, Box } from "theme-ui"
+import { Container, Heading, Flex, Paragraph, Box, Text } from "theme-ui"
+import { keyframes } from "@emotion/react"
 
 // My components
 import Layout from "components/Layout"
@@ -11,35 +13,82 @@ import SEO from "components/SEO"
 import LinkedInSVG from "components/svgs/LinkedInSVG"
 import GithubSVG from "components/svgs/GithubSVG"
 import RecentProjectsSection from "components/RecentProjectsSection"
-import ContactSection from "components/ContactSection"
 
 // Helpers
 import { getStrapiUrl } from "helpers/api"
-import { Projects } from "helpers/myTypes"
+import { Projects, SkillTags } from "helpers/myTypes"
+import CodeSVG from "components/svgs/CodeSVG"
 
 // Add: data fetching for headshot, hero image
 const projectsUrl = `${getStrapiUrl()}/api/projects`
 
+// Styles
+const fadeIn = keyframes({
+  from: {
+    opacity: 0
+  },
+  to: {
+    opacity: 1
+  }
+})
+
 export const getStaticProps: GetStaticProps = async () => {
-  const urlPagination =
-    "sort[0]=datePublished:desc&pagination[page]=1&pagination[pageSize]=3"
-  const urlPopulate = "populate=*"
-  const url = `${projectsUrl}?${urlPagination}&${urlPopulate}`
-  const res = await fetch(url)
-  const projects = await res.json()
+  const getProjects = async () => {
+    const urlPagination =
+      "sort[0]=datePublished:desc&pagination[page]=1&pagination[pageSize]=3"
+    const urlPopulate = "populate=*"
+    const url = `${projectsUrl}?${urlPagination}&${urlPopulate}`
+
+    const res = await fetch(url)
+    const data = await res.json()
+
+    return data
+  }
+  const projects = await getProjects()
+
+  const getSkillTags = async () => {
+    const skillTagsUrl = `${getStrapiUrl()}/api/skill-tags`
+    const urlSort = `sort[0]=name:asc`
+    const url = `${skillTagsUrl}?${urlSort}`
+
+    const res = await fetch(url)
+    const data = await res.json()
+
+    return data
+  }
+  const skillTags = await getSkillTags()
 
   return {
     props: {
-      projects
+      projects,
+      skillTags
     }
   }
 }
 
-type Home = {
+type Props = {
   projects: Projects
+  skillTags: SkillTags
 }
 
-export default function Home({ projects }: Home) {
+export default function Home({ projects, skillTags }: Props) {
+  const [skillIndex, setSkillIndex] = useState(0)
+  const [currentSkill, setCurrentSkill] = useState(
+    skillTags.data[0].attributes.name
+  )
+
+  useEffect(() => {
+    setTimeout(() => {
+      let newSkillIndex = 0
+      if (skillIndex < skillTags.data.length - 1) {
+        newSkillIndex = skillIndex + 1
+      }
+
+      setSkillIndex(newSkillIndex)
+      setCurrentSkill(skillTags.data[newSkillIndex].attributes.name)
+    }, 5000)
+  }, [currentSkill])
+
   return (
     <Layout>
       <SEO
@@ -96,6 +145,32 @@ export default function Home({ projects }: Home) {
                   </Heading>
                 </li>
               </ul>
+              {/* Skills display */}
+              <Box>
+                <CodeSVG
+                  sx={{
+                    width: "25px",
+                    height: "25px",
+                    // color: "myPink",
+                    verticalAlign: "middle",
+                    mr: 2
+                  }}
+                />
+                <Text
+                  key={`skillIndex:${skillIndex}`}
+                  sx={{
+                    display: "inline-block",
+                    py: 1,
+                    px: 2,
+                    verticalAlign: "middle",
+                    fontWeight: 500,
+                    animation: `${fadeIn} 2s`,
+                    bg: "myPink"
+                  }}
+                >
+                  {currentSkill}
+                </Text>
+              </Box>
               <Paragraph
                 sx={{
                   mt: 3
@@ -103,8 +178,12 @@ export default function Home({ projects }: Home) {
               >
                 I currently work and train out of Prescott, Arizona.
               </Paragraph>
+
+              {/* Social links */}
               <ul
                 sx={{
+                  mt: 3,
+                  mb: 0,
                   display: "inline-flex",
                   p: 0,
                   listStyle: "none",
