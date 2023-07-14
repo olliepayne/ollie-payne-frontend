@@ -187,9 +187,15 @@ export const theme: Theme = {
       width: "100%",
       height: "300px",
       display: "block",
-      objectFit: "cover",
+      objectFit: "contain",
       borderRadius: "8px",
       filter: "drop-shadow(0 0 10px rgb(0 0 0 / 0.1))"
+    },
+    ul: {
+      mt: 0,
+      mb: 4,
+      fontFamily: "body",
+      fontSize: [0, 1]
     },
     code: {
       p: "2px",
