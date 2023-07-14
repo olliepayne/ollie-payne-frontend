@@ -8,7 +8,6 @@ const BreadcrumbNav = () => {
   const { asPath } = useRouter()
   let splitPath = asPath.split("/")
   splitPath.splice(0, 1)
-  console.log(splitPath)
   const slug = splitPath[splitPath.length - 1]
 
   // Check if the slug has any "-", split and rejoin
