@@ -249,7 +249,7 @@ export default function Home({ projects, skillTags }: Props) {
               </ul>
             </Container>
             <Image
-              src="/headshot-temp.jpeg"
+              src="/headshot.jpg"
               alt="Personal headshot of me, Oliver Payne"
               width={250}
               height={250}
@@ -257,6 +257,7 @@ export default function Home({ projects, skillTags }: Props) {
                 flex: "0 0 250px",
                 mt: [4, 0],
                 objectFit: "cover",
+                objectPosition: "top center",
                 borderRadius: "50%",
                 borderColor: "myGray",
                 borderWidth: "4px",
